@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- meta tags for character set, compatibility, and viewport settings -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+  <!-- linking external stylesheets for styling and media queries -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="mediaqueries.css" />
+  <link rel="icon" href="data:image/svg+xml,
+  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+    <rect width='100' height='100' fill='white'/>
+    <text x='50%' y='65%' font-size='70' text-anchor='middle'
+          font-family='Arial, sans-serif' fill='black'>N</text>
+  </svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <canvas id="particles"></canvas>
+  <!-- desktop navigation bar -->
+  <nav id="desktop-nav">
+    <div class="logo"><a href="https://www.instagram.com/nakulp.14/">Nakul Patel</a></div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <!-- mobile navigation bar with hamburger menu -->
+  <nav id="hamburger-nav">
+    <div class="logo">Nakul Patel</div>
+    <div class="hamburger-menu">
+      <div class="hamburger-icon" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="menu-links">
+        <li><a href="#about" onclick="toggleMenu()">About</a></li>
+        <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
+        <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+        <li><a href="#skills" onclick="toggleMenu()">Skills</a></li>
+        <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- profile section with image and introduction -->
+  <section id="profile">
+    <div class="section__pic-container">
+      <img src="./assets/headshot.png" alt="Nakul Patel Profile Picture" />
+    </div>
+    <div class="section__text">
+      <p class="section__text__p1">Hello, I'm</p>
+      <h1 class="title">Nakul Patel</h1>
+      <div class="context-text">
+        <p class="section__text__p2">I'm A <a href="" class="typewrite" data-period="2000" data-type='["Software Developer", "ML Engineer", "Data Scientist"]' style="text-decoration: none;"></a></p>
+      </div>
+      <div class="btn-container">
+        <button class="btn btn-color-2" onclick="window.open('./assets/nakul-patel-software-resume.pdf')">
+          Download CV
+        </button>
+        <button class="btn btn-color-1" onclick="location.href='#contact'">
+          Contact Info
+        </button>
+      </div>
+      <!-- social media icons for linkedin and github -->
+      <div id="socials-container">
+        <img src="./assets/linkedin.png" alt="My LinkedIn Profile" class="icon"
+          onclick="location.href='https://www.linkedin.com/in/nakulpatel0306/'" />
+        <img src="./assets/github.png" alt="My Github Profile" class="icon"
+          onclick="location.href='https://github.com/nakulpatel0306'" />
+      </div>
+    </div>
+  </section>
+  <!-- about section detailing personal and professional background -->
+  <section id="about">
+    <p class="section__text__p1">Get To Know More</p>
+    <h1 class="title">About Me</h1>
+    <div class="section-container">
+      <div class="about-details-container">
+        <div class="about-containers">
+          <div class="details-container">
+            <img src="./assets/experience.png" alt="Experience Icon" class="icon" />
+            <h3>Experience</h3>
+            <p>5+ Years <br />Software Development</p>
+          </div>
+          <div class="details-container">
+            <img src="./assets/education.png" alt="Education Icon" class="icon" />
+            <h3>Education</h3>
+            <p>BCS from University of Wilfrid Laurier<br />BBA from University of Wilfrid Laurier</p>
+          </div>
+        </div>
+        <div class="text-container" style="text-align: center;">
+          <p>
+            Hey, I’m Nakul! I’m a student at Wilfrid Laurier University, with a strong passion for technology and innovation. Pursuing a dual degree in CS and BBA, I'm dedicated to learning cutting-edge technologies and applying them to real-world problems. I'm also actively looking for internships to expand my practical experience and contribute to exciting projects in the tech industry. <br><br> When I’m not buried in my textbooks, you’ll find me breaking a sweat on the basketball court or hitting the gym. I love traveling and chasing adrenaline-fueled adventures, like cliff jumping—trust me, it’s definitely not for everyone! My perfect summer day? Just kicking back at the beach with friends, listening to some music, and diving into a competitive game of beach volleyball. I’m always eager to meet new friends, exchange ideas, and grow my network. Let’s connect and see what amazing things we can create together!
+          </p>
+          <br>
+        </div>
+      </div>
+    </div>
+    <!-- About: image carousel (drop right below your text container) -->
+    <div class="about-carousel" aria-label="About me photos">
+      <button class="ac-arrow ac-prev" aria-label="Previous slide">‹</button>
+
+      <div class="ac-viewport">
+        <ul class="ac-track">
+          <!-- Replace image paths with your photos in ./assets/ -->
+          <li class="ac-slide"><img src="./assets/about/about-1.jpg" alt="Cousins And Friends - Garba" loading="lazy"></li>
+          <li class="ac-slide"><img src="./assets/about/about-2.jpg" alt="Waterloo Friends - Blue Mountain" loading="lazy"></li>
+          <li class="ac-slide"><img src="./assets/about/about-3.jpg" alt="High School - Alex And Ryan" loading="lazy"></li>
+          <li class="ac-slide"><img src="./assets/about/about-12.jpg" alt="Waterloo Friends - Intramural Champions" loading="lazy"></li>
+          <li class="ac-slide"><img src="./assets/about/about-13.jpg" alt="Cousins - Escape Room" loading="lazy"></li>
+          <li class="ac-slide"><img src="./assets/about/about-14.jpg" alt="Brothers - Punta Cana" loading="lazy"></li>
+          <li class="ac-slide"><img src="./assets/about/about-15.jpg" alt="Me And Kajan - 21 Columbia Street" loading="lazy"></li>
+        </ul>
+      </div>
+
+      <button class="ac-arrow ac-next" aria-label="Next slide">›</button>
+
+      <div class="ac-dots" role="tablist" aria-label="Slide dots"></div>
+    </div>
+  </section>
+  <!-- experience section showcasing professional timeline -->
+  <section id="experience">
+    <br>
+    <p class="section__text__p1">Explore My</p>
+    <h1 class="title">Experience</h1>
+    <div class="container">
+      <div class="timeline">
+        <ul>
+          <li>
+            <div class="timeline-content">
+              <h3 class="date">Sep 2025 - Dec 2025</h3>
+              <h1>Multiverse Computing</h1>
+              <p>Machine Learning Engineer, Internship</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-content">
+              <h3 class="date">Jan 2025 - Apr 2025</h3>
+              <h1>Definity Financial Corp</h1>
+              <p>Automation Engineer, Internship</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-content">
+              <h3 class="date">May 2024 - Aug 2024</h3>
+              <h1>Stouffville Chamber Of Commerce</h1>
+              <p>Data Analyst, Internship</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-content">
+              <h3 class="date">Jan 2023 - Apr 2023</h3>
+              <h1>Riipen Networks Inc</h1>
+              <p>Software Developer, Internship</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-content">
+              <h3 class="date">Jul 2020 - Dec 2021</h3>
+              <h1>Staples Inc</h1>
+              <p>Technology Sales Area Representative, Part-Time</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-content">
+              <h3 class="date">Sep 2019 - Jun 2020</h3>
+              <h1>Stouffville Leisure Centre</h1>
+              <p>Deck Attendant / Assistant Instructor, Part-Time</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- projects section with details and links to projects -->
+  <section id="projects">
+    <p class="section__text__p1">Browse My Recent</p>
+    <h1 class="title">Projects</h1>
+    <div class="experience-details-container">
+      <div class="about-containers">
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img src="./assets/project/project-1.jpg" alt="Flux - A Stock Predictor" class="project-img" />
+          </div>
+          <h2 class="experience-sub-title project-title">Flux - A Stock Predictor</h2>
+          <div class="btn-container">
+            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
+              Github
+            </button>
+            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
+              Live Demo
+            </button>
+          </div>
+        </div>
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img src="./assets/project/project-2.png" alt="Echo - Spotify Stats App" class="project-img" />
+          </div>
+          <h2 class="experience-sub-title project-title">Echo - Spotify Stats App</h2>
+          <div class="btn-container">
+            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
+              Github
+            </button>
+            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
+              Live Demo
+            </button>
+          </div>
+        </div>
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img src="./assets/project/project-3.jpg" alt="Swish - NBA Game Predictor" class="project-img"/>
+          </div>
+          <h2 class="experience-sub-title project-title">Swish - NBA Game Predictor</h2>
+          <div class="btn-container">
+            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
+              Github
+            </button>
+            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
+              Live Demo
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="about-containers">
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img src="./assets/project/project-4.jpg" alt="Evo - Genetric Algorithm Viz" class="project-img" />
+          </div>
+          <h2 class="experience-sub-title project-title">Evo - Genetic Algortihm Viz</h2>
+          <div class="btn-container">
+            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
+              Github
+            </button>
+            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
+              Live Demo
+            </button>
+          </div>
+        </div>
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img src="./assets/project/project-5.jpg" alt="King Me - Checkers Edition" class="project-img" />
+          </div>
+          <h2 class="experience-sub-title project-title">King Me - Checkers Edition</h2>
+          <div class="btn-container">
+            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
+              Github
+            </button>
+            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
+              Live Demo
+            </button>
+          </div>
+        </div>
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img src="./assets/project/project-6.gif" alt="Type Racer - Typing Speed Test" class="project-img"/>
+          </div>
+          <h2 class="experience-sub-title project-title">Click - Typing Speed Game</h2>
+          <div class="btn-container">
+            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
+              Github
+            </button>
+            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
+              Live Demo
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===== Skills Section ===== -->
+  <section id="skills">
+    <p class="section__text__p1">Meet The Coder</p>
+    <h1 class="title">Skills</h1>
+
+    <div class="code-editor" aria-label="Skills as code">
+      <div class="editor-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="editor-title">skills.js</span>
+      </div>
+
+      <div class="editor-body">
+        <ul class="code-lines">
+          <li><span class="cmnt">// developer blueprint — core profile & technical stack</span></li>
+          <li><span class="kw">const</span> <span class="var">coder</span> = {</li>
+        
+          <li>&nbsp;&nbsp;<span class="prop">name</span>: <span class="str">'Nakul Patel'</span>,</li>
+          <li>&nbsp;&nbsp;<span class="prop">title</span>: <span class="str">'CS &amp; BBA Student — Wilfrid Laurier University'</span>,</li>
+          <li>&nbsp;&nbsp;<span class="prop">focus</span>: [<span class="str">'Software Development'</span>, <span class="str">'Machine Learning'</span>, <span class="str">'Data Science'</span>],</li>
+        
+          <li>&nbsp;</li>
+        
+          <li><span class="cmnt">// languages & core web</span></li>
+          <li>&nbsp;&nbsp;<span class="prop">programmingLanguages</span>: [<span class="str">'Python'</span>, <span class="str">'Java'</span>, <span class="str">'C/C++'</span>, <span class="str">'VBA'</span>, <span class="str">'SQL'</span>, <span class="str">'JavaScript'</span>, <span class="str">'HTML/CSS'</span>],</li>
+        
+          <li>&nbsp;</li>
+        
+          <li><span class="cmnt">// frameworks, libraries & runtime</span></li>
+          <li>&nbsp;&nbsp;<span class="prop">frameworksLibraries</span>: [<span class="str">'React'</span>, <span class="str">'Node.js'</span>, <span class="str">'TensorFlow'</span>, <span class="str">'scikit-learn'</span>, <span class="str">'Pandas'</span>],</li>
+        
+          <li>&nbsp;</li>
+        
+          <li><span class="cmnt">// platforms & tooling</span></li>
+          <li>&nbsp;&nbsp;<span class="prop">toolsPlatforms</span>: [<span class="str">'Git'</span>, <span class="str">'GitHub'</span>, <span class="str">'Docker'</span>, <span class="str">'AWS'</span>, <span class="str">'Azure'</span>, <span class="str">'Linux/Unix'</span>, <span class="str">'Power BI'</span>, <span class="str">'Jira'</span>],</li>
+        
+          <li>&nbsp;</li>
+        
+          <li><span class="cmnt">// strengths & availability</span></li>
+          <li>&nbsp;&nbsp;<span class="prop">technicalStrengths</span>: [<span class="str">'AI'</span>, <span class="str">'ML'</span>, <span class="str">'Deep Learning'</span>, <span class="str">'Data Visualization'</span>, <span class="str">'CI/CD Pipelines'</span>, <span class="str">'RESTful APIs'</span>, <span class="str">'Cloud Automation'</span>, <span class="str">'Quantum Optimization'</span>],</li>
+          
+          <li>&nbsp;</li> 
+
+          <li>&nbsp;&nbsp;<span class="prop">strengths</span>: [<span class="str">'Problem Solving'</span>, <span class="str">'Fast Learner'</span>, <span class="str">'Team Player'</span>, <span class="str">'Communication'</span>, <span class="str">'Leadership'</span>, <span class="str">'Adaptability'</span>, <span class="str">'Creativity'</span>, <span class="str">'Attention to Detail'</span>],</li>
+        
+          <li>&nbsp;</li> <!-- spacer before availability -->
+        
+          <li>&nbsp;&nbsp;<span class="prop">currentlyOpenTo</span>: [<span class="str" id="open-to-term">'Internships'</span>, <span class="str">'Software Developer / ML Roles'</span>],</li>
+        
+          <li>&nbsp;</li>
+        
+          <li>&nbsp;&nbsp;<span class="prop">hireable</span>: <span class="kw">function</span>() {</li>
+          <li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> (</li>
+          <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="typewrite"
+                data-terms="Problem Solving|Fast Learner|Team Player|Communication|Leadership|Adaptability|Creativity|Attention to Detail"
+                data-template="this.strengths.includes('{term}') && this.programmingLanguages.length >= 5"></span>
+          );</li>
+          <li>&nbsp;&nbsp;},</li>
+        
+          <li>&nbsp;</li>
+        
+          <li>};</li>
+        </ul>
+        
+        <!-- VS Code–style status bar -->
+        <div class="editor-status" aria-hidden="true">
+          <span>JavaScript</span>
+          <span>UTF-8</span>
+          <span>LF</span>
+          <span>Spaces: 2</span>
+          <span>skills.js</span>
+        </div>              
+      </div>
+    </div>
+  </section>
+  <!-- contact section with email and LinkedIn profile link -->
+  <section id="contact">
+    <p class="section__text__p1">Get In Touch</p>
+    <h1 class="title">Contact Me</h1>
+    <div class="contact-info-upper-container">
+      <div class="contact-info-container">
+        <img src="./assets/email.png" alt="Email Icon" class="icon contact-icon email-icon" />
+        <p><a href="mailto:nakul0306@gmail.com">nakul0306@gmail.com</a></p>
+      </div>
+      <div class="contact-info-container">
+        <img src="./assets/linkedin.png" alt="LinkedIn Icon" class="icon contact-icon" />
+        <p><a href="https://www.linkedin.com/in/nakulpatel0306/">linkedin.com/in/nakulpatel0306</a></p>
+      </div>
+    </div>
+  </section>
+  <!-- footer section with navigation links -->
+  <footer>
+    <nav>
+      <div class="nav-links-container">
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+  </footer>
+  <!-- script for interactive elements -->
+  <script src="script.js"></script>
+</body>
