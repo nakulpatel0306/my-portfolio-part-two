@@ -4,296 +4,236 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Nakul Patel — software developer, ML engineer & data scientist. Portfolio, vol. 2." />
-  <title>Nakul Patel — Portfolio</title>
+  <meta name="description" content="Nakul Patel — software developer, ML engineer & data scientist. Night Patrol: a cinematic portfolio." />
+  <title>Nakul Patel — Night Patrol</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="data:image/svg+xml,
   <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
-    <rect width='100' height='100' rx='22' fill='%230a0c12'/>
-    <text x='50%' y='70%' font-size='58' text-anchor='middle'
-          font-family='Arial Black, sans-serif' font-weight='900' fill='%23e5484d'>N</text>
+    <rect width='100' height='100' rx='22' fill='%23060812'/>
+    <circle cx='50' cy='46' r='26' fill='none' stroke='%2345e3ff' stroke-width='5'/>
+    <text x='50%' y='58%' font-size='30' text-anchor='middle'
+          font-family='Arial Black, sans-serif' font-weight='900' fill='%2345e3ff'>NP</text>
   </svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Sora:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <div class="spotlight" id="spotlight" aria-hidden="true"></div>
+  <!-- living city -->
+  <canvas id="city" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
 
-  <!-- ===================== NAV ===================== -->
-  <header class="nav" id="nav">
-    <a class="monogram" href="#top" aria-label="Home">
-      <span>NP</span>
-    </a>
-    <nav class="nav-links" id="nav-links" aria-label="Sections">
-      <a href="#about" data-section="about"><span class="nl-num">01</span>About</a>
-      <a href="#projects" data-section="projects"><span class="nl-num">02</span>Projects</a>
-      <a href="#experience" data-section="experience"><span class="nl-num">03</span>Experience</a>
-      <a href="#skills" data-section="skills"><span class="nl-num">04</span>Skills</a>
-      <a href="#contact" data-section="contact"><span class="nl-num">05</span>Contact</a>
-    </nav>
-    <a class="btn btn-ghost nav-resume" href="./assets/nakul-patel-software-resume.pdf" target="_blank" rel="noopener">Resume</a>
-    <button class="nav-burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span>
-    </button>
+  <!-- ===================== HUD ===================== -->
+  <header class="hud">
+    <div class="hud-left">
+      <span class="hud-brand">NIGHT PATROL</span>
+      <span class="hud-sep">//</span>
+      <span class="hud-name">Nakul Patel</span>
+    </div>
+    <div class="hud-right">
+      <span class="hud-stat" id="hud-signals" title="Signals collected — keep scrolling">◈ SIGNALS <b id="signal-count">0/5</b></span>
+      <span class="hud-stat">PATROL <b id="patrol-pct">0%</b></span>
+      <a class="hud-resume" href="./assets/nakul-patel-software-resume.pdf" target="_blank" rel="noopener">RESUME ↗</a>
+    </div>
   </header>
+
+  <!-- chapter dots -->
+  <nav class="waypoints" aria-label="Chapters">
+    <a href="#top" data-wp="start" aria-label="Start"><i></i><span>Start</span></a>
+    <a href="#origin" data-wp="origin" aria-label="About"><i></i><span>About</span></a>
+    <a href="#missions" data-wp="missions" aria-label="Projects"><i></i><span>Projects</span></a>
+    <a href="#patrol-log" data-wp="patrol-log" aria-label="Experience"><i></i><span>Experience</span></a>
+    <a href="#power-grid" data-wp="power-grid" aria-label="Skills"><i></i><span>Skills</span></a>
+    <a href="#signal" data-wp="signal" aria-label="Contact"><i></i><span>Contact</span></a>
+  </nav>
 
   <main id="top">
 
     <!-- ===================== HERO ===================== -->
-    <section class="hero">
-      <div class="halftone ht-hero" aria-hidden="true"></div>
-      <div class="hero-inner">
-        <div class="hero-copy reveal">
-          <p class="eyebrow"><span class="eb-rule"></span>Nakul Patel — Vol. 2</p>
-          <h1 class="hero-title">
-            <span class="ht-line">Software</span>
-            <span class="ht-line">developer<span class="ht-dot">.</span></span>
-          </h1>
-          <p class="hero-sub">By day, building software, ML models &amp; data pipelines.<br class="sub-br">By night… honestly, more of the same.</p>
-          <p class="hero-meta">CS + BBA @ Wilfrid Laurier University · Ontario, Canada · <span class="open-flag">open to internships</span></p>
-          <div class="hero-cta">
-            <a class="btn btn-solid" href="#projects">View projects</a>
-            <a class="btn btn-ghost" href="#contact">Get in touch</a>
-          </div>
-          <div class="socials">
-            <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener" aria-label="GitHub">
-              <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2z" fill="currentColor"/></svg>
-            </a>
-            <a href="https://www.linkedin.com/in/nakulpatel0306/" target="_blank" rel="noopener" aria-label="LinkedIn">
-              <svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.49 2.49 0 1 1 5 8.48a2.49 2.49 0 0 1-.02-4.98zM3 9.75h4V21H3zM9.5 9.75h3.83v1.54h.05c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.14V21h-4v-5.09c0-1.21-.02-2.77-1.69-2.77-1.69 0-1.95 1.32-1.95 2.68V21h-3.83z" fill="currentColor"/></svg>
-            </a>
-            <a href="https://www.instagram.com/nakulp.14/" target="_blank" rel="noopener" aria-label="Instagram">
-              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.3" fill="currentColor"/></svg>
-            </a>
-          </div>
-        </div>
-        <div class="hero-portrait reveal">
-          <figure class="portrait-frame">
-            <img src="./assets/headshot.png" alt="Nakul Patel" />
-            <span class="portrait-halftone" aria-hidden="true"></span>
-          </figure>
-          <p class="portrait-caption">fig. 01 — the developer</p>
-        </div>
+    <section class="chapter ch-hero" id="start">
+      <p class="eyebrow reveal">Nakul Patel — software · ML · data</p>
+      <h1 class="kinetic" id="hero-title" aria-label="Every city needs a developer.">
+        <span class="k-line">EVERY CITY</span>
+        <span class="k-line">NEEDS A</span>
+        <span class="k-line"><em>DEVELOPER<i class="k-dot">.</i></em></span>
+      </h1>
+      <p class="hero-sub reveal">CS + BBA @ Wilfrid Laurier · on patrol for internships &amp; new-grad roles.</p>
+      <div class="hero-cta reveal">
+        <a class="btn btn-beam" href="#missions">View missions</a>
+        <a class="btn btn-line" href="#signal">Send the signal</a>
       </div>
-      <a class="scroll-cue" href="#about" aria-label="Scroll to about">
-        <span class="sc-line"></span>scroll
-      </a>
+      <div class="socials reveal">
+        <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+        <a href="https://www.linkedin.com/in/nakulpatel0306/" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+        <a href="https://www.instagram.com/nakulp.14/" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+      </div>
+      <p class="scroll-hint" aria-hidden="true">scroll to take flight<span class="sh-arrow">↓</span></p>
     </section>
 
-    <!-- ===================== ABOUT ===================== -->
-    <section class="section" id="about">
-      <div class="section-head reveal">
-        <p class="issue-tag">Issue 01</p>
-        <h2 class="section-title">Origin story<span class="ht-dot">.</span></h2>
-      </div>
-      <div class="about-grid">
-        <div class="about-text reveal">
-          <p>Hey, I'm Nakul — a student at Wilfrid Laurier University with a strong passion for technology and innovation. I'm pursuing a dual degree in Computer Science and Business Administration, and I spend most of my time learning cutting-edge technologies and applying them to real-world problems. Right now I'm looking for internships where I can ship real things with real teams.</p>
-          <p>Off the clock you'll find me on the basketball court, in the gym, or chasing adrenaline — cliff jumping included (not for everyone, highly recommended). Perfect day: beach, friends, music, and a competitive game of beach volleyball. Always up to meet new people and build something great together.</p>
-        </div>
-        <ul class="about-stats reveal">
-          <li><span class="stat-num" data-count="5">0</span><span class="stat-plus">+</span><span class="stat-label">years writing code</span></li>
-          <li><span class="stat-num" data-count="6">0</span><span class="stat-label">internships &amp; roles</span></li>
-          <li><span class="stat-num" data-count="2">0</span><span class="stat-label">degrees in progress</span></li>
-        </ul>
-      </div>
-      <div class="filmstrip reveal" aria-label="Photos">
-        <figure><img src="./assets/about/about-1.JPG" alt="Cousins and friends at Garba" loading="lazy"><figcaption>garba szn</figcaption></figure>
-        <figure><img src="./assets/about/about-2.JPG" alt="Friends at Blue Mountain" loading="lazy"><figcaption>blue mountain</figcaption></figure>
-        <figure><img src="./assets/about/about-12.JPG" alt="Intramural champions" loading="lazy"><figcaption>intramural champs</figcaption></figure>
-        <figure><img src="./assets/about/about-13.JPG" alt="Escape room with cousins" loading="lazy"><figcaption>escape room</figcaption></figure>
-        <figure><img src="./assets/about/about-14.JPG" alt="Brothers in Punta Cana" loading="lazy"><figcaption>punta cana</figcaption></figure>
-        <figure><img src="./assets/about/about-15.JPG" alt="With Kajan at 21 Columbia Street" loading="lazy"><figcaption>21 columbia st</figcaption></figure>
-      </div>
-    </section>
-
-    <!-- ===================== PROJECTS ===================== -->
-    <section class="section" id="projects">
-      <div class="halftone ht-side" aria-hidden="true"></div>
-      <div class="section-head reveal">
-        <p class="issue-tag">Issue 02</p>
-        <h2 class="section-title">Selected work<span class="ht-dot">.</span></h2>
-      </div>
-      <div class="work-grid">
-
-        <article class="work-card reveal">
-          <span class="work-num">#01</span>
-          <div class="work-img"><img src="./assets/project/project-1.jpg" alt="Flux — stock predictor" loading="lazy"></div>
-          <div class="work-body">
-            <h3>Flux — Stock Predictor</h3>
-            <p>ML-driven price forecasting for equities, from data pipeline to prediction.</p>
-            <p class="work-tags">Python · TensorFlow · Pandas</p>
-            <div class="work-links">
-              <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub ↗</a>
-              <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo ↗</a>
-            </div>
+    <!-- ===================== CH.01 ORIGIN ===================== -->
+    <section class="chapter" id="origin">
+      <div class="panel reveal">
+        <p class="ch-tag">CH.01 — Origin story <span class="ch-alias">/ about</span></p>
+        <h2 class="ch-title">The kid behind<br>the mask<i class="k-dot">.</i></h2>
+        <div class="origin-grid">
+          <div class="origin-text">
+            <p>Hey, I'm Nakul — a student at Wilfrid Laurier University with a strong passion for technology and innovation. I'm pursuing a dual degree in Computer Science and Business Administration, and I spend most of my time learning cutting-edge technologies and applying them to real-world problems. Right now I'm looking for internships where I can ship real things with real teams.</p>
+            <p>Off the clock: basketball, the gym, and chasing adrenaline — cliff jumping included (not for everyone, highly recommended). Perfect day? Beach, friends, music, and a competitive game of beach volleyball. Always up to meet new people and build something great together.</p>
           </div>
-        </article>
-
-        <article class="work-card reveal">
-          <span class="work-num">#02</span>
-          <div class="work-img"><img src="./assets/project/project-2.png" alt="Echo — Spotify stats app" loading="lazy"></div>
-          <div class="work-body">
-            <h3>Echo — Spotify Stats</h3>
-            <p>Your listening habits, visualized — top artists, tracks and trends over time.</p>
-            <p class="work-tags">React · Node.js · Spotify API</p>
-            <div class="work-links">
-              <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub ↗</a>
-              <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo ↗</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="work-card reveal">
-          <span class="work-num">#03</span>
-          <div class="work-img"><img src="./assets/project/project-3.jpg" alt="Swish — NBA game predictor" loading="lazy"></div>
-          <div class="work-body">
-            <h3>Swish — NBA Predictor</h3>
-            <p>Calling game outcomes with machine learning and historical matchup data.</p>
-            <p class="work-tags">Python · scikit-learn · NBA API</p>
-            <div class="work-links">
-              <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub ↗</a>
-              <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo ↗</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="work-card reveal">
-          <span class="work-num">#04</span>
-          <div class="work-img"><img src="./assets/project/project-4.jpg" alt="Evo — genetic algorithm visualizer" loading="lazy"></div>
-          <div class="work-body">
-            <h3>Evo — Genetic Algorithm Viz</h3>
-            <p>Watching evolution solve problems in real time, generation by generation.</p>
-            <p class="work-tags">JavaScript · Canvas · Algorithms</p>
-            <div class="work-links">
-              <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub ↗</a>
-              <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo ↗</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="work-card reveal">
-          <span class="work-num">#05</span>
-          <div class="work-img"><img src="./assets/project/project-5.jpg" alt="King Me — checkers" loading="lazy"></div>
-          <div class="work-body">
-            <h3>King Me — Checkers</h3>
-            <p>The classic game rebuilt from scratch, complete with rules engine and AI.</p>
-            <p class="work-tags">Java · OOP · Game Logic</p>
-            <div class="work-links">
-              <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub ↗</a>
-              <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo ↗</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="work-card reveal">
-          <span class="work-num">#06</span>
-          <div class="work-img"><img src="./assets/project/project-6.gif" alt="Click — typing speed game" loading="lazy"></div>
-          <div class="work-body">
-            <h3>Click — Typing Speed Game</h3>
-            <p>How fast are your WPM, really? A speed test with a competitive streak.</p>
-            <p class="work-tags">JavaScript · HTML/CSS · Games</p>
-            <div class="work-links">
-              <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub ↗</a>
-              <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo ↗</a>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- ===================== EXPERIENCE ===================== -->
-    <section class="section" id="experience">
-      <div class="section-head reveal">
-        <p class="issue-tag">Issue 03</p>
-        <h2 class="section-title">Experience<span class="ht-dot">.</span></h2>
-      </div>
-      <ol class="xp-list">
-        <li class="xp-item reveal">
-          <span class="xp-period">Sep — Dec 2025</span>
-          <div class="xp-info">
-            <h3>Multiverse Computing</h3>
-            <p>Machine Learning Engineer · Internship</p>
-          </div>
-        </li>
-        <li class="xp-item reveal">
-          <span class="xp-period">Jan — Apr 2025</span>
-          <div class="xp-info">
-            <h3>Definity Financial Corp</h3>
-            <p>Automation Engineer · Internship</p>
-          </div>
-        </li>
-        <li class="xp-item reveal">
-          <span class="xp-period">May — Aug 2024</span>
-          <div class="xp-info">
-            <h3>Stouffville Chamber of Commerce</h3>
-            <p>Data Analyst · Internship</p>
-          </div>
-        </li>
-        <li class="xp-item reveal">
-          <span class="xp-period">Jan — Apr 2023</span>
-          <div class="xp-info">
-            <h3>Riipen Networks Inc</h3>
-            <p>Software Developer · Internship</p>
-          </div>
-        </li>
-        <li class="xp-item reveal">
-          <span class="xp-period">Jul 2020 — Dec 2021</span>
-          <div class="xp-info">
-            <h3>Staples Inc</h3>
-            <p>Technology Sales Area Representative · Part-time</p>
-          </div>
-        </li>
-        <li class="xp-item reveal">
-          <span class="xp-period">Sep 2019 — Jun 2020</span>
-          <div class="xp-info">
-            <h3>Stouffville Leisure Centre</h3>
-            <p>Deck Attendant / Assistant Instructor · Part-time</p>
-          </div>
-        </li>
-      </ol>
-    </section>
-
-    <!-- ===================== SKILLS ===================== -->
-    <section class="section" id="skills">
-      <div class="section-head reveal">
-        <p class="issue-tag">Issue 04</p>
-        <h2 class="section-title">Power stats<span class="ht-dot">.</span></h2>
-      </div>
-      <div class="skills-grid">
-        <div class="stat-bars reveal">
-          <div class="sbar" data-level="92"><span class="sbar-name">Python</span><span class="sbar-track"><span class="sbar-fill"></span></span><span class="sbar-val">92</span></div>
-          <div class="sbar" data-level="86"><span class="sbar-name">Machine Learning / AI</span><span class="sbar-track"><span class="sbar-fill"></span></span><span class="sbar-val">86</span></div>
-          <div class="sbar" data-level="84"><span class="sbar-name">JavaScript / Web</span><span class="sbar-track"><span class="sbar-fill"></span></span><span class="sbar-val">84</span></div>
-          <div class="sbar" data-level="82"><span class="sbar-name">Data Science</span><span class="sbar-track"><span class="sbar-fill"></span></span><span class="sbar-val">82</span></div>
-          <div class="sbar" data-level="78"><span class="sbar-name">Java / C / C++</span><span class="sbar-track"><span class="sbar-fill"></span></span><span class="sbar-val">78</span></div>
-          <div class="sbar" data-level="75"><span class="sbar-name">Cloud &amp; DevOps</span><span class="sbar-track"><span class="sbar-fill"></span></span><span class="sbar-val">75</span></div>
-        </div>
-        <div class="loadout reveal">
-          <h3 class="loadout-title">Full loadout</h3>
-          <ul class="loadout-list">
-            <li>React</li><li>Node.js</li><li>TensorFlow</li><li>scikit-learn</li><li>Pandas</li>
-            <li>SQL</li><li>VBA</li><li>Git</li><li>Docker</li><li>AWS</li><li>Azure</li>
-            <li>Linux/Unix</li><li>Power BI</li><li>Jira</li><li>REST APIs</li><li>CI/CD</li>
-            <li>Data Viz</li><li>Quantum Optimization</li>
+          <ul class="origin-stats">
+            <li><b data-count="5">0</b><em>+</em><span>years writing code</span></li>
+            <li><b data-count="6">0</b><span>internships &amp; roles</span></li>
+            <li><b data-count="2">0</b><span>degrees in progress</span></li>
           </ul>
         </div>
+        <div class="filmstrip" aria-label="Photos">
+          <figure><img src="./assets/about/about-1.JPG" alt="Cousins and friends at Garba" loading="lazy"><figcaption>garba szn</figcaption></figure>
+          <figure><img src="./assets/about/about-2.JPG" alt="Friends at Blue Mountain" loading="lazy"><figcaption>blue mountain</figcaption></figure>
+          <figure><img src="./assets/about/about-12.JPG" alt="Intramural champions" loading="lazy"><figcaption>intramural champs</figcaption></figure>
+          <figure><img src="./assets/about/about-13.JPG" alt="Escape room with cousins" loading="lazy"><figcaption>escape room</figcaption></figure>
+          <figure><img src="./assets/about/about-14.JPG" alt="Brothers in Punta Cana" loading="lazy"><figcaption>punta cana</figcaption></figure>
+          <figure><img src="./assets/about/about-15.JPG" alt="With Kajan at 21 Columbia Street" loading="lazy"><figcaption>21 columbia st</figcaption></figure>
+        </div>
       </div>
     </section>
 
-    <!-- ===================== CONTACT ===================== -->
-    <section class="section section-contact" id="contact">
-      <div class="halftone ht-contact" aria-hidden="true"></div>
-      <div class="section-head reveal">
-        <p class="issue-tag">Issue 05 — Final</p>
-        <h2 class="section-title contact-title">Got a project<br>that needs saving<span class="ht-dot">?</span></h2>
+    <!-- ===================== CH.02 MISSIONS ===================== -->
+    <section class="chapter" id="missions">
+      <div class="ch-head reveal">
+        <p class="ch-tag">CH.02 — Missions <span class="ch-alias">/ projects</span></p>
+        <h2 class="ch-title">Deployed &amp;<br>debriefed<i class="k-dot">.</i></h2>
       </div>
-      <div class="contact-actions reveal">
-        <a class="btn btn-solid btn-big" href="mailto:nakul0306@gmail.com">nakul0306@gmail.com</a>
-        <div class="contact-alt">
+      <div class="mission-grid">
+
+        <article class="mission reveal">
+          <p class="m-num">M-01</p>
+          <div class="m-img"><img src="./assets/project/project-1.jpg" alt="Flux — stock predictor" loading="lazy"></div>
+          <h3>Flux — Stock Predictor</h3>
+          <p class="m-desc">ML-driven price forecasting for equities, from data pipeline to prediction.</p>
+          <p class="m-tags">Python · TensorFlow · Pandas</p>
+          <p class="m-links">
+            <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo ↗</a>
+          </p>
+        </article>
+
+        <article class="mission reveal">
+          <p class="m-num">M-02</p>
+          <div class="m-img"><img src="./assets/project/project-2.png" alt="Echo — Spotify stats" loading="lazy"></div>
+          <h3>Echo — Spotify Stats</h3>
+          <p class="m-desc">Your listening habits, visualized — top artists, tracks and trends over time.</p>
+          <p class="m-tags">React · Node.js · Spotify API</p>
+          <p class="m-links">
+            <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo ↗</a>
+          </p>
+        </article>
+
+        <article class="mission reveal">
+          <p class="m-num">M-03</p>
+          <div class="m-img"><img src="./assets/project/project-3.jpg" alt="Swish — NBA predictor" loading="lazy"></div>
+          <h3>Swish — NBA Predictor</h3>
+          <p class="m-desc">Calling game outcomes with machine learning and historical matchup data.</p>
+          <p class="m-tags">Python · scikit-learn · NBA API</p>
+          <p class="m-links">
+            <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo ↗</a>
+          </p>
+        </article>
+
+        <article class="mission reveal">
+          <p class="m-num">M-04</p>
+          <div class="m-img"><img src="./assets/project/project-4.jpg" alt="Evo — genetic algorithm visualizer" loading="lazy"></div>
+          <h3>Evo — Genetic Algorithm Viz</h3>
+          <p class="m-desc">Watching evolution solve problems in real time, generation by generation.</p>
+          <p class="m-tags">JavaScript · Canvas · Algorithms</p>
+          <p class="m-links">
+            <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo ↗</a>
+          </p>
+        </article>
+
+        <article class="mission reveal">
+          <p class="m-num">M-05</p>
+          <div class="m-img"><img src="./assets/project/project-5.jpg" alt="King Me — checkers" loading="lazy"></div>
+          <h3>King Me — Checkers</h3>
+          <p class="m-desc">The classic game rebuilt from scratch, complete with rules engine and AI.</p>
+          <p class="m-tags">Java · OOP · Game Logic</p>
+          <p class="m-links">
+            <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo ↗</a>
+          </p>
+        </article>
+
+        <article class="mission reveal">
+          <p class="m-num">M-06</p>
+          <div class="m-img"><img src="./assets/project/project-6.gif" alt="Click — typing speed game" loading="lazy"></div>
+          <h3>Click — Typing Speed Game</h3>
+          <p class="m-desc">How fast are your WPM, really? A speed test with a competitive streak.</p>
+          <p class="m-tags">JavaScript · HTML/CSS · Games</p>
+          <p class="m-links">
+            <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo ↗</a>
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===================== CH.03 PATROL LOG ===================== -->
+    <section class="chapter" id="patrol-log">
+      <div class="panel reveal">
+        <p class="ch-tag">CH.03 — Patrol log <span class="ch-alias">/ experience</span></p>
+        <h2 class="ch-title">Nights on<br>the clock<i class="k-dot">.</i></h2>
+        <ol class="log">
+          <li><span class="log-date">2025.09 — 2025.12</span><div><h3>Multiverse Computing</h3><p>Machine Learning Engineer · Internship</p></div></li>
+          <li><span class="log-date">2025.01 — 2025.04</span><div><h3>Definity Financial Corp</h3><p>Automation Engineer · Internship</p></div></li>
+          <li><span class="log-date">2024.05 — 2024.08</span><div><h3>Stouffville Chamber of Commerce</h3><p>Data Analyst · Internship</p></div></li>
+          <li><span class="log-date">2023.01 — 2023.04</span><div><h3>Riipen Networks Inc</h3><p>Software Developer · Internship</p></div></li>
+          <li><span class="log-date">2020.07 — 2021.12</span><div><h3>Staples Inc</h3><p>Technology Sales Area Representative · Part-time</p></div></li>
+          <li><span class="log-date">2019.09 — 2020.06</span><div><h3>Stouffville Leisure Centre</h3><p>Deck Attendant / Assistant Instructor · Part-time</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== CH.04 POWER GRID ===================== -->
+    <section class="chapter" id="power-grid">
+      <div class="panel reveal">
+        <p class="ch-tag">CH.04 — Power grid <span class="ch-alias">/ skills</span></p>
+        <h2 class="ch-title">Abilities,<br>charged<i class="k-dot">.</i></h2>
+        <div class="grid-2col">
+          <div class="cells" role="list" aria-label="Core skills, self-rated out of ten">
+            <div class="cell-row" role="listitem" data-level="9"><span class="cell-name">Python</span><span class="cell-track" aria-hidden="true"></span><span class="cell-val">9/10</span></div>
+            <div class="cell-row" role="listitem" data-level="9"><span class="cell-name">Machine Learning / AI</span><span class="cell-track" aria-hidden="true"></span><span class="cell-val">9/10</span></div>
+            <div class="cell-row" role="listitem" data-level="8"><span class="cell-name">JavaScript / Web</span><span class="cell-track" aria-hidden="true"></span><span class="cell-val">8/10</span></div>
+            <div class="cell-row" role="listitem" data-level="8"><span class="cell-name">Data Science</span><span class="cell-track" aria-hidden="true"></span><span class="cell-val">8/10</span></div>
+            <div class="cell-row" role="listitem" data-level="7"><span class="cell-name">Java / C / C++</span><span class="cell-track" aria-hidden="true"></span><span class="cell-val">7/10</span></div>
+            <div class="cell-row" role="listitem" data-level="7"><span class="cell-name">Cloud &amp; DevOps</span><span class="cell-track" aria-hidden="true"></span><span class="cell-val">7/10</span></div>
+          </div>
+          <div class="loadout">
+            <h3>Utility belt</h3>
+            <ul>
+              <li>React</li><li>Node.js</li><li>TensorFlow</li><li>scikit-learn</li><li>Pandas</li>
+              <li>SQL</li><li>VBA</li><li>Git</li><li>Docker</li><li>AWS</li><li>Azure</li>
+              <li>Linux/Unix</li><li>Power BI</li><li>Jira</li><li>REST APIs</li><li>CI/CD</li>
+              <li>Data Viz</li><li>Quantum Optimization</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CH.05 SIGNAL ===================== -->
+    <section class="chapter ch-signal" id="signal">
+      <div class="ch-head reveal">
+        <p class="ch-tag">CH.05 — Final chapter <span class="ch-alias">/ contact</span></p>
+        <h2 class="ch-title signal-title">SEND THE<br>SIGNAL<i class="k-dot">.</i></h2>
+        <p class="signal-sub">The beam's already on. Whether it's an internship, a project, or just a good idea — I'll answer.</p>
+        <div class="hero-cta">
+          <a class="btn btn-beam btn-big" href="mailto:nakul0306@gmail.com">nakul0306@gmail.com</a>
+        </div>
+        <div class="signal-alt">
           <a href="https://www.linkedin.com/in/nakulpatel0306/" target="_blank" rel="noopener">LinkedIn ↗</a>
           <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub ↗</a>
           <a href="./assets/nakul-patel-software-resume.pdf" target="_blank" rel="noopener">Resume ↗</a>
@@ -303,16 +243,16 @@
   </main>
 
   <footer class="footer">
-    <p>© 2026 Nakul Patel — built with vanilla HTML, CSS &amp; JS. No frameworks were harmed.</p>
-    <p class="footer-hint" title="Try it on your keyboard">↑ ↑ ↓ ↓ ← → ← → B A</p>
+    <p>© 2026 Nakul Patel — hand-drawn city, zero frameworks.</p>
+    <p class="footer-hint" title="Try it">↑ ↑ ↓ ↓ ← → ← → B A</p>
   </footer>
 
-  <!-- Konami easter egg burst -->
+  <!-- all-signals toast -->
+  <div class="toast" id="toast" hidden>◈ ALL SIGNALS FOUND — you'd make a great sidekick.</div>
+
+  <!-- konami -->
   <div class="powup" id="powup" hidden>
-    <div class="powup-card">
-      <span class="powup-word">LEVEL UP!</span>
-      <span class="powup-sub">achievement unlocked: true gamer</span>
-    </div>
+    <div class="powup-card"><span class="powup-word">LEVEL UP!</span><span class="powup-sub">achievement unlocked: true gamer</span></div>
   </div>
 
   <script src="script.js"></script>
