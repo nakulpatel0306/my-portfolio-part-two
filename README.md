@@ -1,41 +1,40 @@
-# 🌐 Nakul Patel — Developer Portfolio
+# 💜 Nakul Patel — Portfolio, Part Two
 
-A clean, responsive, and interactive developer portfolio showcasing projects, skills, and experience. Features an animated background, mobile-friendly navigation, an “About” photo carousel, a timeline for experience, and a code-editor-style skills section.
-
-**Live site:** https://nakul-patel-portfolio.netlify.app/
+An IDE-style interactive developer portfolio. The whole site is designed like a code editor in a custom **Purple Dark** theme — a file explorer, tabs, a command palette, and a working terminal, with each section of the portfolio living in its own "file."
 
 ---
 
-## ✨ Highlights
+## ✨ Features
 
-- Responsive navigation (desktop + mobile hamburger menu)  
-- Animated background with particles and cursor effects  
-- About section carousel (keyboard + swipe support)  
-- Projects grid with hover animations  
-- Experience timeline with glassy UI  
-- Skills displayed in a playful code-editor block  
+- **Full IDE layout** — title bar, activity bar, file explorer, tabs, breadcrumbs, status bar
+- **Sections as files** — `README.md` (home), `about.md`, `experience.json`, `projects.js`, `skills.js`, `contact.sh`
+- **Interactive terminal** — type `help`, `ls`, `open projects.js`, `neofetch`, `whoami`, or `sudo hire-me` 🎉
+- **Command palette** — press `Ctrl+P` (or `Ctrl+K`) to fuzzy-jump between files
+- **Runnable `contact.sh`** — hit ▶ Run to execute the contact script
+- **Creative touches** — typewriter hero, animated headshot ring, photo gallery with swipe support, hover-to-run skill chips, purple confetti
+- **Responsive** — explorer collapses into a hamburger drawer on mobile
+- **Accessible** — keyboard navigation and `prefers-reduced-motion` support
 
----
+## 🎨 Theme
+
+Purple (`#a78bfa` / `#7c3aed`) on dark grey (`#121218` → `#262631`), with a purple-tinted syntax palette for the code-styled content.
 
 ## 🧱 Project Structure
 
 ```
 .
-├── index.html            # Sections: Profile, About, Experience, Projects, Skills, Contact
-├── style.css             # Styling for layout, timeline, projects, skills editor
-├── mediaqueries.css      # Responsive tweaks for mobile/tablet/desktop
-├── script.js             # Menu toggle, animations, typewriter, carousel, effects
-└── assets/               # Images, icons, resume PDF
+├── index.html   # IDE shell + every "file" view
+├── style.css    # Purple Dark theme, layout, animations, responsive rules
+├── script.js    # Tabs, terminal, command palette, gallery, easter eggs
+└── assets/      # Images, icons, resume PDF
 ```
-
----
 
 ## 🚀 Getting Started
 
 1. Clone the repo:
    ```bash
-   git clone https://github.com/<your-username>/my-portfolio-website.git
-   cd my-portfolio-website
+   git clone https://github.com/nakulpatel0306/my-portfolio-part-two.git
+   cd my-portfolio-part-two
    ```
 2. Open `index.html` in your browser, or run a local server:
    ```bash

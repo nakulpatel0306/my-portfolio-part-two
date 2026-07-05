@@ -2,384 +2,548 @@
 <html lang="en">
 
 <head>
-  <!-- meta tags for character set, compatibility, and viewport settings -->
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
-  <!-- linking external stylesheets for styling and media queries -->
+  <meta name="description" content="Nakul Patel — Software Developer, ML Engineer & Data Scientist. An IDE-style interactive portfolio." />
+  <title>Nakul Patel — portfolio.ide</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="mediaqueries.css" />
   <link rel="icon" href="data:image/svg+xml,
   <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
-    <rect width='100' height='100' fill='white'/>
-    <text x='50%' y='65%' font-size='70' text-anchor='middle'
-          font-family='Arial, sans-serif' fill='black'>N</text>
+    <rect width='100' height='100' rx='20' fill='%231a1a22'/>
+    <text x='50%' y='68%' font-size='62' text-anchor='middle'
+          font-family='monospace' font-weight='bold' fill='%23a78bfa'>N</text>
   </svg>">
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <canvas id="particles"></canvas>
-  <!-- desktop navigation bar -->
-  <nav id="desktop-nav">
-    <div class="logo"><a href="https://www.instagram.com/nakulp.14/">Nakul Patel</a></div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-  <!-- mobile navigation bar with hamburger menu -->
-  <nav id="hamburger-nav">
-    <div class="logo">Nakul Patel</div>
-    <div class="hamburger-menu">
-      <div class="hamburger-icon" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
+  <div class="ide" id="ide">
+
+    <!-- ===================== TITLE BAR ===================== -->
+    <header class="titlebar">
+      <div class="traffic-lights" aria-hidden="true">
+        <span class="t-dot t-close"></span>
+        <span class="t-dot t-min"></span>
+        <span class="t-dot t-max"></span>
       </div>
-      <ul class="menu-links">
-        <li><a href="#about" onclick="toggleMenu()">About</a></li>
-        <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
-        <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
-        <li><a href="#skills" onclick="toggleMenu()">Skills</a></li>
-        <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
-  <!-- profile section with image and introduction -->
-  <section id="profile">
-    <div class="section__pic-container">
-      <img src="./assets/headshot.png" alt="Nakul Patel Profile Picture" />
-    </div>
-    <div class="section__text">
-      <p class="section__text__p1">Hello, I'm</p>
-      <h1 class="title">Nakul Patel</h1>
-      <div class="context-text">
-        <p class="section__text__p2">I'm A <a href="" class="typewrite" data-period="2000" data-type='["Software Developer", "ML Engineer", "Data Scientist"]' style="text-decoration: none;"></a></p>
-      </div>
-      <div class="btn-container">
-        <button class="btn btn-color-2" onclick="window.open('./assets/nakul-patel-software-resume.pdf')">
-          Download CV
+      <nav class="menubar" aria-label="IDE menu (decorative)">
+        <button class="menu-item" data-cmd="palette">File</button>
+        <button class="menu-item" data-cmd="palette">Edit</button>
+        <button class="menu-item" data-cmd="sidebar">View</button>
+        <button class="menu-item" data-cmd="palette">Go</button>
+        <button class="menu-item" data-cmd="run-contact">Run</button>
+        <button class="menu-item" data-cmd="terminal">Terminal</button>
+        <button class="menu-item" data-cmd="help">Help</button>
+      </nav>
+      <button class="titlebar-search" data-cmd="palette" title="Command palette (Ctrl+P)">
+        <span class="ts-icon">⌕</span> nakul-patel — portfolio.ide
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle explorer">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <!-- ===================== BODY ===================== -->
+    <div class="ide-body">
+
+      <!-- Activity bar -->
+      <aside class="activitybar" aria-label="Activity bar">
+        <button class="act-btn active" data-cmd="sidebar" title="Explorer">
+          <svg viewBox="0 0 24 24"><path d="M4 4h7l2 3h7v13H4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
         </button>
-        <button class="btn btn-color-1" onclick="location.href='#contact'">
-          Contact Info
+        <button class="act-btn" data-cmd="palette" title="Search (Ctrl+P)">
+          <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M15 15l5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
         </button>
-      </div>
-      <!-- social media icons for linkedin and github -->
-      <div id="socials-container">
-        <img src="./assets/linkedin.png" alt="My LinkedIn Profile" class="icon"
-          onclick="location.href='https://www.linkedin.com/in/nakulpatel0306/'" />
-        <img src="./assets/github.png" alt="My Github Profile" class="icon"
-          onclick="location.href='https://github.com/nakulpatel0306'" />
-      </div>
-    </div>
-  </section>
-  <!-- about section detailing personal and professional background -->
-  <section id="about">
-    <p class="section__text__p1">Get To Know More</p>
-    <h1 class="title">About Me</h1>
-    <div class="section-container">
-      <div class="about-details-container">
-        <div class="about-containers">
-          <div class="details-container">
-            <img src="./assets/experience.png" alt="Experience Icon" class="icon" />
-            <h3>Experience</h3>
-            <p>5+ Years <br />Software Development</p>
-          </div>
-          <div class="details-container">
-            <img src="./assets/education.png" alt="Education Icon" class="icon" />
-            <h3>Education</h3>
-            <p>BCS from University of Wilfrid Laurier<br />BBA from University of Wilfrid Laurier</p>
-          </div>
-        </div>
-        <div class="text-container" style="text-align: center;">
-          <p>
-            Hey, I’m Nakul! I’m a student at Wilfrid Laurier University, with a strong passion for technology and innovation. Pursuing a dual degree in CS and BBA, I'm dedicated to learning cutting-edge technologies and applying them to real-world problems. I'm also actively looking for internships to expand my practical experience and contribute to exciting projects in the tech industry. <br><br> When I’m not buried in my textbooks, you’ll find me breaking a sweat on the basketball court or hitting the gym. I love traveling and chasing adrenaline-fueled adventures, like cliff jumping—trust me, it’s definitely not for everyone! My perfect summer day? Just kicking back at the beach with friends, listening to some music, and diving into a competitive game of beach volleyball. I’m always eager to meet new friends, exchange ideas, and grow my network. Let’s connect and see what amazing things we can create together!
-          </p>
-          <br>
-        </div>
-      </div>
-    </div>
-    <!-- About: image carousel (drop right below your text container) -->
-    <div class="about-carousel" aria-label="About me photos">
-      <button class="ac-arrow ac-prev" aria-label="Previous slide">‹</button>
+        <button class="act-btn" data-cmd="open-experience" title="Source control → experience.json">
+          <svg viewBox="0 0 24 24"><circle cx="7" cy="6" r="2.4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="7" cy="18" r="2.4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17" cy="9" r="2.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 8.5v7M17 11.5c0 3.5-6 2.5-8 4.5" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+        </button>
+        <button class="act-btn" data-cmd="terminal" title="Terminal (Ctrl+`)">
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 10l3 2-3 2M12.5 15H17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="act-btn" data-cmd="open-contact" title="Contact">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="3.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M5 20c1.3-3.4 4-5 7-5s5.7 1.6 7 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </button>
+        <div class="act-spacer"></div>
+        <button class="act-btn act-gear" data-cmd="spin" title="Settings (does a little something)">
+          <svg viewBox="0 0 24 24"><path d="M12 8.6A3.4 3.4 0 1 0 12 15.4 3.4 3.4 0 0 0 12 8.6zm8-.6-1.9-.5a6.6 6.6 0 0 0-.7-1.6l1-1.7-1.6-1.6-1.7 1a6.6 6.6 0 0 0-1.6-.7L13 1h-2l-.5 1.9a6.6 6.6 0 0 0-1.6.7l-1.7-1L5.6 4.2l1 1.7a6.6 6.6 0 0 0-.7 1.6L4 8v2l1.9.5c.16.57.4 1.1.7 1.6l-1 1.7 1.6 1.6 1.7-1c.5.3 1.03.54 1.6.7L11 17h2l.5-1.9a6.6 6.6 0 0 0 1.6-.7l1.7 1 1.6-1.6-1-1.7c.3-.5.54-1.03.7-1.6L20 10z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" transform="translate(0 3)"/></svg>
+        </button>
+      </aside>
 
-      <div class="ac-viewport">
-        <ul class="ac-track">
-          <!-- Replace image paths with your photos in ./assets/ -->
-          <li class="ac-slide"><img src="./assets/about/about-1.jpg" alt="Cousins And Friends - Garba" loading="lazy"></li>
-          <li class="ac-slide"><img src="./assets/about/about-2.jpg" alt="Waterloo Friends - Blue Mountain" loading="lazy"></li>
-          <li class="ac-slide"><img src="./assets/about/about-3.jpg" alt="High School - Alex And Ryan" loading="lazy"></li>
-          <li class="ac-slide"><img src="./assets/about/about-12.jpg" alt="Waterloo Friends - Intramural Champions" loading="lazy"></li>
-          <li class="ac-slide"><img src="./assets/about/about-13.jpg" alt="Cousins - Escape Room" loading="lazy"></li>
-          <li class="ac-slide"><img src="./assets/about/about-14.jpg" alt="Brothers - Punta Cana" loading="lazy"></li>
-          <li class="ac-slide"><img src="./assets/about/about-15.jpg" alt="Me And Kajan - 21 Columbia Street" loading="lazy"></li>
-        </ul>
-      </div>
+      <!-- Explorer sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <span>Explorer</span>
+          <span class="sidebar-dots">···</span>
+        </div>
+        <div class="tree">
+          <div class="tree-root">
+            <span class="chev">▾</span> nakul-patel
+          </div>
+          <button class="tree-item" data-open="README.md">
+            <span class="file-badge fb-md">M↓</span> README.md
+          </button>
+          <button class="tree-item" data-open="about.md">
+            <span class="file-badge fb-md">M↓</span> about.md
+          </button>
+          <button class="tree-item" data-open="experience.json">
+            <span class="file-badge fb-json">{ }</span> experience.json
+          </button>
+          <button class="tree-item" data-open="projects.js">
+            <span class="file-badge fb-js">JS</span> projects.js
+          </button>
+          <button class="tree-item" data-open="skills.js">
+            <span class="file-badge fb-js">JS</span> skills.js
+          </button>
+          <button class="tree-item" data-open="contact.sh">
+            <span class="file-badge fb-sh">$_</span> contact.sh
+          </button>
+          <button class="tree-item" data-external="./assets/nakul-patel-software-resume.pdf">
+            <span class="file-badge fb-pdf">P⇩</span> resume.pdf <span class="ext-arrow">↗</span>
+          </button>
+        </div>
+        <div class="sidebar-footer">
+          <div class="sidebar-header"><span>Open to work</span></div>
+          <p class="sidebar-note">// internships &amp; new-grad roles<br>// software · ML · data</p>
+        </div>
+      </aside>
 
-      <button class="ac-arrow ac-next" aria-label="Next slide">›</button>
+      <!-- Editor column -->
+      <main class="editor-col">
+        <div class="tabbar" id="tabbar" role="tablist"></div>
+        <div class="breadcrumbs" id="breadcrumbs">nakul-patel <span class="crumb-sep">›</span> README.md</div>
 
-      <div class="ac-dots" role="tablist" aria-label="Slide dots"></div>
-    </div>
-  </section>
-  <!-- experience section showcasing professional timeline -->
-  <section id="experience">
-    <br>
-    <p class="section__text__p1">Explore My</p>
-    <h1 class="title">Experience</h1>
-    <div class="container">
-      <div class="timeline">
-        <ul>
-          <li>
-            <div class="timeline-content">
-              <h3 class="date">Sep 2025 - Dec 2025</h3>
-              <h1>Multiverse Computing</h1>
-              <p>Machine Learning Engineer, Internship</p>
-            </div>
-          </li>
-          <li>
-            <div class="timeline-content">
-              <h3 class="date">Jan 2025 - Apr 2025</h3>
-              <h1>Definity Financial Corp</h1>
-              <p>Automation Engineer, Internship</p>
-            </div>
-          </li>
-          <li>
-            <div class="timeline-content">
-              <h3 class="date">May 2024 - Aug 2024</h3>
-              <h1>Stouffville Chamber Of Commerce</h1>
-              <p>Data Analyst, Internship</p>
-            </div>
-          </li>
-          <li>
-            <div class="timeline-content">
-              <h3 class="date">Jan 2023 - Apr 2023</h3>
-              <h1>Riipen Networks Inc</h1>
-              <p>Software Developer, Internship</p>
-            </div>
-          </li>
-          <li>
-            <div class="timeline-content">
-              <h3 class="date">Jul 2020 - Dec 2021</h3>
-              <h1>Staples Inc</h1>
-              <p>Technology Sales Area Representative, Part-Time</p>
-            </div>
-          </li>
-          <li>
-            <div class="timeline-content">
-              <h3 class="date">Sep 2019 - Jun 2020</h3>
-              <h1>Stouffville Leisure Centre</h1>
-              <p>Deck Attendant / Assistant Instructor, Part-Time</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-  <!-- projects section with details and links to projects -->
-  <section id="projects">
-    <p class="section__text__p1">Browse My Recent</p>
-    <h1 class="title">Projects</h1>
-    <div class="experience-details-container">
-      <div class="about-containers">
-        <div class="details-container color-container">
-          <div class="article-container">
-            <img src="./assets/project/project-1.jpg" alt="Flux - A Stock Predictor" class="project-img" />
-          </div>
-          <h2 class="experience-sub-title project-title">Flux - A Stock Predictor</h2>
-          <div class="btn-container">
-            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
-              Github
-            </button>
-            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
-              Live Demo
-            </button>
-          </div>
-        </div>
-        <div class="details-container color-container">
-          <div class="article-container">
-            <img src="./assets/project/project-2.png" alt="Echo - Spotify Stats App" class="project-img" />
-          </div>
-          <h2 class="experience-sub-title project-title">Echo - Spotify Stats App</h2>
-          <div class="btn-container">
-            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
-              Github
-            </button>
-            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
-              Live Demo
-            </button>
-          </div>
-        </div>
-        <div class="details-container color-container">
-          <div class="article-container">
-            <img src="./assets/project/project-3.jpg" alt="Swish - NBA Game Predictor" class="project-img"/>
-          </div>
-          <h2 class="experience-sub-title project-title">Swish - NBA Game Predictor</h2>
-          <div class="btn-container">
-            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
-              Github
-            </button>
-            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
-              Live Demo
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="about-containers">
-        <div class="details-container color-container">
-          <div class="article-container">
-            <img src="./assets/project/project-4.jpg" alt="Evo - Genetric Algorithm Viz" class="project-img" />
-          </div>
-          <h2 class="experience-sub-title project-title">Evo - Genetic Algortihm Viz</h2>
-          <div class="btn-container">
-            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
-              Github
-            </button>
-            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
-              Live Demo
-            </button>
-          </div>
-        </div>
-        <div class="details-container color-container">
-          <div class="article-container">
-            <img src="./assets/project/project-5.jpg" alt="King Me - Checkers Edition" class="project-img" />
-          </div>
-          <h2 class="experience-sub-title project-title">King Me - Checkers Edition</h2>
-          <div class="btn-container">
-            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
-              Github
-            </button>
-            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
-              Live Demo
-            </button>
-          </div>
-        </div>
-        <div class="details-container color-container">
-          <div class="article-container">
-            <img src="./assets/project/project-6.gif" alt="Type Racer - Typing Speed Test" class="project-img"/>
-          </div>
-          <h2 class="experience-sub-title project-title">Click - Typing Speed Game</h2>
-          <div class="btn-container">
-            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
-              Github
-            </button>
-            <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/nakulpatel0306'">
-              Live Demo
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- ===== Skills Section ===== -->
-  <section id="skills">
-    <p class="section__text__p1">Meet The Coder</p>
-    <h1 class="title">Skills</h1>
+        <div class="editor-area" id="editor-area">
 
-    <div class="code-editor" aria-label="Skills as code">
-      <div class="editor-header">
-        <span class="dot red"></span>
-        <span class="dot yellow"></span>
-        <span class="dot green"></span>
-        <span class="editor-title">skills.js</span>
-      </div>
+          <!-- ============ README.md ============ -->
+          <section class="file-view active" data-file="README.md">
+            <div class="hero">
+              <div class="hero-glow" aria-hidden="true"></div>
+              <div class="hero-text">
+                <p class="md-tag">## hello, world — I'm</p>
+                <h1 class="hero-name">Nakul<br>Patel<span class="caret">▌</span></h1>
+                <p class="hero-role">&gt; <span id="typewriter"></span><span class="tw-caret">|</span></p>
+                <div class="badge-row">
+                  <span class="badge">🎓 CS + BBA @ Wilfrid Laurier</span>
+                  <span class="badge">📍 Ontario, Canada</span>
+                  <span class="badge badge-live"><span class="pulse-dot"></span> hireable: true</span>
+                </div>
+                <div class="hero-btns">
+                  <a class="btn btn-primary" href="./assets/nakul-patel-software-resume.pdf" target="_blank" rel="noopener">⇩ resume.pdf</a>
+                  <button class="btn btn-ghost" data-open-file="contact.sh">$ ./contact.sh</button>
+                </div>
+                <div class="hero-socials">
+                  <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener" title="GitHub">
+                    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2z" fill="currentColor"/></svg>
+                  </a>
+                  <a href="https://www.linkedin.com/in/nakulpatel0306/" target="_blank" rel="noopener" title="LinkedIn">
+                    <svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.49 2.49 0 1 1 5 8.48a2.49 2.49 0 0 1-.02-4.98zM3 9.75h4V21H3zM9.5 9.75h3.83v1.54h.05c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.14V21h-4v-5.09c0-1.21-.02-2.77-1.69-2.77-1.69 0-1.95 1.32-1.95 2.68V21h-3.83z" fill="currentColor"/></svg>
+                  </a>
+                  <a href="https://www.instagram.com/nakulp.14/" target="_blank" rel="noopener" title="Instagram">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.3" fill="currentColor"/></svg>
+                  </a>
+                </div>
+              </div>
+              <div class="hero-pic">
+                <div class="pic-ring"></div>
+                <img src="./assets/headshot.png" alt="Nakul Patel headshot" />
+                <div class="pic-tag">headshot.png</div>
+              </div>
+            </div>
 
-      <div class="editor-body">
-        <ul class="code-lines">
-          <li><span class="cmnt">// developer blueprint — core profile & technical stack</span></li>
-          <li><span class="kw">const</span> <span class="var">coder</span> = {</li>
-        
-          <li>&nbsp;&nbsp;<span class="prop">name</span>: <span class="str">'Nakul Patel'</span>,</li>
-          <li>&nbsp;&nbsp;<span class="prop">title</span>: <span class="str">'CS &amp; BBA Student — Wilfrid Laurier University'</span>,</li>
-          <li>&nbsp;&nbsp;<span class="prop">focus</span>: [<span class="str">'Software Development'</span>, <span class="str">'Machine Learning'</span>, <span class="str">'Data Science'</span>],</li>
-        
-          <li>&nbsp;</li>
-        
-          <li><span class="cmnt">// languages & core web</span></li>
-          <li>&nbsp;&nbsp;<span class="prop">programmingLanguages</span>: [<span class="str">'Python'</span>, <span class="str">'Java'</span>, <span class="str">'C/C++'</span>, <span class="str">'VBA'</span>, <span class="str">'SQL'</span>, <span class="str">'JavaScript'</span>, <span class="str">'HTML/CSS'</span>],</li>
-        
-          <li>&nbsp;</li>
-        
-          <li><span class="cmnt">// frameworks, libraries & runtime</span></li>
-          <li>&nbsp;&nbsp;<span class="prop">frameworksLibraries</span>: [<span class="str">'React'</span>, <span class="str">'Node.js'</span>, <span class="str">'TensorFlow'</span>, <span class="str">'scikit-learn'</span>, <span class="str">'Pandas'</span>],</li>
-        
-          <li>&nbsp;</li>
-        
-          <li><span class="cmnt">// platforms & tooling</span></li>
-          <li>&nbsp;&nbsp;<span class="prop">toolsPlatforms</span>: [<span class="str">'Git'</span>, <span class="str">'GitHub'</span>, <span class="str">'Docker'</span>, <span class="str">'AWS'</span>, <span class="str">'Azure'</span>, <span class="str">'Linux/Unix'</span>, <span class="str">'Power BI'</span>, <span class="str">'Jira'</span>],</li>
-        
-          <li>&nbsp;</li>
-        
-          <li><span class="cmnt">// strengths & availability</span></li>
-          <li>&nbsp;&nbsp;<span class="prop">technicalStrengths</span>: [<span class="str">'AI'</span>, <span class="str">'ML'</span>, <span class="str">'Deep Learning'</span>, <span class="str">'Data Visualization'</span>, <span class="str">'CI/CD Pipelines'</span>, <span class="str">'RESTful APIs'</span>, <span class="str">'Cloud Automation'</span>, <span class="str">'Quantum Optimization'</span>],</li>
-          
-          <li>&nbsp;</li> 
+            <div class="hero-hint">
+              <span class="kbd">Ctrl</span>+<span class="kbd">P</span> command palette
+              &nbsp;·&nbsp; <span class="kbd">Ctrl</span>+<span class="kbd">`</span> terminal
+              &nbsp;·&nbsp; try <code>sudo hire-me</code> in the terminal 👀
+            </div>
+          </section>
 
-          <li>&nbsp;&nbsp;<span class="prop">strengths</span>: [<span class="str">'Problem Solving'</span>, <span class="str">'Fast Learner'</span>, <span class="str">'Team Player'</span>, <span class="str">'Communication'</span>, <span class="str">'Leadership'</span>, <span class="str">'Adaptability'</span>, <span class="str">'Creativity'</span>, <span class="str">'Attention to Detail'</span>],</li>
-        
-          <li>&nbsp;</li> <!-- spacer before availability -->
-        
-          <li>&nbsp;&nbsp;<span class="prop">currentlyOpenTo</span>: [<span class="str" id="open-to-term">'Internships'</span>, <span class="str">'Software Developer / ML Roles'</span>],</li>
-        
-          <li>&nbsp;</li>
-        
-          <li>&nbsp;&nbsp;<span class="prop">hireable</span>: <span class="kw">function</span>() {</li>
-          <li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> (</li>
-          <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="typewrite"
-                data-terms="Problem Solving|Fast Learner|Team Player|Communication|Leadership|Adaptability|Creativity|Attention to Detail"
-                data-template="this.strengths.includes('{term}') && this.programmingLanguages.length >= 5"></span>
-          );</li>
-          <li>&nbsp;&nbsp;},</li>
-        
-          <li>&nbsp;</li>
-        
-          <li>};</li>
-        </ul>
-        
-        <!-- VS Code–style status bar -->
-        <div class="editor-status" aria-hidden="true">
-          <span>JavaScript</span>
-          <span>UTF-8</span>
-          <span>LF</span>
-          <span>Spaces: 2</span>
-          <span>skills.js</span>
-        </div>              
-      </div>
+          <!-- ============ about.md ============ -->
+          <section class="file-view" data-file="about.md">
+            <div class="page">
+              <p class="md-tag"># about.md</p>
+              <h2 class="page-title">Get to know <span class="grad-text">the human</span> behind the commits</h2>
+
+              <div class="stat-row">
+                <div class="stat-card">
+                  <span class="stat-icon">⚡</span>
+                  <h3>Experience</h3>
+                  <p>5+ years<br>software development</p>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-icon">🎓</span>
+                  <h3>Education</h3>
+                  <p>BCS + BBA<br>Wilfrid Laurier University</p>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-icon">🧠</span>
+                  <h3>Focus</h3>
+                  <p>Software · Machine Learning<br>Data Science</p>
+                </div>
+              </div>
+
+              <div class="md-quote">
+                <p>Hey, I’m Nakul! I’m a student at Wilfrid Laurier University with a strong passion for technology and innovation. Pursuing a dual degree in CS and BBA, I’m dedicated to learning cutting-edge technologies and applying them to real-world problems — and I’m actively looking for internships to expand my practical experience and contribute to exciting projects in the tech industry.</p>
+                <p>When I’m not buried in my textbooks, you’ll find me breaking a sweat on the basketball court or hitting the gym. I love traveling and chasing adrenaline-fueled adventures like cliff jumping — trust me, it’s definitely not for everyone! My perfect summer day? Kicking back at the beach with friends, listening to music, and diving into a competitive game of beach volleyball. I’m always eager to meet new people, exchange ideas, and grow my network. Let’s connect and see what we can create together!</p>
+              </div>
+
+              <p class="md-tag">## gallery <span class="cmnt-inline">// drag through some highlights</span></p>
+              <div class="gallery" id="gallery">
+                <button class="gal-arrow gal-prev" aria-label="Previous photo">‹</button>
+                <figure class="gal-frame">
+                  <img id="gal-img" src="./assets/about/about-1.JPG" alt="Cousins and friends — Garba" />
+                  <figcaption class="gal-caption">
+                    <span class="gal-path" id="gal-path">assets/about/about-1.JPG</span>
+                    <span id="gal-label">Cousins &amp; Friends — Garba</span>
+                  </figcaption>
+                </figure>
+                <button class="gal-arrow gal-next" aria-label="Next photo">›</button>
+              </div>
+              <div class="gal-dots" id="gal-dots"></div>
+            </div>
+          </section>
+
+          <!-- ============ experience.json ============ -->
+          <section class="file-view" data-file="experience.json">
+            <div class="page">
+              <p class="md-tag"># experience.json</p>
+              <h2 class="page-title">Career <span class="grad-text">changelog</span></h2>
+              <div class="timeline">
+
+                <article class="tl-entry">
+                  <div class="tl-node"></div>
+                  <div class="tl-card">
+                    <div class="tl-json">
+                      <span class="pn">{</span><br>
+                      &nbsp;&nbsp;<span class="prop">"company"</span>: <span class="str">"Multiverse Computing"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"role"</span>: <span class="str">"Machine Learning Engineer"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"type"</span>: <span class="str">"Internship"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"period"</span>: <span class="str">"Sep 2025 → Dec 2025"</span><br>
+                      <span class="pn">}</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="tl-entry">
+                  <div class="tl-node"></div>
+                  <div class="tl-card">
+                    <div class="tl-json">
+                      <span class="pn">{</span><br>
+                      &nbsp;&nbsp;<span class="prop">"company"</span>: <span class="str">"Definity Financial Corp"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"role"</span>: <span class="str">"Automation Engineer"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"type"</span>: <span class="str">"Internship"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"period"</span>: <span class="str">"Jan 2025 → Apr 2025"</span><br>
+                      <span class="pn">}</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="tl-entry">
+                  <div class="tl-node"></div>
+                  <div class="tl-card">
+                    <div class="tl-json">
+                      <span class="pn">{</span><br>
+                      &nbsp;&nbsp;<span class="prop">"company"</span>: <span class="str">"Stouffville Chamber of Commerce"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"role"</span>: <span class="str">"Data Analyst"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"type"</span>: <span class="str">"Internship"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"period"</span>: <span class="str">"May 2024 → Aug 2024"</span><br>
+                      <span class="pn">}</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="tl-entry">
+                  <div class="tl-node"></div>
+                  <div class="tl-card">
+                    <div class="tl-json">
+                      <span class="pn">{</span><br>
+                      &nbsp;&nbsp;<span class="prop">"company"</span>: <span class="str">"Riipen Networks Inc"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"role"</span>: <span class="str">"Software Developer"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"type"</span>: <span class="str">"Internship"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"period"</span>: <span class="str">"Jan 2023 → Apr 2023"</span><br>
+                      <span class="pn">}</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="tl-entry">
+                  <div class="tl-node"></div>
+                  <div class="tl-card">
+                    <div class="tl-json">
+                      <span class="pn">{</span><br>
+                      &nbsp;&nbsp;<span class="prop">"company"</span>: <span class="str">"Staples Inc"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"role"</span>: <span class="str">"Technology Sales Area Representative"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"type"</span>: <span class="str">"Part-Time"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"period"</span>: <span class="str">"Jul 2020 → Dec 2021"</span><br>
+                      <span class="pn">}</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="tl-entry">
+                  <div class="tl-node"></div>
+                  <div class="tl-card">
+                    <div class="tl-json">
+                      <span class="pn">{</span><br>
+                      &nbsp;&nbsp;<span class="prop">"company"</span>: <span class="str">"Stouffville Leisure Centre"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"role"</span>: <span class="str">"Deck Attendant / Assistant Instructor"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"type"</span>: <span class="str">"Part-Time"</span>,<br>
+                      &nbsp;&nbsp;<span class="prop">"period"</span>: <span class="str">"Sep 2019 → Jun 2020"</span><br>
+                      <span class="pn">}</span>
+                    </div>
+                  </div>
+                </article>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- ============ projects.js ============ -->
+          <section class="file-view" data-file="projects.js">
+            <div class="page">
+              <p class="md-tag"># projects.js</p>
+              <h2 class="page-title">Things I've <span class="grad-text">shipped</span></h2>
+              <div class="proj-grid">
+
+                <article class="proj-card">
+                  <div class="proj-chrome">
+                    <span class="dot d-red"></span><span class="dot d-yellow"></span><span class="dot d-green"></span>
+                    <span class="proj-file">flux.py</span>
+                  </div>
+                  <div class="proj-img-wrap"><img src="./assets/project/project-1.jpg" alt="Flux — a stock predictor" loading="lazy"></div>
+                  <div class="proj-body">
+                    <h3>Flux — Stock Predictor</h3>
+                    <p class="proj-desc"><span class="cmnt-inline">// ML-driven price forecasting for equities</span></p>
+                    <div class="tag-row"><span class="tag">Python</span><span class="tag">TensorFlow</span><span class="tag">Pandas</span></div>
+                    <div class="proj-btns">
+                      <a class="btn btn-mini" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub</a>
+                      <a class="btn btn-mini btn-ghost" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo</a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="proj-card">
+                  <div class="proj-chrome">
+                    <span class="dot d-red"></span><span class="dot d-yellow"></span><span class="dot d-green"></span>
+                    <span class="proj-file">echo.jsx</span>
+                  </div>
+                  <div class="proj-img-wrap"><img src="./assets/project/project-2.png" alt="Echo — Spotify stats app" loading="lazy"></div>
+                  <div class="proj-body">
+                    <h3>Echo — Spotify Stats</h3>
+                    <p class="proj-desc"><span class="cmnt-inline">// your listening habits, visualized</span></p>
+                    <div class="tag-row"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">Spotify API</span></div>
+                    <div class="proj-btns">
+                      <a class="btn btn-mini" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub</a>
+                      <a class="btn btn-mini btn-ghost" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo</a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="proj-card">
+                  <div class="proj-chrome">
+                    <span class="dot d-red"></span><span class="dot d-yellow"></span><span class="dot d-green"></span>
+                    <span class="proj-file">swish.py</span>
+                  </div>
+                  <div class="proj-img-wrap"><img src="./assets/project/project-3.jpg" alt="Swish — NBA game predictor" loading="lazy"></div>
+                  <div class="proj-body">
+                    <h3>Swish — NBA Predictor</h3>
+                    <p class="proj-desc"><span class="cmnt-inline">// calling game outcomes with ML</span></p>
+                    <div class="tag-row"><span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">NBA API</span></div>
+                    <div class="proj-btns">
+                      <a class="btn btn-mini" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub</a>
+                      <a class="btn btn-mini btn-ghost" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo</a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="proj-card">
+                  <div class="proj-chrome">
+                    <span class="dot d-red"></span><span class="dot d-yellow"></span><span class="dot d-green"></span>
+                    <span class="proj-file">evo.js</span>
+                  </div>
+                  <div class="proj-img-wrap"><img src="./assets/project/project-4.jpg" alt="Evo — genetic algorithm visualizer" loading="lazy"></div>
+                  <div class="proj-body">
+                    <h3>Evo — Genetic Algorithm Viz</h3>
+                    <p class="proj-desc"><span class="cmnt-inline">// watching evolution solve problems</span></p>
+                    <div class="tag-row"><span class="tag">JavaScript</span><span class="tag">Canvas</span><span class="tag">Algorithms</span></div>
+                    <div class="proj-btns">
+                      <a class="btn btn-mini" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub</a>
+                      <a class="btn btn-mini btn-ghost" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo</a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="proj-card">
+                  <div class="proj-chrome">
+                    <span class="dot d-red"></span><span class="dot d-yellow"></span><span class="dot d-green"></span>
+                    <span class="proj-file">kingme.java</span>
+                  </div>
+                  <div class="proj-img-wrap"><img src="./assets/project/project-5.jpg" alt="King Me — checkers edition" loading="lazy"></div>
+                  <div class="proj-body">
+                    <h3>King Me — Checkers</h3>
+                    <p class="proj-desc"><span class="cmnt-inline">// classic checkers, rebuilt from scratch</span></p>
+                    <div class="tag-row"><span class="tag">Java</span><span class="tag">OOP</span><span class="tag">Game Logic</span></div>
+                    <div class="proj-btns">
+                      <a class="btn btn-mini" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub</a>
+                      <a class="btn btn-mini btn-ghost" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo</a>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="proj-card">
+                  <div class="proj-chrome">
+                    <span class="dot d-red"></span><span class="dot d-yellow"></span><span class="dot d-green"></span>
+                    <span class="proj-file">click.js</span>
+                  </div>
+                  <div class="proj-img-wrap"><img src="./assets/project/project-6.gif" alt="Click — typing speed game" loading="lazy"></div>
+                  <div class="proj-body">
+                    <h3>Click — Typing Speed Game</h3>
+                    <p class="proj-desc"><span class="cmnt-inline">// how fast are your WPM, really?</span></p>
+                    <div class="tag-row"><span class="tag">JavaScript</span><span class="tag">HTML/CSS</span><span class="tag">Games</span></div>
+                    <div class="proj-btns">
+                      <a class="btn btn-mini" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub</a>
+                      <a class="btn btn-mini btn-ghost" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo</a>
+                    </div>
+                  </div>
+                </article>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- ============ skills.js ============ -->
+          <section class="file-view" data-file="skills.js">
+            <div class="page">
+              <p class="md-tag"># skills.js</p>
+              <h2 class="page-title">The <span class="grad-text">stack</span></h2>
+
+              <div class="code-block">
+                <div class="code-line"><span class="cmnt">// developer blueprint — hover a chip to "run" it</span></div>
+                <div class="code-line"><span class="kw">const</span> <span class="vr">nakul</span> <span class="pn">=</span> <span class="pn">{</span></div>
+                <div class="code-line indent"><span class="prop">languages</span><span class="pn">:</span> <span class="pn">[</span></div>
+                <div class="code-line indent2 chip-line">
+                  <span class="chip">Python</span><span class="chip">Java</span><span class="chip">C/C++</span><span class="chip">JavaScript</span><span class="chip">SQL</span><span class="chip">VBA</span><span class="chip">HTML/CSS</span>
+                </div>
+                <div class="code-line indent"><span class="pn">],</span></div>
+                <div class="code-line indent"><span class="prop">frameworks</span><span class="pn">:</span> <span class="pn">[</span></div>
+                <div class="code-line indent2 chip-line">
+                  <span class="chip">React</span><span class="chip">Node.js</span><span class="chip">TensorFlow</span><span class="chip">scikit-learn</span><span class="chip">Pandas</span>
+                </div>
+                <div class="code-line indent"><span class="pn">],</span></div>
+                <div class="code-line indent"><span class="prop">tools</span><span class="pn">:</span> <span class="pn">[</span></div>
+                <div class="code-line indent2 chip-line">
+                  <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Docker</span><span class="chip">AWS</span><span class="chip">Azure</span><span class="chip">Linux/Unix</span><span class="chip">Power BI</span><span class="chip">Jira</span>
+                </div>
+                <div class="code-line indent"><span class="pn">],</span></div>
+                <div class="code-line indent"><span class="prop">strengths</span><span class="pn">:</span> <span class="pn">[</span></div>
+                <div class="code-line indent2 chip-line">
+                  <span class="chip chip-soft">AI / ML</span><span class="chip chip-soft">Deep Learning</span><span class="chip chip-soft">Data Visualization</span><span class="chip chip-soft">CI/CD</span><span class="chip chip-soft">RESTful APIs</span><span class="chip chip-soft">Cloud Automation</span><span class="chip chip-soft">Quantum Optimization</span>
+                </div>
+                <div class="code-line indent"><span class="pn">],</span></div>
+                <div class="code-line indent"><span class="prop">hireable</span><span class="pn">:</span> <span class="pn">()</span> <span class="kw">=&gt;</span> <span class="bool">true</span><span class="pn">,</span> <span class="cmnt">// always returns true ;)</span></div>
+                <div class="code-line"><span class="pn">};</span></div>
+                <div class="code-line">&nbsp;</div>
+                <div class="code-line"><span class="cmnt">// output</span></div>
+                <div class="code-line"><span class="vr">console</span><span class="pn">.</span><span class="fn">log</span><span class="pn">(</span><span class="str" id="skill-echo">'hover a skill above…'</span><span class="pn">);</span></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============ contact.sh ============ -->
+          <section class="file-view" data-file="contact.sh">
+            <div class="page">
+              <p class="md-tag"># contact.sh</p>
+              <h2 class="page-title">Let's <span class="grad-text">build something</span> together</h2>
+
+              <div class="shell-card">
+                <div class="shell-head">
+                  <span class="dot d-red"></span><span class="dot d-yellow"></span><span class="dot d-green"></span>
+                  <span class="proj-file">contact.sh — bash</span>
+                  <button class="btn btn-mini run-btn" id="run-contact">▶ Run</button>
+                </div>
+                <div class="shell-body" id="shell-body">
+                  <div class="code-line"><span class="cmnt">#!/bin/bash</span></div>
+                  <div class="code-line"><span class="cmnt"># reach out — I actually reply</span></div>
+                  <div class="code-line">&nbsp;</div>
+                  <div class="code-line"><span class="vr">EMAIL</span><span class="pn">=</span><span class="str">"nakul0306@gmail.com"</span></div>
+                  <div class="code-line"><span class="vr">LINKEDIN</span><span class="pn">=</span><span class="str">"linkedin.com/in/nakulpatel0306"</span></div>
+                  <div class="code-line"><span class="vr">GITHUB</span><span class="pn">=</span><span class="str">"github.com/nakulpatel0306"</span></div>
+                  <div class="code-line">&nbsp;</div>
+                  <div class="code-line"><span class="fn">echo</span> <span class="str">"status: open to internships &amp; new-grad roles"</span></div>
+                  <div class="code-line"><span class="fn">open</span> <span class="str">"mailto:$EMAIL"</span></div>
+                  <div class="shell-output" id="shell-output"></div>
+                </div>
+              </div>
+
+              <div class="contact-links">
+                <a class="contact-tile" href="mailto:nakul0306@gmail.com">
+                  <span class="ct-icon">✉</span>
+                  <span class="ct-label">email</span>
+                  <span class="ct-value">nakul0306@gmail.com</span>
+                </a>
+                <a class="contact-tile" href="https://www.linkedin.com/in/nakulpatel0306/" target="_blank" rel="noopener">
+                  <span class="ct-icon">in</span>
+                  <span class="ct-label">linkedin</span>
+                  <span class="ct-value">/in/nakulpatel0306</span>
+                </a>
+                <a class="contact-tile" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">
+                  <span class="ct-icon">&lt;/&gt;</span>
+                  <span class="ct-label">github</span>
+                  <span class="ct-value">@nakulpatel0306</span>
+                </a>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- ============ TERMINAL ============ -->
+        <div class="terminal collapsed" id="terminal">
+          <div class="term-head" id="term-head">
+            <span class="term-tab active">TERMINAL</span>
+            <span class="term-tab" title="0 problems — clean codebase 😉">PROBLEMS <span class="term-count">0</span></span>
+            <span class="term-tab">OUTPUT</span>
+            <button class="term-toggle" id="term-toggle" aria-label="Toggle terminal">▴</button>
+          </div>
+          <div class="term-body" id="term-body">
+            <div class="term-scroll" id="term-scroll">
+              <div class="term-line term-dim">Welcome to nakul-sh 2.0 — type <span class="term-hi">help</span> to get started.</div>
+            </div>
+            <div class="term-input-row">
+              <span class="term-prompt">nakul@portfolio<span class="term-dim">:</span><span class="term-path">~</span><span class="term-dim">$</span></span>
+              <input type="text" id="term-input" autocomplete="off" spellcheck="false" aria-label="Terminal input" />
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
-  </section>
-  <!-- contact section with email and LinkedIn profile link -->
-  <section id="contact">
-    <p class="section__text__p1">Get In Touch</p>
-    <h1 class="title">Contact Me</h1>
-    <div class="contact-info-upper-container">
-      <div class="contact-info-container">
-        <img src="./assets/email.png" alt="Email Icon" class="icon contact-icon email-icon" />
-        <p><a href="mailto:nakul0306@gmail.com">nakul0306@gmail.com</a></p>
+
+    <!-- ===================== STATUS BAR ===================== -->
+    <footer class="statusbar">
+      <div class="sb-left">
+        <span class="sb-item sb-branch">⎇ main</span>
+        <span class="sb-item">✓ 0 errors</span>
+        <span class="sb-item sb-hide-sm">⚠ 0 warnings</span>
       </div>
-      <div class="contact-info-container">
-        <img src="./assets/linkedin.png" alt="LinkedIn Icon" class="icon contact-icon" />
-        <p><a href="https://www.linkedin.com/in/nakulpatel0306/">linkedin.com/in/nakulpatel0306</a></p>
+      <div class="sb-right">
+        <span class="sb-item sb-hide-sm">hireable: <span class="sb-true">true</span></span>
+        <span class="sb-item" id="sb-pos">Ln 1, Col 1</span>
+        <span class="sb-item sb-hide-sm">UTF-8</span>
+        <span class="sb-item" id="sb-lang">Markdown</span>
+        <span class="sb-item sb-theme">◐ Purple Dark</span>
       </div>
+    </footer>
+  </div>
+
+  <!-- ===================== COMMAND PALETTE ===================== -->
+  <div class="palette-overlay" id="palette-overlay" hidden>
+    <div class="palette" role="dialog" aria-label="Command palette">
+      <input type="text" id="palette-input" placeholder="Type a file name… (↑↓ to navigate, ↵ to open)" autocomplete="off" spellcheck="false" />
+      <ul class="palette-list" id="palette-list"></ul>
     </div>
-  </section>
-  <!-- footer section with navigation links -->
-  <footer>
-    <nav>
-      <div class="nav-links-container">
-        <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-    </nav>
-  </footer>
-  <!-- script for interactive elements -->
+  </div>
+
   <script src="script.js"></script>
 </body>
+
+</html>

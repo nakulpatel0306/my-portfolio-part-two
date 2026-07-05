@@ -1,567 +1,513 @@
-/**
- * toggles the mobile menu open/closed state
- * adds or removes the 'open' class to menu and hamburger icon
- **/
+/* ============================================================
+   Nakul Patel — portfolio.ide
+   Tabs · terminal · command palette · easter eggs
+   ============================================================ */
 
-function toggleMenu() {
-    const menu = document.querySelector(".menu-links");
-    const icon = document.querySelector(".hamburger-icon");
-    
-    menu.classList.toggle("open");
-    icon.classList.toggle("open");
+'use strict';
+
+/* ---------- file registry ---------- */
+const FILES = {
+  'README.md':       { badge: 'fb-md',   badgeText: 'M↓',  lang: 'Markdown',   hint: 'home' },
+  'about.md':        { badge: 'fb-md',   badgeText: 'M↓',  lang: 'Markdown',   hint: 'about me' },
+  'experience.json': { badge: 'fb-json', badgeText: '{ }', lang: 'JSON',       hint: 'work history' },
+  'projects.js':     { badge: 'fb-js',   badgeText: 'JS',  lang: 'JavaScript', hint: 'my builds' },
+  'skills.js':       { badge: 'fb-js',   badgeText: 'JS',  lang: 'JavaScript', hint: 'the stack' },
+  'contact.sh':      { badge: 'fb-sh',   badgeText: '$_',  lang: 'Shell',      hint: 'get in touch' },
+};
+
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+const tabbar = $('#tabbar');
+const breadcrumbs = $('#breadcrumbs');
+const editorArea = $('#editor-area');
+
+let openTabs = [];
+let activeFile = null;
+
+/* ============================================================
+   TABS & FILE VIEWS
+   ============================================================ */
+function renderTabs() {
+  tabbar.innerHTML = '';
+  openTabs.forEach((name) => {
+    const tab = document.createElement('button');
+    tab.className = 'tab' + (name === activeFile ? ' active' : '');
+    tab.setAttribute('role', 'tab');
+    tab.innerHTML =
+      `<span class="file-badge ${FILES[name].badge}">${FILES[name].badgeText}</span>` +
+      `<span>${name}</span><span class="tab-close" title="Close">×</span>`;
+    tab.addEventListener('click', (e) => {
+      if (e.target.classList.contains('tab-close')) {
+        closeFile(name);
+      } else {
+        activateFile(name);
+      }
+    });
+    tabbar.appendChild(tab);
+  });
 }
 
-/* class to create typewriter effect */
+function activateFile(name) {
+  if (!FILES[name]) return;
+  activeFile = name;
+  $$('.file-view').forEach((v) => v.classList.toggle('active', v.dataset.file === name));
+  $$('.tree-item').forEach((t) => t.classList.toggle('active', t.dataset.open === name));
+  breadcrumbs.innerHTML = `nakul-patel <span class="crumb-sep">›</span> ${name}`;
+  $('#sb-lang').textContent = FILES[name].lang;
+  $('#sb-pos').textContent = 'Ln 1, Col 1';
+  editorArea.scrollTop = 0;
+  renderTabs();
+}
 
-class TxtType {
-    constructor(el, toRotate, period) {
-      this.toRotate = toRotate;
-      this.el = el;
-      this.loopNum = 0;
-      this.period = parseInt(period, 10) || 2000;
-      this.txt = '';
-      this.isDeleting = false;
-      this.tick();
-    }
-  
-    tick() {
-      const i = this.loopNum % this.toRotate.length;
-      const fullTxt = this.toRotate[i];
-  
-      this.txt = this.isDeleting 
-        ? fullTxt.substring(0, this.txt.length - 1)
-        : fullTxt.substring(0, this.txt.length + 1);
-  
-      this.el.innerHTML = `<span class="wrap">${this.txt}</span>`;
-      let delta = this.isDeleting ? 100 : 200 - Math.random() * 100;
-  
-      if (!this.isDeleting && this.txt === fullTxt) {
-        delta = this.period;
-        this.isDeleting = true;
-      } else if (this.isDeleting && this.txt === '') {
-        this.isDeleting = false;
-        this.loopNum++;
-        delta = 500;
-      }
-  
-      setTimeout(() => this.tick(), delta);
-    }
-}        
-  
-/* initialize typewriter effect on page load */
+function openFile(name) {
+  if (!FILES[name]) return;
+  if (!openTabs.includes(name)) openTabs.push(name);
+  activateFile(name);
+  closeSidebarOnMobile();
+}
 
-window.onload = function () {
-    document.querySelectorAll('.typewrite').forEach((el) => {
-      const toRotate = el.getAttribute('data-type');
-      const period = el.getAttribute('data-period');
-      if (toRotate) new TxtType(el, JSON.parse(toRotate), period);
-    });
-  
-    const css = document.createElement("style");
-    css.type = "text/css";
-    css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
-    document.body.appendChild(css);
-  
-    handleResize();/* Mobile menu toggle */
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    if (hamburger && mobileMenu) {
-      hamburger.addEventListener('click', () => {
-        const open = hamburger.getAttribute('aria-expanded') === 'true';
-        hamburger.setAttribute('aria-expanded', String(!open));
-        mobileMenu.classList.toggle('open');
-      });
-    
-      // Close on link click
-      mobileMenu.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => {
-          hamburger.setAttribute('aria-expanded', 'false');
-          mobileMenu.classList.remove('open');
-        });
-      });
-    }
-    
-    /* Smooth scroll for buttons/links with data-scroll */
-    document.querySelectorAll('[data-scroll]').forEach(btn => {
-      btn.addEventListener('click', e => {
-        const target = document.querySelector(btn.getAttribute('data-scroll'));
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-    
-    /* Open CV */
-    document.querySelectorAll('[data-action="open-cv"]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        window.open('./assets/nakul-patel-software-resume.pdf', '_blank', 'noopener');
-      });
-    });
-    
-    /* Typewriter effect */
-    class TypeWriter {
-      constructor(el, toRotate, period) {
-        this.toRotate = toRotate;
-        this.el = el;
-        this.loopNum = 0;
-        this.period = parseInt(period, 10) || 2000;
-        this.txt = '';
-        this.isDeleting = false;
-        this.tick();
+function closeFile(name) {
+  const idx = openTabs.indexOf(name);
+  if (idx === -1) return;
+  openTabs.splice(idx, 1);
+  if (openTabs.length === 0) {
+    // never leave the editor empty — README is the fallback
+    openTabs = ['README.md'];
+    activateFile('README.md');
+    return;
+  }
+  if (activeFile === name) {
+    activateFile(openTabs[Math.max(0, idx - 1)]);
+  } else {
+    renderTabs();
+  }
+}
+
+/* wire explorer + any [data-open-file] buttons */
+$$('.tree-item[data-open]').forEach((item) =>
+  item.addEventListener('click', () => openFile(item.dataset.open))
+);
+$$('.tree-item[data-external]').forEach((item) =>
+  item.addEventListener('click', () => window.open(item.dataset.external, '_blank'))
+);
+$$('[data-open-file]').forEach((btn) =>
+  btn.addEventListener('click', () => openFile(btn.dataset.openFile))
+);
+
+/* fake cursor position that wanders as you scroll */
+editorArea.addEventListener('scroll', () => {
+  const ln = Math.max(1, Math.round(editorArea.scrollTop / 28) + 1);
+  $('#sb-pos').textContent = `Ln ${ln}, Col ${1 + (ln * 7) % 40}`;
+});
+
+/* ============================================================
+   TYPEWRITER
+   ============================================================ */
+const ROLES = ['Software Developer', 'ML Engineer', 'Data Scientist', 'Creative Technologist'];
+const twEl = $('#typewriter');
+let twRole = 0, twChar = 0, twDeleting = false;
+
+function typeLoop() {
+  const word = ROLES[twRole];
+  twChar += twDeleting ? -1 : 1;
+  twEl.textContent = word.slice(0, twChar);
+  let delay = twDeleting ? 40 : 85;
+  if (!twDeleting && twChar === word.length) {
+    delay = 1800;
+    twDeleting = true;
+  } else if (twDeleting && twChar === 0) {
+    twDeleting = false;
+    twRole = (twRole + 1) % ROLES.length;
+    delay = 350;
+  }
+  setTimeout(typeLoop, delay);
+}
+typeLoop();
+
+/* ============================================================
+   SIDEBAR / HAMBURGER / ACTIVITY BAR
+   ============================================================ */
+const sidebar = $('#sidebar');
+const isMobile = () => window.matchMedia('(max-width: 840px)').matches;
+
+function toggleSidebar() {
+  if (isMobile()) {
+    sidebar.classList.toggle('open');
+  } else {
+    sidebar.classList.toggle('hidden');
+  }
+}
+function closeSidebarOnMobile() {
+  if (isMobile()) sidebar.classList.remove('open');
+}
+
+$('#hamburger').addEventListener('click', toggleSidebar);
+
+/* menubar + activity bar commands */
+const COMMANDS = {
+  sidebar: toggleSidebar,
+  palette: () => openPalette(),
+  terminal: () => toggleTerminal(),
+  'open-experience': () => openFile('experience.json'),
+  'open-contact': () => openFile('contact.sh'),
+  'run-contact': () => { openFile('contact.sh'); runContactScript(); },
+  help: () => { toggleTerminal(true); termEcho('help'); runCommand('help'); },
+  spin: (btn) => {
+    btn.classList.remove('spinning');
+    void btn.offsetWidth; // restart the animation
+    btn.classList.add('spinning');
+    termPrint('settings: already purple. no changes needed. 💜', 'term-dim');
+  },
+};
+$$('[data-cmd]').forEach((btn) =>
+  btn.addEventListener('click', () => COMMANDS[btn.dataset.cmd]?.(btn))
+);
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+const GALLERY = [
+  { src: './assets/about/about-1.JPG',  label: 'Cousins & Friends — Garba' },
+  { src: './assets/about/about-2.JPG',  label: 'Waterloo Friends — Blue Mountain' },
+  { src: './assets/about/about-3.JPG',  label: 'High School — Alex & Ryan' },
+  { src: './assets/about/about-12.JPG', label: 'Waterloo Friends — Intramural Champions' },
+  { src: './assets/about/about-13.JPG', label: 'Cousins — Escape Room' },
+  { src: './assets/about/about-14.JPG', label: 'Brothers — Punta Cana' },
+  { src: './assets/about/about-15.JPG', label: 'Me & Kajan — 21 Columbia Street' },
+];
+let galIdx = 0;
+const galDots = $('#gal-dots');
+
+GALLERY.forEach((_, i) => {
+  const dot = document.createElement('button');
+  dot.className = 'gal-dot' + (i === 0 ? ' active' : '');
+  dot.setAttribute('aria-label', `Photo ${i + 1}`);
+  dot.addEventListener('click', () => showSlide(i));
+  galDots.appendChild(dot);
+});
+
+function showSlide(i) {
+  galIdx = (i + GALLERY.length) % GALLERY.length;
+  const slide = GALLERY[galIdx];
+  $('#gal-img').src = slide.src;
+  $('#gal-img').alt = slide.label;
+  $('#gal-label').innerHTML = slide.label.replace('&', '&amp;');
+  $('#gal-path').textContent = slide.src.replace('./', '');
+  $$('.gal-dot').forEach((d, j) => d.classList.toggle('active', j === galIdx));
+}
+$('.gal-prev').addEventListener('click', () => showSlide(galIdx - 1));
+$('.gal-next').addEventListener('click', () => showSlide(galIdx + 1));
+
+/* swipe support */
+let touchX = null;
+$('#gallery').addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+$('#gallery').addEventListener('touchend', (e) => {
+  if (touchX === null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 40) showSlide(galIdx + (dx < 0 ? 1 : -1));
+  touchX = null;
+}, { passive: true });
+
+/* ============================================================
+   SKILLS — hover echo
+   ============================================================ */
+const skillEcho = $('#skill-echo');
+$$('.chip').forEach((chip) => {
+  chip.addEventListener('mouseenter', () => {
+    skillEcho.textContent = `'${chip.textContent}: loaded ✓'`;
+  });
+});
+
+/* ============================================================
+   CONTACT.SH — run animation
+   ============================================================ */
+let contactRunning = false;
+function runContactScript() {
+  if (contactRunning) return;
+  contactRunning = true;
+  const out = $('#shell-output');
+  out.innerHTML = '';
+  const lines = [
+    { text: '$ bash contact.sh', cls: '' },
+    { text: 'status: open to internships & new-grad roles', cls: 'out-ok' },
+    { text: 'opening mail client…', cls: '' },
+  ];
+  lines.forEach((line, i) => {
+    setTimeout(() => {
+      const div = document.createElement('div');
+      div.className = 'out-line ' + line.cls;
+      div.textContent = line.text;
+      out.appendChild(div);
+      if (i === lines.length - 1) {
+        setTimeout(() => {
+          window.location.href = 'mailto:nakul0306@gmail.com';
+          contactRunning = false;
+        }, 500);
       }
-      tick() {
-        const i = this.loopNum % this.toRotate.length;
-        const fullTxt = this.toRotate[i];
-    
-        this.txt = this.isDeleting
-          ? fullTxt.substring(0, this.txt.length - 1)
-          : fullTxt.substring(0, this.txt.length + 1);
-    
-        this.el.textContent = this.txt;
-    
-        let delta = 120 - Math.random() * 60;
-        if (this.isDeleting) delta /= 2;
-    
-        if (!this.isDeleting && this.txt === fullTxt) {
-          delta = this.period;
-          this.isDeleting = true;
-        } else if (this.isDeleting && this.txt === '') {
-          this.isDeleting = false;
-          this.loopNum++;
-          delta = 300;
-        }
-        setTimeout(() => this.tick(), delta);
-      }
-    }
-    
-    window.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.typewrite').forEach(el => {
-        const toRotate = el.getAttribute('data-type');
-        const period = el.getAttribute('data-period');
-        if (toRotate) new TypeWriter(el, JSON.parse(toRotate), period);
-      });
-    });
-    
-    /* Active nav highlight */
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a, #mobile-menu a');
-    
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id');
-            navLinks.forEach(link => {
-              link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
-            });
-          }
-        });
-      },
-      { root: null, rootMargin: '0px 0px -60% 0px', threshold: 0.1 }
+    }, 450 * (i + 1));
+  });
+}
+$('#run-contact').addEventListener('click', runContactScript);
+
+/* ============================================================
+   TERMINAL
+   ============================================================ */
+const terminal = $('#terminal');
+const termScroll = $('#term-scroll');
+const termInput = $('#term-input');
+const termHistory = [];
+let histIdx = -1;
+
+function toggleTerminal(forceOpen) {
+  const open = forceOpen === true || terminal.classList.contains('collapsed');
+  terminal.classList.toggle('collapsed', !open);
+  if (open) setTimeout(() => termInput.focus(), 260);
+}
+
+$('#term-head').addEventListener('click', (e) => {
+  if (e.target.id === 'term-toggle' || e.target.closest('#term-toggle')) return;
+  toggleTerminal(true);
+});
+$('#term-toggle').addEventListener('click', (e) => {
+  e.stopPropagation();
+  toggleTerminal();
+});
+$('#term-body')?.addEventListener('click', (e) => {
+  if (window.getSelection().toString() === '') termInput.focus();
+});
+
+function termPrint(text, cls = '') {
+  toggleTerminal(true);
+  const div = document.createElement('div');
+  div.className = 'term-line ' + cls;
+  div.textContent = text;
+  termScroll.appendChild(div);
+  termScroll.scrollTop = termScroll.scrollHeight;
+}
+function termPrintHTML(html, cls = '') {
+  const div = document.createElement('div');
+  div.className = 'term-line ' + cls;
+  div.innerHTML = html;
+  termScroll.appendChild(div);
+  termScroll.scrollTop = termScroll.scrollHeight;
+}
+function termEcho(cmd) {
+  termPrintHTML(
+    `<span class="term-hi">nakul@portfolio</span><span class="term-dim">:~$</span> ${escapeHTML(cmd)}`
+  );
+}
+function escapeHTML(s) {
+  return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+const NEOFETCH = String.raw`
+   ███╗   ██╗    nakul@portfolio
+   ████╗  ██║    ---------------
+   ██╔██╗ ██║    OS:       PortfolioOS (Purple Dark)
+   ██║╚██╗██║    Host:     Wilfrid Laurier University
+   ██║ ╚████║    Kernel:   CS + BBA dual degree
+   ╚═╝  ╚═══╝    Uptime:   5+ years coding
+                 Shell:    nakul-sh 2.0
+                 Theme:    purple on dark grey
+                 Status:   hireable=true`;
+
+const TERM_COMMANDS = {
+  help() {
+    termPrintHTML(
+      [
+        'available commands:',
+        '  <span class="term-hi">ls</span>            list portfolio files',
+        '  <span class="term-hi">open &lt;file&gt;</span>   open a file (e.g. open projects.js)',
+        '  <span class="term-hi">whoami</span>        quick intro',
+        '  <span class="term-hi">neofetch</span>      system info, portfolio edition',
+        '  <span class="term-hi">contact</span>       ways to reach me',
+        '  <span class="term-hi">resume</span>        open resume.pdf',
+        '  <span class="term-hi">clear</span>         clear the terminal',
+        '  <span class="term-hi">sudo hire-me</span>  ...try it',
+      ].join('\n'),
+      'term-dim'
     );
-    sections.forEach(sec => observer.observe(sec));
-    };
-
-    // ==== Techy particles: layered constellation with cursor halo & pulse ====
-// Listens on WINDOW so it works even when the canvas is behind other elements.
-(() => {
-  const canvas = document.getElementById("particles");
-  if (!canvas) return;
-
-  const ctx = canvas.getContext("2d");
-  const DPR = Math.min(window.devicePixelRatio || 1, 2); // crisp but not too heavy
-
-  let W, H, particles = [];
-  const CONFIG = {
-    baseCount: 60,           // starting count at 1920x1080 (scales with area)
-    maxRadius: 2,            // dot radius base
-    speed: 0.30,             // drift speed
-    linkDist: 110,           // default link distance (overridden per layer)
-    dotAlpha: 0.50,          // dots opacity
-    lineAlpha: 0.40,         // lines opacity
-    lineWidth: 0.7,          // line thickness
-    layers: [                // two-depth parallax
-      { scale: 0.55, speed: 0.14, linkDist: 90,  dotAlpha: 0.28 },
-      { scale: 1.00, speed: 0.22, linkDist: 130, dotAlpha: 0.35 }
-    ]
-  };
-
-  // Respect reduced motion (if you want to force on, set: let running = true)
-  const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-  let running = !mq.matches;
-
-  // Cursor halo — listen on WINDOW so it works behind content
-  const mouse = { x: -9999, y: -9999, active: false };
-  window.addEventListener("mousemove", (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-    mouse.active = true;
-  }, { passive: true });
-  window.addEventListener("mouseout", () => { mouse.active = false; }, { passive: true });
-  // Touch support
-  window.addEventListener("touchmove", (e) => {
-    const t = e.touches && e.touches[0];
-    if (t) {
-      mouse.x = t.clientX;
-      mouse.y = t.clientY;
-      mouse.active = true;
+  },
+  ls() {
+    termPrintHTML(
+      Object.keys(FILES).map((f) => `<span class="term-hi">${f}</span>`).join('  ') +
+      '  <span class="term-dim">resume.pdf</span>'
+    );
+  },
+  pwd() { termPrint('/home/nakul/portfolio'); },
+  whoami() {
+    termPrint('Nakul Patel — CS + BBA @ Wilfrid Laurier University.');
+    termPrint('Software developer, ML engineer & data scientist. Open to internships.', 'term-dim');
+  },
+  neofetch() { termPrint(NEOFETCH, 'term-ascii'); },
+  contact() {
+    termPrintHTML('email:    <a href="mailto:nakul0306@gmail.com">nakul0306@gmail.com</a>');
+    termPrintHTML('linkedin: <a href="https://www.linkedin.com/in/nakulpatel0306/" target="_blank" rel="noopener">linkedin.com/in/nakulpatel0306</a>');
+    termPrintHTML('github:   <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">github.com/nakulpatel0306</a>');
+  },
+  resume() {
+    termPrint('opening resume.pdf…', 'term-dim');
+    window.open('./assets/nakul-patel-software-resume.pdf', '_blank');
+  },
+  clear() { termScroll.innerHTML = ''; },
+  date() { termPrint(new Date().toString()); },
+  echo(args) { termPrint(args.join(' ')); },
+  coffee() { termPrint('☕ brewing… done. productivity +20%.', 'term-ok'); },
+  theme() { termPrint("current theme: 'Purple Dark' — it's not a phase, mom.", 'term-dim'); },
+  exit() { termPrint('nice try. this terminal is load-bearing.', 'term-err'); },
+  open(args) {
+    const file = args[0];
+    if (!file) return termPrint('usage: open <file>', 'term-err');
+    if (file === 'resume.pdf') return TERM_COMMANDS.resume();
+    if (FILES[file]) {
+      openFile(file);
+      termPrint(`opened ${file} ✓`, 'term-ok');
+    } else {
+      termPrint(`open: ${file}: no such file`, 'term-err');
     }
-  }, { passive: true });
-  window.addEventListener("touchend", () => { mouse.active = false; }, { passive: true });
-
-  function sizeCanvas() {
-    W = canvas.clientWidth = window.innerWidth;
-    H = canvas.clientHeight = window.innerHeight;
-    canvas.width  = Math.floor(W * DPR);
-    canvas.height = Math.floor(H * DPR);
-    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-  }
-
-  function scaleByArea(countAt1080p) {
-    const baseArea = 1920 * 1080;
-    const area = W * H;
-    return Math.round(countAt1080p * (area / baseArea));
-  }
-
-  function initParticles() {
-    const total = Math.max(30, scaleByArea(CONFIG.baseCount));
-    particles = [];
-    CONFIG.layers.forEach((L, idx) => {
-      const count = Math.round(total * (idx === 0 ? 0.55 : 0.45));
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * W,
-          y: Math.random() * H,
-          r: Math.random() * (CONFIG.maxRadius - 0.8) + 0.8,
-          vx: (Math.random() - 0.5) * L.speed,
-          vy: (Math.random() - 0.5) * L.speed,
-          layer: idx
-        });
-      }
-    });
-  }
-
-  function wrap(p) {
-    if (p.x < -20) p.x = W + 20;
-    if (p.x > W + 20) p.x = -20;
-    if (p.y < -20) p.y = H + 20;
-    if (p.y > H + 20) p.y = -20;
-  }
-
-  // Network pulse (soft shimmer)
-  let pulseT = 0, pulsing = false;
-  const PULSE_LEN = 2; // seconds
-  setInterval(() => { pulsing = true; pulseT = 0; }, 6000);
-
-  function draw() {
-    if (!running) return;
-
-    ctx.clearRect(0, 0, W, H);
-
-    // Pulse timing
-    if (pulsing) {
-      pulseT += 1 / 60; // approx
-      if (pulseT >= PULSE_LEN) { pulsing = false; pulseT = 0; }
+  },
+  cat(args) { TERM_COMMANDS.open(args); },
+  sudo(args) {
+    if (args.join(' ').replace(/\s+/g, ' ').trim() === 'hire-me') {
+      termPrint('[sudo] permission granted — excellent decision.', 'term-ok');
+      termPrint('deploying confetti…', 'term-dim');
+      confettiBurst();
+      setTimeout(() => openFile('contact.sh'), 900);
+    } else {
+      termPrint('nakul is not in the sudoers file. this incident will be reported. (to no one)', 'term-err');
     }
-    const pulseBoost = pulsing ? (1 + 0.35 * Math.sin(Math.PI * pulseT)) : 1;
+  },
+};
 
-    // Draw links
-    const CURSOR_R = 140; // cursor influence
-    ctx.lineWidth = CONFIG.lineWidth;
+function runCommand(raw) {
+  const input = raw.trim();
+  if (!input) return;
+  const [cmd, ...args] = input.split(/\s+/);
+  const fn = TERM_COMMANDS[cmd.toLowerCase()];
+  if (fn) {
+    fn(args);
+  } else {
+    termPrintHTML(`command not found: ${escapeHTML(cmd)} — try <span class="term-hi">help</span>`, 'term-err');
+  }
+}
 
-    // Sort by x to prune link checks
-    const sorted = particles.slice().sort((a, b) => a.x - b.x);
-    for (let i = 0; i < sorted.length; i++) {
-      const a = sorted[i];
-      for (let j = i + 1; j < sorted.length; j++) {
-        const b = sorted[j];
-
-        const maxL = (CONFIG.layers[a.layer].linkDist + CONFIG.layers[b.layer].linkDist) * 0.5;
-        const dx = b.x - a.x;
-        if (dx > maxL) break; // early exit by x
-
-        const dy = b.y - a.y;
-        const dist = Math.hypot(dx, dy);
-        if (dist < maxL) {
-          const t = 1 - dist / maxL;
-
-          // Boost visibility near cursor (midpoint distance)
-          let boost = 1;
-          if (mouse.active) {
-            const midx = (a.x + b.x) * 0.5, midy = (a.y + b.y) * 0.5;
-            const md = Math.hypot(midx - mouse.x, midy - mouse.y);
-            boost = md < CURSOR_R ? (1.25 - md / CURSOR_R) : 1;
-          }
-
-          const alpha = (CONFIG.lineAlpha * t * boost * pulseBoost);
-          if (alpha > 0.005) {
-            ctx.strokeStyle = `rgba(0,0,0,${alpha.toFixed(3)})`;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
-        }
-      }
+termInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const value = termInput.value;
+    termEcho(value);
+    if (value.trim()) {
+      termHistory.push(value);
+      histIdx = termHistory.length;
     }
-
-    // Draw dots
-    particles.forEach(p => {
-      const L = CONFIG.layers[p.layer];
-      ctx.fillStyle = `rgba(0,0,0,${L.dotAlpha})`;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r * (p.layer === 0 ? 0.9 : 1.15), 0, Math.PI * 2);
-      ctx.fill();
-    });
-
-    // Update motion + cursor repulsion + gentle wobble
-    particles.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-
-      // gentle noise to avoid straight lines
-      p.vx += (Math.random() - 0.5) * 0.002;
-      p.vy += (Math.random() - 0.5) * 0.002;
-
-      // cursor repulsion
-      if (mouse.active) {
-        const dx = p.x - mouse.x, dy = p.y - mouse.y;
-        const d = Math.hypot(dx, dy);
-        if (d < CURSOR_R && d > 0.0001) {
-          const force = (1 - d / CURSOR_R) * 0.06;
-          p.vx += (dx / d) * force;
-          p.vy += (dy / d) * force;
-        }
-      }
-
-      // cap speed per layer
-      const L = CONFIG.layers[p.layer];
-      const s = Math.hypot(p.vx, p.vy);
-      const maxS = L.speed * 1.4;
-      if (s > maxS) { p.vx *= maxS / s; p.vy *= maxS / s; }
-
-      wrap(p);
-    });
-
-    requestAnimationFrame(draw);
+    runCommand(value);
+    termInput.value = '';
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (histIdx > 0) termInput.value = termHistory[--histIdx] || '';
+  } else if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    if (histIdx < termHistory.length) termInput.value = termHistory[++histIdx] || '';
   }
+});
 
-  function onResize() {
-    sizeCanvas();
-    initParticles();
+/* ============================================================
+   COMMAND PALETTE (Ctrl+P)
+   ============================================================ */
+const paletteOverlay = $('#palette-overlay');
+const paletteInput = $('#palette-input');
+const paletteList = $('#palette-list');
+let paletteSel = 0;
+
+function paletteEntries(query) {
+  const q = query.trim().toLowerCase();
+  return Object.keys(FILES).filter((f) => f.toLowerCase().includes(q) || FILES[f].hint.includes(q));
+}
+
+function renderPalette() {
+  const entries = paletteEntries(paletteInput.value);
+  paletteSel = Math.min(paletteSel, Math.max(0, entries.length - 1));
+  paletteList.innerHTML = '';
+  if (entries.length === 0) {
+    paletteList.innerHTML = '<li class="palette-empty">no files match — try "projects"</li>';
+    return;
   }
-  window.addEventListener("resize", onResize, { passive: true });
-
-  // Start
-  sizeCanvas();
-  initParticles();
-  if (running) requestAnimationFrame(draw);
-
-  // React to reduced-motion changes
-  mq.addEventListener?.("change", e => {
-    running = !e.matches;
-    if (running) requestAnimationFrame(draw);
-    else ctx.clearRect(0, 0, W, H);
+  entries.forEach((name, i) => {
+    const li = document.createElement('li');
+    li.className = 'palette-item' + (i === paletteSel ? ' selected' : '');
+    li.innerHTML =
+      `<span class="file-badge ${FILES[name].badge}">${FILES[name].badgeText}</span>` +
+      `<span>${name}</span><span class="pi-hint">${FILES[name].hint}</span>`;
+    li.addEventListener('click', () => { openFile(name); closePalette(); });
+    li.addEventListener('mousemove', () => { paletteSel = i; renderPalette(); });
+    paletteList.appendChild(li);
   });
-})();
+}
 
-// Reveal experience cards on scroll
-(() => {
-  const items = document.querySelectorAll('.timeline ul > li');
-  if (!items.length) return;
+function openPalette() {
+  paletteOverlay.hidden = false;
+  paletteInput.value = '';
+  paletteSel = 0;
+  renderPalette();
+  paletteInput.focus();
+}
+function closePalette() { paletteOverlay.hidden = true; }
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in-view');
-        io.unobserve(e.target); // reveal once
-      }
-    });
-  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
-
-  items.forEach(li => io.observe(li));
-})();
-
-// ==== About carousel (no libraries) ====
-(() => {
-  const root = document.querySelector('.about-carousel');
-  if (!root) return;
-
-  const track = root.querySelector('.ac-track');
-  const slides = Array.from(root.querySelectorAll('.ac-slide'));
-  const prevBtn = root.querySelector('.ac-prev');
-  const nextBtn = root.querySelector('.ac-next');
-  const dotsWrap = root.querySelector('.ac-dots');
-
-  let index = 0;
-  const last = slides.length - 1;
-  const autoplayMs = 5000;
-  let timer;
-
-  // build dots
-  slides.forEach((_, i) => {
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.setAttribute('role', 'tab');
-    b.setAttribute('aria-label', `Go to slide ${i+1}`);
-    b.addEventListener('click', () => goTo(i, true));
-    dotsWrap.appendChild(b);
-  });
-
-  function updateDots() {
-    dotsWrap.querySelectorAll('button').forEach((b, i) => {
-      b.setAttribute('aria-selected', i === index ? 'true' : 'false');
-    });
+paletteInput.addEventListener('input', () => { paletteSel = 0; renderPalette(); });
+paletteInput.addEventListener('keydown', (e) => {
+  const entries = paletteEntries(paletteInput.value);
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    paletteSel = Math.min(paletteSel + 1, entries.length - 1);
+    renderPalette();
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    paletteSel = Math.max(paletteSel - 1, 0);
+    renderPalette();
+  } else if (e.key === 'Enter' && entries[paletteSel]) {
+    openFile(entries[paletteSel]);
+    closePalette();
+  } else if (e.key === 'Escape') {
+    closePalette();
   }
+});
+paletteOverlay.addEventListener('click', (e) => {
+  if (e.target === paletteOverlay) closePalette();
+});
 
-  function goTo(i, user=false) {
-    index = (i + slides.length) % slides.length;
-    track.style.transform = `translateX(-${index * 100}%)`;
-    updateDots();
-    if (user) restartAutoplay();
+/* global shortcuts */
+document.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'k')) {
+    e.preventDefault();
+    paletteOverlay.hidden ? openPalette() : closePalette();
+  } else if ((e.ctrlKey || e.metaKey) && e.key === '`') {
+    e.preventDefault();
+    toggleTerminal();
+  } else if (e.key === 'Escape' && !paletteOverlay.hidden) {
+    closePalette();
   }
+});
 
-  function next() { goTo(index + 1, true); }
-  function prev() { goTo(index - 1, true); }
-
-  // arrows + keyboard
-  nextBtn.addEventListener('click', next);
-  prevBtn.addEventListener('click', prev);
-  root.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') next();
-    if (e.key === 'ArrowLeft') prev();
-  });
-  root.setAttribute('tabindex', '0'); // enable keyboard focus
-
-  // swipe (touch) support
-  let startX = 0, dx = 0, isTouch = false;
-  root.addEventListener('touchstart', (e) => {
-    const t = e.touches[0];
-    startX = t.clientX;
-    dx = 0;
-    isTouch = true;
-    pauseAutoplay();
-  }, { passive: true });
-
-  root.addEventListener('touchmove', (e) => {
-    if (!isTouch) return;
-    dx = e.touches[0].clientX - startX;
-  }, { passive: true });
-
-  root.addEventListener('touchend', () => {
-    if (Math.abs(dx) > 40) (dx < 0 ? next() : prev());
-    isTouch = false;
-    restartAutoplay();
-  });
-
-  // autoplay (pause on hover/focus)
-  function startAutoplay() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    stopAutoplay();
-    timer = setInterval(() => goTo(index + 1), autoplayMs);
+/* ============================================================
+   CONFETTI
+   ============================================================ */
+const CONFETTI_COLORS = ['#a78bfa', '#c4b5fd', '#7c3aed', '#e9d5ff', '#6d5bb8', '#f0abfc'];
+function confettiBurst() {
+  for (let i = 0; i < 120; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.background = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+    piece.style.animationDuration = 2.2 + Math.random() * 2.2 + 's';
+    piece.style.animationDelay = Math.random() * 0.6 + 's';
+    piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    document.body.appendChild(piece);
+    piece.addEventListener('animationend', () => piece.remove());
   }
-  function stopAutoplay() { if (timer) clearInterval(timer); }
-  function pauseAutoplay() { stopAutoplay(); }
-  function restartAutoplay() { startAutoplay(); }
+}
 
-  root.addEventListener('mouseenter', pauseAutoplay);
-  root.addEventListener('mouseleave', restartAutoplay);
-  root.addEventListener('focusin', pauseAutoplay);
-  root.addEventListener('focusout', restartAutoplay);
-
-  // init
-  goTo(0);
-  startAutoplay();
-
-  // resize: keep track width accurate (flex handles most)
-  window.addEventListener('resize', () => {
-    // no special handling needed; transform uses percentages
-  }, { passive: true });
-})();
-
-// ===== Skills: rotating-term looping typewriter for hireable() =====
-(() => {
-  const section = document.getElementById('skills');
-  if (!section) return;
-  const el = section.querySelector('.typewrite');
-  if (!el) return;
-
-  // terms to rotate and expression template with {term}
-  const terms = (el.getAttribute('data-terms') || 'Problem Solving')
-    .split('|')
-    .map(s => s.trim())
-    .filter(Boolean);
-  const template = el.getAttribute('data-template') ||
-    "this.strengths.includes('{term}') && this.programmingLanguages.length >= 5";
-
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // timings (tweak if you like)
-  const TYPE_MS     = 65;   // per char while typing
-  const ERASE_MS    = 35;   // per char while erasing
-  const HOLD_END    = 900;  // pause after finishing typing
-  const HOLD_EMPTY  = 500;  // pause after erase
-  const START_DELAY = 250;
-
-  function makeText(term) {
-    // use single quotes around the skill term inside the expression
-    return template.replace('{term}', term.replace(/'/g, "\\'"));
-  }
-
-  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-  function type(node, str) {
-    return new Promise(resolve => {
-      let i = 0;
-      const tick = () => {
-        node.textContent = str.slice(0, i + 1);
-        i++;
-        if (i < str.length) setTimeout(tick, TYPE_MS);
-        else resolve();
-      };
-      setTimeout(tick, START_DELAY);
-    });
-  }
-
-  function erase(node) {
-    return new Promise(resolve => {
-      let i = node.textContent.length;
-      const full = node.textContent;
-      const tick = () => {
-        node.textContent = full.slice(0, i - 1);
-        i--;
-        if (i > 0) setTimeout(tick, ERASE_MS);
-        else { node.textContent = ""; resolve(); }
-      };
-      tick();
-    });
-  }
-
-  async function runLoop() {
-    // start only when section is visible
-    await new Promise(res => {
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { res(); io.disconnect(); } });
-      }, { threshold: 0.25 });
-      io.observe(section);
-    });
-
-    if (prefersReduced) {
-      el.textContent = makeText(terms[0]); // static for reduced motion
-      return;
-    }
-
-    let idx = 0;
-    // loop forever
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      const expr = makeText(terms[idx]);
-      await type(el, expr);
-      await wait(HOLD_END);
-      await erase(el);
-      await wait(HOLD_EMPTY);
-      idx = (idx + 1) % terms.length;
-    }
-  }
-
-  runLoop();
-})();
+/* ============================================================
+   BOOT
+   ============================================================ */
+openFile('README.md');
