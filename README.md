@@ -1,31 +1,37 @@
-# 💜 Nakul Patel — Portfolio, Part Two
+# 🦸 Nakul Patel — Portfolio, Vol. 2
 
-An IDE-style interactive developer portfolio. The whole site is designed like a code editor in a custom **Purple Dark** theme — a file explorer, tabs, a command palette, and a working terminal, with each section of the portfolio living in its own "file."
+A minimal, dark, single-page developer portfolio with cinematic superhero energy — condensed poster typography, comic halftone textures, sections numbered like issues, and a few gaming touches. Built with vanilla HTML, CSS and JS.
 
 ---
 
 ## ✨ Features
 
-- **Full IDE layout** — title bar, activity bar, file explorer, tabs, breadcrumbs, status bar
-- **Sections as files** — `README.md` (home), `about.md`, `experience.json`, `projects.js`, `skills.js`, `contact.sh`
-- **Interactive terminal** — type `help`, `ls`, `open projects.js`, `neofetch`, `whoami`, or `sudo hire-me` 🎉
-- **Command palette** — press `Ctrl+P` (or `Ctrl+K`) to fuzzy-jump between files
-- **Runnable `contact.sh`** — hit ▶ Run to execute the contact script
-- **Creative touches** — typewriter hero, animated headshot ring, photo gallery with swipe support, hover-to-run skill chips, purple confetti
-- **Responsive** — explorer collapses into a hamburger drawer on mobile
-- **Accessible** — keyboard navigation and `prefers-reduced-motion` support
+- **Origin-story design** — ink-black ground, crimson accent, gold detail, Bebas Neue display type
+- **Numbered "issues"** — About, Projects, Experience, Skills, Contact framed as Issue 01–05
+- **Motion with restraint** — scroll reveals, cursor spotlight, count-up stats, cascading skill bars
+- **Comic-panel details** — halftone dot textures, offset-shadow frames, crimson issue numbers
+- **Gaming nods** — "Power stats" skill bars, "Full loadout" tech list, and a Konami code easter egg (↑↑↓↓←→←→BA)
+- **Responsive & accessible** — mobile menu, keyboard focus states, `prefers-reduced-motion` support
 
-## 🎨 Theme
+## 🎨 Palette
 
-Purple (`#a78bfa` / `#7c3aed`) on dark grey (`#121218` → `#262631`), with a purple-tinted syntax palette for the code-styled content.
+| Token | Value |
+|---|---|
+| Ink | `#0a0c12` |
+| Panel | `#11141d` |
+| Text | `#e8eaf0` |
+| Crimson | `#e5484d` |
+| Gold | `#f0b429` |
+
+Type: **Bebas Neue** (display) · **Manrope** (body) · **JetBrains Mono** (labels)
 
 ## 🧱 Project Structure
 
 ```
 .
-├── index.html   # IDE shell + every "file" view
-├── style.css    # Purple Dark theme, layout, animations, responsive rules
-├── script.js    # Tabs, terminal, command palette, gallery, easter eggs
+├── index.html   # Single-page layout: hero + issues 01–05
+├── style.css    # Theme tokens, layout, animations, responsive rules
+├── script.js    # Reveals, spotlight, nav state, stat bars, konami
 └── assets/      # Images, icons, resume PDF
 ```
 
@@ -41,3 +47,5 @@ Purple (`#a78bfa` / `#7c3aed`) on dark grey (`#121218` → `#262631`), with a pu
    python3 -m http.server 5173
    ```
    Then visit: `http://localhost:5173`
+
+> The previous IDE-style design lives in this repo's git history (`b3b5d79`).
