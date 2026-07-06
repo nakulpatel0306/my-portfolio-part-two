@@ -4,229 +4,248 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Nakul Patel — software developer, ML engineer & data scientist. The keynote portfolio." />
-  <title>Nakul Patel — Keynote</title>
+  <meta name="description" content="Nakul Patel — software developer & ML engineer. A bento-grid portfolio." />
+  <title>Nakul Patel — Bento</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="data:image/svg+xml,
   <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
-    <defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
-      <stop offset='0' stop-color='%235b4dff'/><stop offset='.6' stop-color='%23b16dff'/><stop offset='1' stop-color='%23ffb27a'/>
-    </linearGradient></defs>
-    <rect width='100' height='100' rx='24' fill='url(%23g)'/>
-    <text x='50%' y='66%' font-size='44' text-anchor='middle'
-          font-family='Arial, sans-serif' font-weight='700' fill='white'>NP</text>
+    <rect width='100' height='100' rx='24' fill='%230e0f12'/>
+    <rect x='14' y='14' width='42' height='42' rx='10' fill='%2364ffda'/>
+    <rect x='62' y='14' width='24' height='24' rx='8' fill='%2325262c'/>
+    <rect x='62' y='44' width='24' height='42' rx='8' fill='%2325262c'/>
+    <rect x='14' y='62' width='42' height='24' rx='8' fill='%2325262c'/>
   </svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <div class="aurora" aria-hidden="true"></div>
+  <!-- preloader -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <p class="loader-name">Nakul Patel</p>
+    <p class="loader-count"><span id="loader-pct">0</span></p>
+  </div>
+
+  <!-- film grain + custom cursor -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
 
   <!-- ===================== NAV ===================== -->
   <header class="nav">
-    <a class="monogram" href="#top" aria-label="Home">NP</a>
+    <a class="brand" href="#top" data-hover>NP<span class="brand-dot">.</span></a>
     <nav class="nav-links" aria-label="Sections">
-      <a href="#work">Work</a>
-      <a href="#story">Story</a>
-      <a href="#toolkit">Toolkit</a>
-      <a href="#track">Track record</a>
-      <a href="#contact">Contact</a>
+      <a href="#work" data-hover>Work</a>
+      <a href="#experience" data-hover>Experience</a>
+      <a href="#contact" data-hover>Contact</a>
     </nav>
-    <div class="nav-right">
-      <a class="nav-resume" href="./assets/nakul-patel-software-resume.pdf" target="_blank" rel="noopener">Resume</a>
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-        <svg class="ic-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5 5l2.1 2.1M16.9 16.9L19 19M19 5l-2.1 2.1M7.1 16.9L5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-        <svg class="ic-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-      </button>
-    </div>
+    <a class="btn btn-line magnetic" href="./assets/nakul-patel-software-resume.pdf" target="_blank" rel="noopener" data-hover>Resume</a>
   </header>
 
-  <main id="top">
+  <div id="smooth">
+    <main id="top">
 
-    <!-- ===================== HERO ===================== -->
-    <section class="hero">
-      <p class="hero-kicker reveal">Nakul Patel · The 2026 lineup</p>
-      <h1 class="hero-title reveal">
-        Engineering,<br><em>designed.</em>
-      </h1>
-      <p class="hero-sub reveal">Software developer, ML engineer &amp; data scientist.<br>CS + BBA at Wilfrid Laurier — open to internships.</p>
-      <div class="hero-cta reveal">
-        <a class="btn btn-fill" href="#work">See the work</a>
-        <a class="btn btn-soft" href="#contact">Get in touch</a>
-      </div>
-      <div class="hero-socials reveal">
-        <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub</a>
-        <span aria-hidden="true">·</span>
-        <a href="https://www.linkedin.com/in/nakulpatel0306/" target="_blank" rel="noopener">LinkedIn</a>
-        <span aria-hidden="true">·</span>
-        <a href="https://www.instagram.com/nakulp.14/" target="_blank" rel="noopener">Instagram</a>
-      </div>
-      <div class="hero-portrait reveal">
-        <img src="./assets/headshot.png" alt="Nakul Patel" />
-      </div>
-    </section>
+      <!-- ===================== HERO BENTO ===================== -->
+      <section class="wrap hero-wrap">
+        <div class="bento hero-bento">
 
-    <!-- ===================== WORK · scroll cinema ===================== -->
-    <section id="work" class="show-wrap">
-      <div class="show-stage">
-        <div class="show-head">
-          <p class="sec-label">The work</p>
-          <p class="show-counter"><span id="show-idx">01</span> / 06</p>
+          <article class="tile t-intro" data-tilt>
+            <p class="eyebrow k-up">Nakul Patel</p>
+            <h1 class="hero-title">
+              <span class="k-line"><i class="k-up">Software developer</i></span>
+              <span class="k-line"><i class="k-up">&amp; ML engineer<b class="accent">.</b></i></span>
+            </h1>
+            <p class="hero-sub k-up">I build software, machine-learning models and data pipelines — and I care how they look.</p>
+            <div class="hero-cta k-up">
+              <a class="btn btn-fill magnetic" href="#work" data-hover>See the work</a>
+              <a class="btn btn-line magnetic" href="#contact" data-hover>Get in touch</a>
+            </div>
+          </article>
+
+          <article class="tile t-photo" data-tilt>
+            <img src="./assets/headshot.png" alt="Nakul Patel" />
+          </article>
+
+          <article class="tile t-status" data-tilt>
+            <span class="pulse" aria-hidden="true"></span>
+            <div>
+              <h3>Open to internships</h3>
+              <p>Software · ML · Data — available 2026</p>
+            </div>
+          </article>
+
+          <article class="tile t-location" data-tilt>
+            <div class="radar" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
+            <div>
+              <h3>Ontario, Canada</h3>
+              <p>EST · open to relocation</p>
+            </div>
+          </article>
+
+          <a class="tile t-social" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener" data-tilt data-hover aria-label="GitHub">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2z" fill="currentColor"/></svg>
+            <span>GitHub</span>
+          </a>
+
+          <a class="tile t-social" href="https://www.linkedin.com/in/nakulpatel0306/" target="_blank" rel="noopener" data-tilt data-hover aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.49 2.49 0 1 1 5 8.48a2.49 2.49 0 0 1-.02-4.98zM3 9.75h4V21H3zM9.5 9.75h3.83v1.54h.05c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.14V21h-4v-5.09c0-1.21-.02-2.77-1.69-2.77-1.69 0-1.95 1.32-1.95 2.68V21h-3.83z" fill="currentColor"/></svg>
+            <span>LinkedIn</span>
+          </a>
+
+          <article class="tile t-stats" data-tilt>
+            <div><b data-count="5">0</b><i>+</i><span>years coding</span></div>
+            <div><b data-count="6">0</b><span>roles held</span></div>
+            <div><b data-count="2">0</b><span>degrees in progress</span></div>
+          </article>
+
+          <article class="tile t-edu" data-tilt>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 1.8 8.4 12 13.8l8.4-4.44v6.24h1.8V8.4z" fill="currentColor"/><path d="M5.4 12.9v3.9c0 1.65 2.96 3.3 6.6 3.3s6.6-1.65 6.6-3.3v-3.9L12 16.02z" fill="currentColor" opacity="0.55"/></svg>
+            <div>
+              <h3>CS + BBA double degree</h3>
+              <p>Wilfrid Laurier University</p>
+            </div>
+          </article>
+
+          <a class="tile t-resume" href="./assets/nakul-patel-software-resume.pdf" target="_blank" rel="noopener" data-tilt data-hover>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4.2-4.2M12 14l-4.2-4.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2.4A1.6 1.6 0 0 0 5.6 21h12.8a1.6 1.6 0 0 0 1.6-1.6V17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <span>Download resume</span>
+          </a>
+
+          <article class="tile t-about" data-tilt>
+            <h3>The short version</h3>
+            <p>Wilfrid Laurier student chasing hard problems and clean solutions. Off the clock it's basketball, the gym, beach volleyball, and the occasional cliff jump. Always up to build something great with new people.</p>
+          </article>
+
+          <article class="tile t-gallery" data-tilt>
+            <div class="gallery-strip" aria-label="Photos">
+              <img src="./assets/about/about-1.JPG" alt="Cousins and friends at Garba" loading="lazy">
+              <img src="./assets/about/about-2.JPG" alt="Friends at Blue Mountain" loading="lazy">
+              <img src="./assets/about/about-12.JPG" alt="Intramural champions" loading="lazy">
+              <img src="./assets/about/about-13.JPG" alt="Escape room with cousins" loading="lazy">
+              <img src="./assets/about/about-14.JPG" alt="Brothers in Punta Cana" loading="lazy">
+              <img src="./assets/about/about-15.JPG" alt="With Kajan at 21 Columbia Street" loading="lazy">
+            </div>
+            <p class="gallery-note">life outside the terminal — drag</p>
+          </article>
+
         </div>
+      </section>
 
-        <article class="slide" data-slide="0">
-          <div class="slide-media"><img src="./assets/project/project-1.jpg" alt="Flux — stock predictor"></div>
-          <div class="slide-text">
-            <h3>Flux<em>.</em></h3>
-            <p class="slide-tag">Sees the market before it moves.</p>
-            <p class="slide-desc">ML-driven price forecasting for equities — pipeline to prediction. Python · TensorFlow · Pandas.</p>
-            <p class="slide-links"><a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo</a></p>
-          </div>
-        </article>
+      <!-- ===================== WORK BENTO ===================== -->
+      <section class="wrap" id="work">
+        <p class="sec-label reveal">Selected work</p>
+        <h2 class="sec-title reveal">Six builds, zero templates<b class="accent">.</b></h2>
+        <div class="bento work-bento">
 
-        <article class="slide" data-slide="1">
-          <div class="slide-media"><img src="./assets/project/project-2.png" alt="Echo — Spotify stats"></div>
-          <div class="slide-text">
-            <h3>Echo<em>.</em></h3>
-            <p class="slide-tag">Your listening habits, beautifully told.</p>
-            <p class="slide-desc">Spotify stats visualized — top artists, tracks and trends. React · Node.js · Spotify API.</p>
-            <p class="slide-links"><a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo</a></p>
-          </div>
-        </article>
+          <a class="tile work w-big reveal" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener" data-tilt data-hover>
+            <img src="./assets/project/project-1.jpg" alt="" loading="lazy">
+            <div class="work-info">
+              <h3>Flux — Stock Predictor</h3>
+              <p>ML-driven price forecasting for equities, pipeline to prediction.</p>
+              <span class="work-tags">Python · TensorFlow · Pandas</span>
+            </div>
+          </a>
 
-        <article class="slide" data-slide="2">
-          <div class="slide-media"><img src="./assets/project/project-3.jpg" alt="Swish — NBA predictor"></div>
-          <div class="slide-text">
-            <h3>Swish<em>.</em></h3>
-            <p class="slide-tag">Calls the game before tip-off.</p>
-            <p class="slide-desc">NBA outcomes predicted with machine learning. Python · scikit-learn · NBA API.</p>
-            <p class="slide-links"><a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo</a></p>
-          </div>
-        </article>
+          <a class="tile work reveal" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener" data-tilt data-hover>
+            <img src="./assets/project/project-2.png" alt="" loading="lazy">
+            <div class="work-info">
+              <h3>Echo — Spotify Stats</h3>
+              <p>Listening habits, visualized.</p>
+              <span class="work-tags">React · Node.js · Spotify API</span>
+            </div>
+          </a>
 
-        <article class="slide" data-slide="3">
-          <div class="slide-media"><img src="./assets/project/project-4.jpg" alt="Evo — genetic algorithm visualizer"></div>
-          <div class="slide-text">
-            <h3>Evo<em>.</em></h3>
-            <p class="slide-tag">Evolution, watchable.</p>
-            <p class="slide-desc">Genetic algorithms solving problems in real time. JavaScript · Canvas · Algorithms.</p>
-            <p class="slide-links"><a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo</a></p>
-          </div>
-        </article>
+          <a class="tile work reveal" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener" data-tilt data-hover>
+            <img src="./assets/project/project-3.jpg" alt="" loading="lazy">
+            <div class="work-info">
+              <h3>Swish — NBA Predictor</h3>
+              <p>Game outcomes, called by ML.</p>
+              <span class="work-tags">Python · scikit-learn · NBA API</span>
+            </div>
+          </a>
 
-        <article class="slide" data-slide="4">
-          <div class="slide-media"><img src="./assets/project/project-5.jpg" alt="King Me — checkers"></div>
-          <div class="slide-text">
-            <h3>King Me<em>.</em></h3>
-            <p class="slide-tag">A classic, rebuilt from first principles.</p>
-            <p class="slide-desc">Checkers with a full rules engine and AI. Java · OOP · Game Logic.</p>
-            <p class="slide-links"><a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo</a></p>
-          </div>
-        </article>
+          <a class="tile work w-big reveal" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener" data-tilt data-hover>
+            <img src="./assets/project/project-4.jpg" alt="" loading="lazy">
+            <div class="work-info">
+              <h3>Evo — Genetic Algorithm Viz</h3>
+              <p>Watching evolution solve problems in real time, generation by generation.</p>
+              <span class="work-tags">JavaScript · Canvas · Algorithms</span>
+            </div>
+          </a>
 
-        <article class="slide" data-slide="5">
-          <div class="slide-media"><img src="./assets/project/project-6.gif" alt="Click — typing speed game"></div>
-          <div class="slide-text">
-            <h3>Click<em>.</em></h3>
-            <p class="slide-tag">How fast are your WPM, really?</p>
-            <p class="slide-desc">A typing speed test with a competitive streak. JavaScript · HTML/CSS · Games.</p>
-            <p class="slide-links"><a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">Live demo</a></p>
-          </div>
-        </article>
+          <a class="tile work reveal" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener" data-tilt data-hover>
+            <img src="./assets/project/project-5.jpg" alt="" loading="lazy">
+            <div class="work-info">
+              <h3>King Me — Checkers</h3>
+              <p>The classic, rebuilt with a rules engine and AI.</p>
+              <span class="work-tags">Java · OOP · Game Logic</span>
+            </div>
+          </a>
 
-        <div class="show-rail" id="show-rail" aria-hidden="true"></div>
-        <p class="show-hint" aria-hidden="true">keep scrolling</p>
-      </div>
-    </section>
+          <a class="tile work reveal" href="https://github.com/nakulpatel0306" target="_blank" rel="noopener" data-tilt data-hover>
+            <img src="./assets/project/project-6.gif" alt="" loading="lazy">
+            <div class="work-info">
+              <h3>Click — Typing Speed Game</h3>
+              <p>How fast are your WPM, really?</p>
+              <span class="work-tags">JavaScript · HTML/CSS · Games</span>
+            </div>
+          </a>
 
-    <!-- ===================== STORY ===================== -->
-    <section id="story" class="section">
-      <p class="sec-label reveal">The story</p>
-      <h2 class="sec-title reveal">Built in Ontario<em>.</em><br>Shipping <em>everywhere.</em></h2>
-      <div class="story-grid">
-        <div class="story-text reveal">
-          <p>Hey, I'm Nakul — a student at Wilfrid Laurier University with a strong passion for technology and innovation. I'm pursuing a dual degree in Computer Science and Business Administration, and I spend most of my time learning cutting-edge technologies and applying them to real-world problems. Right now I'm looking for internships where I can ship real things with real teams.</p>
-          <p>Off the clock: basketball, the gym, and chasing adrenaline — cliff jumping included. Perfect day? Beach, friends, music, and a competitive game of beach volleyball.</p>
         </div>
-        <ul class="story-stats reveal">
-          <li><b data-count="5">0</b><i>+</i><span>years writing code</span></li>
-          <li><b data-count="6">0</b><span>internships &amp; roles</span></li>
-          <li><b data-count="2">0</b><span>degrees in progress</span></li>
-        </ul>
-      </div>
-      <div class="filmstrip reveal" aria-label="Photos">
-        <figure><img src="./assets/about/about-1.JPG" alt="Cousins and friends at Garba" loading="lazy"><figcaption>Garba szn</figcaption></figure>
-        <figure><img src="./assets/about/about-2.JPG" alt="Friends at Blue Mountain" loading="lazy"><figcaption>Blue Mountain</figcaption></figure>
-        <figure><img src="./assets/about/about-12.JPG" alt="Intramural champions" loading="lazy"><figcaption>Intramural champs</figcaption></figure>
-        <figure><img src="./assets/about/about-13.JPG" alt="Escape room with cousins" loading="lazy"><figcaption>Escape room</figcaption></figure>
-        <figure><img src="./assets/about/about-14.JPG" alt="Brothers in Punta Cana" loading="lazy"><figcaption>Punta Cana</figcaption></figure>
-        <figure><img src="./assets/about/about-15.JPG" alt="With Kajan at 21 Columbia Street" loading="lazy"><figcaption>21 Columbia St</figcaption></figure>
-      </div>
-    </section>
+      </section>
 
-    <!-- ===================== HALFTIME · mini-game ===================== -->
-    <section id="halftime" class="section">
-      <p class="sec-label reveal">Halftime</p>
-      <h2 class="sec-title reveal">Every keynote<br>needs a <em>demo.</em></h2>
-      <div class="court-wrap reveal">
-        <div class="court-card">
-          <canvas id="court" width="720" height="430" aria-label="Basketball free-throw mini game. Drag from the ball to aim, release to shoot."></canvas>
-          <div class="court-bar">
-            <span>drag the ball · aim · release</span>
-            <span class="court-score">score <b id="game-score">0</b> / <span id="game-shots">0</span> <b id="game-streak" class="streak" hidden></b></span>
+      <!-- ===================== SKILLS MARQUEE ===================== -->
+      <section class="marquee-zone" aria-label="Skills">
+        <div class="marquee">
+          <div class="marquee-track" data-dir="left">
+            <span>Python</span><span>JavaScript</span><span>Java</span><span>C/C++</span><span>SQL</span><span>React</span><span>Node.js</span><span>TensorFlow</span><span>scikit-learn</span>
+            <span>Python</span><span>JavaScript</span><span>Java</span><span>C/C++</span><span>SQL</span><span>React</span><span>Node.js</span><span>TensorFlow</span><span>scikit-learn</span>
           </div>
         </div>
-      </div>
-    </section>
+        <div class="marquee">
+          <div class="marquee-track" data-dir="right">
+            <span>Pandas</span><span>Docker</span><span>AWS</span><span>Azure</span><span>Git</span><span>Linux</span><span>Power BI</span><span>REST APIs</span><span>CI/CD</span>
+            <span>Pandas</span><span>Docker</span><span>AWS</span><span>Azure</span><span>Git</span><span>Linux</span><span>Power BI</span><span>REST APIs</span><span>CI/CD</span>
+          </div>
+        </div>
+      </section>
 
-    <!-- ===================== TOOLKIT · physics ===================== -->
-    <section id="toolkit" class="section">
-      <p class="sec-label reveal">The toolkit</p>
-      <h2 class="sec-title reveal">Heavy-duty<em>.</em><br>Feel free to <em>play with it.</em></h2>
-      <div class="core-list reveal">
-        <span>Python</span><span>Machine Learning / AI</span><span>JavaScript</span>
-        <span>Data Science</span><span>Java / C / C++</span><span>Cloud &amp; DevOps</span>
-      </div>
-      <div class="tray reveal" id="tray" aria-label="Draggable pile of tools — grab and toss them">
-        <p class="tray-hint" id="tray-hint">everything else — grab, toss, rearrange</p>
-      </div>
-    </section>
+      <!-- ===================== EXPERIENCE ===================== -->
+      <section class="wrap" id="experience">
+        <p class="sec-label reveal">Experience</p>
+        <h2 class="sec-title reveal">The track record<b class="accent">.</b></h2>
+        <ol class="xp">
+          <li class="reveal"><span>Sep – Dec 2025</span><div><h3>Multiverse Computing</h3><p>Machine Learning Engineer · Internship</p></div></li>
+          <li class="reveal"><span>Jan – Apr 2025</span><div><h3>Definity Financial Corp</h3><p>Automation Engineer · Internship</p></div></li>
+          <li class="reveal"><span>May – Aug 2024</span><div><h3>Stouffville Chamber of Commerce</h3><p>Data Analyst · Internship</p></div></li>
+          <li class="reveal"><span>Jan – Apr 2023</span><div><h3>Riipen Networks Inc</h3><p>Software Developer · Internship</p></div></li>
+          <li class="reveal"><span>2020 – 2021</span><div><h3>Staples Inc</h3><p>Technology Sales Area Representative · Part-time</p></div></li>
+          <li class="reveal"><span>2019 – 2020</span><div><h3>Stouffville Leisure Centre</h3><p>Deck Attendant / Assistant Instructor · Part-time</p></div></li>
+        </ol>
+      </section>
 
-    <!-- ===================== TRACK RECORD ===================== -->
-    <section id="track" class="section">
-      <p class="sec-label reveal">The track record</p>
-      <h2 class="sec-title reveal">Proven in <em>production.</em></h2>
-      <ol class="track-list">
-        <li class="reveal"><span class="tr-when">Sep–Dec 2025</span><div><h3>Multiverse Computing</h3><p>Machine Learning Engineer · Internship</p></div></li>
-        <li class="reveal"><span class="tr-when">Jan–Apr 2025</span><div><h3>Definity Financial Corp</h3><p>Automation Engineer · Internship</p></div></li>
-        <li class="reveal"><span class="tr-when">May–Aug 2024</span><div><h3>Stouffville Chamber of Commerce</h3><p>Data Analyst · Internship</p></div></li>
-        <li class="reveal"><span class="tr-when">Jan–Apr 2023</span><div><h3>Riipen Networks Inc</h3><p>Software Developer · Internship</p></div></li>
-        <li class="reveal"><span class="tr-when">2020–2021</span><div><h3>Staples Inc</h3><p>Technology Sales Area Representative · Part-time</p></div></li>
-        <li class="reveal"><span class="tr-when">2019–2020</span><div><h3>Stouffville Leisure Centre</h3><p>Deck Attendant / Assistant Instructor · Part-time</p></div></li>
-      </ol>
-    </section>
+      <!-- ===================== CONTACT ===================== -->
+      <section class="wrap contact" id="contact">
+        <p class="sec-label reveal">Contact</p>
+        <h2 class="contact-title reveal">Let's make<br>something great<b class="accent">.</b></h2>
+        <div class="contact-cta reveal">
+          <a class="btn btn-fill btn-big magnetic" href="mailto:nakul0306@gmail.com" data-hover>nakul0306@gmail.com</a>
+        </div>
+        <div class="contact-alt reveal">
+          <a href="https://www.linkedin.com/in/nakulpatel0306/" target="_blank" rel="noopener" data-hover>LinkedIn</a>
+          <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener" data-hover>GitHub</a>
+          <a href="https://www.instagram.com/nakulp.14/" target="_blank" rel="noopener" data-hover>Instagram</a>
+          <a href="./assets/nakul-patel-software-resume.pdf" target="_blank" rel="noopener" data-hover>Resume</a>
+        </div>
+      </section>
 
-    <!-- ===================== CONTACT ===================== -->
-    <section id="contact" class="section section-contact">
-      <p class="sec-label reveal">One more thing</p>
-      <h2 class="contact-title reveal">Let's build<br><em>something great.</em></h2>
-      <div class="hero-cta reveal">
-        <a class="btn btn-fill btn-big" href="mailto:nakul0306@gmail.com">nakul0306@gmail.com</a>
-      </div>
-      <div class="contact-alt reveal">
-        <a href="https://www.linkedin.com/in/nakulpatel0306/" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/nakulpatel0306" target="_blank" rel="noopener">GitHub</a>
-        <a href="./assets/nakul-patel-software-resume.pdf" target="_blank" rel="noopener">Resume</a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <p>© 2026 Nakul Patel — designed &amp; engineered by hand.</p>
-    <p class="footer-hint" title="Try it">↑ ↑ ↓ ↓ ← → ← → B A</p>
-  </footer>
+      <footer class="footer">
+        <p>© 2026 Nakul Patel — every tile placed by hand.</p>
+        <p class="footer-hint" title="Try it" data-hover>↑ ↑ ↓ ↓ ← → ← → B A</p>
+      </footer>
+    </main>
+  </div>
 
   <!-- konami -->
   <div class="powup" id="powup" hidden>
