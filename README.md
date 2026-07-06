@@ -7,7 +7,7 @@ One portfolio, three completely different designs — each on its own branch, ea
 | Branch | Design | Inspiration | Signature moments |
 |---|---|---|---|
 | [`main`](../../tree/main) | **Origin Story** | Superhero comics × minimal editorial portfolios — ink black, crimson & gold, poster typography, halftone textures | Sections numbered like comic issues, cursor spotlight, cascading "power stats" skill bars |
-| [`design/v3`](../../tree/design/v3) | **Night Patrol** | Cinematic hero-over-the-city flights × games — every pixel of the night city is drawn in code on a canvas | A caped hero flies across a parallax skyline as you scroll, 5 collectible signal orbs, a searchlight that projects the NP monogram onto the clouds |
+| [`design/v3`](../../tree/design/v3) | **The World** | The great WebGL portfolios (Bruno Simon) — a low-poly 3D island rendered with Three.js | Drag to orbit the island, hover six glowing pedestals (each project is a tiny 3D sculpture), click to jump to a project; preloader, inertia scroll, custom cursor |
 | [`design/v4`](../../tree/design/v4) | **Keynote** | Apple product launches — luxury restraint, gradient serif accents, light **and** dark themes with a toggle | Scroll-cinema project showcase, a physics pile of draggable skill chips, a playable basketball free-throw mini-game |
 
 There's also a fourth design in this repo's history: an **IDE-style portfolio** (a working VS Code-like interface in a purple dark theme, with a file explorer, tabs, command palette and interactive terminal) at commit [`a2260e1`](../../commit/a2260e121e639547db4a0ac26cecf2063d0e09f8).
