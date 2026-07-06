@@ -55,6 +55,17 @@ if (useSmooth) {
     requestAnimationFrame(scrollLoop);
   };
   requestAnimationFrame(scrollLoop);
+
+  // the wrapper is position:fixed, so native anchor scrolling can't reach
+  // into it — resolve #links to document positions ourselves
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    e.preventDefault();
+    const id = a.getAttribute('href');
+    const t = id.length > 1 && document.querySelector(id);
+    window.scrollTo({ top: t ? t.getBoundingClientRect().top + scrollCur - 80 : 0 });
+  });
 } else {
   scrollCur = 0;
 }
