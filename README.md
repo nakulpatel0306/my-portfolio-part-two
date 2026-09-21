@@ -2,7 +2,7 @@
 
 An interactive 3D portfolio in the spirit of the great WebGL portfolios: the hero is a low-poly floating island rendered with Three.js — drag to orbit it, hover the six glowing pedestals (each one is a project, modeled as a tiny 3D object), and click a pedestal to jump to that project's card. Built with vanilla HTML/CSS/JS plus a single vendored copy of Three.js.
 
-> `main` holds the origin-story design. This branch is the 3D showpiece.
+> `main` holds the origin-story design · `design/v4` holds the bento grid · `design/v5` holds the minimal one · this branch is the 3D showpiece.
 
 ---
 
