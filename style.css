@@ -206,23 +206,36 @@ h2 {
    ------------------------------------------------------------ */
 .list { list-style: none; }
 .list li {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 7px 0;
+  padding: 10px 0;
   border-bottom: 1px solid var(--line);
 }
 .list li:last-child { border-bottom: 0; }
 
-.li-main { color: var(--text); text-wrap: balance; }
-.at { color: var(--faint); margin: 0 2px; }
-.li-meta {
+/* two rows per entry, so company, dates, role and city each get a slot
+   of their own instead of running together behind separator dots */
+.li-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+}
+.li-org {
+  font-weight: 500;
+  color: var(--text);
+}
+.li-role {
+  font-size: 14.5px;
+  color: var(--muted);
+}
+.li-when,
+.li-where {
   flex-shrink: 0;
   font-size: 13px;
   color: var(--faint);
-  font-variant-numeric: tabular-nums;
 }
+.li-when { font-variant-numeric: tabular-nums; }
+
+.at { color: var(--faint); margin: 0 2px; }
 
 /* ------------------------------------------------------------
    education
@@ -385,8 +398,8 @@ h2 {
    small screens
    ------------------------------------------------------------ */
 @media (max-width: 480px) {
-  .list li { flex-direction: column; gap: 0; padding: 10px 0; }
-  .li-meta { font-size: 12.5px; }
+  .li-row { gap: 12px; }
+  .li-when, .li-where { font-size: 12.5px; }
   .stack { gap: 14px; }
   .stack > div { grid-template-columns: 1fr; gap: 0; }
 }
