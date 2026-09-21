@@ -10,6 +10,7 @@
   --faint: #74747c;
   --line: #e7e7e3;
   --hover: #f3f3f0;
+  --sel: #eceae5;
   --dot: #4a9e6a;
 
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -25,6 +26,7 @@
     --faint: #7e7e87;
     --line: #232326;
     --hover: #17171a;
+    --sel: #26262b;
     --dot: #5cba80;
   }
 }
@@ -36,6 +38,7 @@
   --faint: #7e7e87;
   --line: #232326;
   --hover: #17171a;
+  --sel: #26262b;
   --dot: #5cba80;
 }
 
@@ -86,16 +89,43 @@ h2 {
 /* ------------------------------------------------------------
    intro
    ------------------------------------------------------------ */
-.avatar {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 22px;
-  filter: grayscale(100%);
-  transition: filter 0.3s ease;
+/* ------------------------------------------------------------
+   theme switcher
+   ------------------------------------------------------------ */
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
 }
-.avatar:hover { filter: none; }
+
+.theme {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+.theme button {
+  font: inherit;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--faint);
+  background: none;
+  border: 0;
+  padding: 1px 13px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.theme button:hover { color: var(--text); }
+.theme button[aria-pressed="true"] {
+  color: var(--text);
+  background: var(--sel);
+}
+.theme button:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
 
 .intro h1 {
   font-size: 15px;
@@ -226,16 +256,6 @@ h2 {
   font-size: 13px;
   color: var(--faint);
 }
-.foot button {
-  font: inherit;
-  color: var(--faint);
-  background: none;
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-  transition: color 0.15s ease;
-}
-.foot button:hover { color: var(--text); }
 
 /* ------------------------------------------------------------
    konami note
@@ -269,10 +289,11 @@ h2 {
 .rise:nth-child(1) { animation-delay: 0.02s; }
 .rise:nth-child(2) { animation-delay: 0.08s; }
 .rise:nth-child(3) { animation-delay: 0.14s; }
-.rise:nth-child(4) { animation-delay: 0.2s; }
+.rise:nth-child(4) { animation-delay: 0.20s; }
 .rise:nth-child(5) { animation-delay: 0.26s; }
 .rise:nth-child(6) { animation-delay: 0.32s; }
 .rise:nth-child(7) { animation-delay: 0.38s; }
+.rise:nth-child(8) { animation-delay: 0.44s; }
 @keyframes rise {
   to { opacity: 1; transform: none; }
 }

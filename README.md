@@ -1,8 +1,8 @@
 # Nakul Patel — Minimal (portfolio v5, `design/v5` branch)
 
-The quiet one. A single narrow column, everything lowercase, no hero image, no
-scroll effects, no cursor tricks — just the name, the work, the projects and a
-way to reach me, in the order you'd actually read them. Vanilla HTML/CSS/JS with
+The quiet one. A single narrow column, everything lowercase, no photo, no scroll
+effects, no cursor tricks — just the name, the work, the projects and a way to
+reach me, in the order you'd actually read them. Vanilla HTML/CSS/JS with
 one web font and nothing else.
 
 > `main` holds the origin-story design · `design/v3` holds the 3D world · `design/v4` holds the bento grid · this branch is the stripped-back one.
@@ -13,7 +13,7 @@ one web font and nothing else.
 
 - **One column, 36rem wide** — the whole site is a single read, top to bottom, on every screen size
 - **All lowercase** — written that way in the markup, not forced with `text-transform`, so it copies and reads as intended
-- **Light and dark** — follows the system by default; the footer toggle overrides it and the choice sticks. An inline head script applies the stored theme before first paint, so there's no flash of the wrong colours
+- **Light and dark** — a two-option switch (`light` / `dark`) sits at the top right; it starts on whichever the system prefers and the choice sticks from then on. An inline head script applies the stored theme before first paint, so there's no flash of the wrong colours
 - **Restraint as the interaction model** — one 8px fade-up on load, a row tint on project hover, an arrow that nudges. That's the whole animation budget
 - **The easter egg, quietly** — the Konami code (↑ ↑ ↓ ↓ ← → ← → B A) flips the lights and says `nice.`
 - **Accessible by default** — real landmarks and lists, a labelled toggle button, `prefers-reduced-motion` honoured, and contrast that holds in both themes
@@ -31,8 +31,8 @@ Every text tone clears WCAG AA (4.5:1) against its background in both themes.
 .
 ├── index.html   # Intro, about, work, projects, stack, elsewhere
 ├── style.css    # Tokens for both themes, list + project styles
-├── script.js    # Theme toggle with localStorage, konami
-└── assets/      # Headshot and resume PDF (this design uses only those two)
+├── script.js    # Theme switch with localStorage, konami
+└── assets/      # Resume PDF (the only asset this design loads)
 ```
 
 ## Run it

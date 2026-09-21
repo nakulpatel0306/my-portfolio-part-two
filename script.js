@@ -1,16 +1,12 @@
 /* ============================================================
    nakul patel — minimal (portfolio v5)
-   theme toggle · konami
+   theme switcher · konami
    ============================================================ */
 
 'use strict';
 
 const root = document.documentElement;
-const btn = document.getElementById('theme');
-
-/* ------------------------------------------------------------
-   theme — follows the system until you say otherwise
-   ------------------------------------------------------------ */
+const buttons = Array.from(document.querySelectorAll('[data-theme-set]'));
 const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
 
 const store = {
@@ -22,25 +18,28 @@ const store = {
   }
 };
 
-// the theme actually on screen right now
+// no stored choice means we're still following the system
 const current = () => root.dataset.theme || (systemDark.matches ? 'dark' : 'light');
 
-// the button offers the other one
-const syncLabel = () => { btn.textContent = current() === 'dark' ? 'light' : 'dark'; };
+const sync = () => {
+  const now = current();
+  buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.themeSet === now)));
+};
+
+const apply = (theme) => {
+  root.dataset.theme = theme;
+  store.set(theme);
+  sync();
+};
 
 const saved = store.get();
 if (saved === 'dark' || saved === 'light') root.dataset.theme = saved;
-syncLabel();
+sync();
 
-btn.addEventListener('click', () => {
-  const next = current() === 'dark' ? 'light' : 'dark';
-  root.dataset.theme = next;
-  store.set(next);
-  syncLabel();
-});
+buttons.forEach((b) => b.addEventListener('click', () => apply(b.dataset.themeSet)));
 
-// keep up with the system while no explicit choice is stored
-systemDark.addEventListener('change', () => { if (!root.dataset.theme) syncLabel(); });
+// keep following the system until an explicit choice is made
+systemDark.addEventListener('change', sync);
 
 /* ------------------------------------------------------------
    konami — the one easter egg every design shares.
@@ -57,7 +56,7 @@ document.addEventListener('keydown', (e) => {
   if (pos !== KONAMI.length) return;
   pos = 0;
 
-  btn.click();
+  apply(current() === 'dark' ? 'light' : 'dark');
   note.hidden = false;
   clearTimeout(noteTimer);
   noteTimer = setTimeout(() => { note.hidden = true; }, 1800);
