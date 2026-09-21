@@ -224,7 +224,25 @@ h2 {
 /* ------------------------------------------------------------
    stack
    ------------------------------------------------------------ */
-.stack { text-wrap: pretty; }
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.stack > div {
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 14px;
+  align-items: baseline;
+}
+.stack dt {
+  font-size: 13px;
+  color: var(--faint);
+}
+.stack dd {
+  color: var(--muted);
+  text-wrap: pretty;
+}
 
 /* ------------------------------------------------------------
    elsewhere
@@ -287,13 +305,14 @@ h2 {
   animation: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 .rise:nth-child(1) { animation-delay: 0.02s; }
-.rise:nth-child(2) { animation-delay: 0.08s; }
-.rise:nth-child(3) { animation-delay: 0.14s; }
-.rise:nth-child(4) { animation-delay: 0.20s; }
-.rise:nth-child(5) { animation-delay: 0.26s; }
-.rise:nth-child(6) { animation-delay: 0.32s; }
-.rise:nth-child(7) { animation-delay: 0.38s; }
-.rise:nth-child(8) { animation-delay: 0.44s; }
+.rise:nth-child(2) { animation-delay: 0.07s; }
+.rise:nth-child(3) { animation-delay: 0.13s; }
+.rise:nth-child(4) { animation-delay: 0.18s; }
+.rise:nth-child(5) { animation-delay: 0.24s; }
+.rise:nth-child(6) { animation-delay: 0.30s; }
+.rise:nth-child(7) { animation-delay: 0.35s; }
+.rise:nth-child(8) { animation-delay: 0.41s; }
+.rise:nth-child(9) { animation-delay: 0.46s; }
 @keyframes rise {
   to { opacity: 1; transform: none; }
 }
@@ -304,6 +323,8 @@ h2 {
 @media (max-width: 480px) {
   .list li { flex-direction: column; gap: 0; padding: 10px 0; }
   .li-meta { font-size: 12.5px; }
+  .stack { gap: 14px; }
+  .stack > div { grid-template-columns: 1fr; gap: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

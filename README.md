@@ -29,7 +29,7 @@ Every text tone clears WCAG AA (4.5:1) against its background in both themes.
 
 ```
 .
-├── index.html   # Intro, about, work, projects, stack, elsewhere
+├── index.html   # Intro, about, work, projects, education, stack, elsewhere
 ├── style.css    # Tokens for both themes, list + project styles
 ├── script.js    # Theme switch with localStorage, konami
 └── assets/      # Resume PDF (the only asset this design loads)
