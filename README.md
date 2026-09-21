@@ -11,7 +11,7 @@ one web font and nothing else.
 
 ## Features
 
-- **One column, 36rem wide** — the whole site is a single read, top to bottom, on every screen size
+- **One column, 40rem wide** — the whole site is a single read, top to bottom, on every screen size, wide enough that rows don't wrap a single word onto a line of its own
 - **All lowercase** — written that way in the markup, not forced with `text-transform`, so it copies and reads as intended
 - **Light and dark** — a two-option switch (`light` / `dark`) sits at the top right; it starts on whichever the system prefers and the choice sticks from then on. An inline head script applies the stored theme before first paint, so there's no flash of the wrong colours
 - **Restraint as the interaction model** — one 8px fade-up on load, a row tint on project hover, an arrow that nudges. That's the whole animation budget

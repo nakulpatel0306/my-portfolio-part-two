@@ -14,7 +14,7 @@
   --dot: #4a9e6a;
 
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --max: 36rem;
+  --max: 40rem;
   --gap: clamp(44px, 7vw, 60px);
 }
 
@@ -169,13 +169,29 @@ h2 {
 }
 .list li:last-child { border-bottom: 0; }
 
-.li-main { color: var(--text); }
+.li-main { color: var(--text); text-wrap: balance; }
 .at { color: var(--faint); margin: 0 2px; }
 .li-meta {
   flex-shrink: 0;
   font-size: 13px;
   color: var(--faint);
   font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------
+   education
+   ------------------------------------------------------------ */
+.edu {
+  display: flex;
+  flex-direction: column;
+}
+.edu-main {
+  color: var(--text);
+  text-wrap: pretty;
+}
+.edu-sub {
+  color: var(--muted);
+  font-size: 14.5px;
 }
 
 /* ------------------------------------------------------------
@@ -199,6 +215,7 @@ h2 {
   display: block;
   color: var(--muted);
   font-size: 14.5px;
+  text-wrap: pretty;
 }
 .p-tags {
   display: block;
