@@ -1,42 +1,43 @@
-# Nakul Patel — Portfolio Design Lab
+# Nakul Patel — Minimal (portfolio v5, `design/v5` branch)
 
-One portfolio, three completely different designs — each on its own branch, each exploring a different inspiration. All of them are hand-built with vanilla HTML, CSS and JavaScript: no frameworks, no build step, same content (projects, experience, skills, contact) reimagined three ways.
+The quiet one. A single narrow column, everything lowercase, no hero image, no
+scroll effects, no cursor tricks — just the name, the work, the projects and a
+way to reach me, in the order you'd actually read them. Vanilla HTML/CSS/JS with
+one web font and nothing else.
 
-## 🎨 The three designs
-
-| Branch | Design | Inspiration | Signature moments |
-|---|---|---|---|
-| [`main`](../../tree/main) | **Origin Story** | Superhero comics × minimal editorial portfolios — ink black, crimson & gold, poster typography, halftone textures | Sections numbered like comic issues, cursor spotlight, cascading "power stats" skill bars |
-| [`design/v3`](../../tree/design/v3) | **The World** | The great WebGL portfolios (Bruno Simon) — a low-poly 3D island rendered with Three.js | Drag to orbit the island, hover six glowing pedestals (each project is a tiny 3D sculpture), click to jump to a project; preloader, inertia scroll, custom cursor |
-| [`design/v4`](../../tree/design/v4) | **Keynote** | Apple product launches — luxury restraint, gradient serif accents, light **and** dark themes with a toggle | Scroll-cinema project showcase, a physics pile of draggable skill chips, a playable basketball free-throw mini-game |
-
-There's also a fourth design in this repo's history: an **IDE-style portfolio** (a working VS Code-like interface in a purple dark theme, with a file explorer, tabs, command palette and interactive terminal) at commit [`a2260e1`](../../commit/a2260e121e639547db4a0ac26cecf2063d0e09f8).
-
-## ✦ Shared DNA
-
-Every design carries the same principles:
-
-- **Vanilla everything** — plain HTML/CSS/JS, zero dependencies
-- **Responsive** — desktop to mobile, with layout fallbacks where the fancy version doesn't fit
-- **Accessible motion** — every animation respects `prefers-reduced-motion`
-- **An easter egg** — the Konami code (↑ ↑ ↓ ↓ ← → ← → B A) does something in all of them
-
-## 🚀 Run any design locally
-
-```bash
-git clone https://github.com/nakulpatel0306/my-portfolio-part-two.git
-cd my-portfolio-part-two
-
-git checkout main        # Origin Story
-git checkout design/v3   # Night Patrol
-git checkout design/v4   # Keynote
-
-python3 -m http.server 5173
-# → http://localhost:5173
-```
-
-Each branch's own README documents that design's palette, type system and features in detail.
+> `main` holds the origin-story design · `design/v3` holds the 3D world · `design/v4` holds the bento grid · this branch is the stripped-back one.
 
 ---
 
-**Nakul Patel** · CS + BBA @ Wilfrid Laurier University · [LinkedIn](https://www.linkedin.com/in/nakulpatel0306/) · [GitHub](https://github.com/nakulpatel0306)
+## Features
+
+- **One column, 36rem wide** — the whole site is a single read, top to bottom, on every screen size
+- **All lowercase** — written that way in the markup, not forced with `text-transform`, so it copies and reads as intended
+- **Light and dark** — follows the system by default; the footer toggle overrides it and the choice sticks. An inline head script applies the stored theme before first paint, so there's no flash of the wrong colours
+- **Restraint as the interaction model** — one 8px fade-up on load, a row tint on project hover, an arrow that nudges. That's the whole animation budget
+- **The easter egg, quietly** — the Konami code (↑ ↑ ↓ ↓ ← → ← → B A) flips the lights and says `nice.`
+- **Accessible by default** — real landmarks and lists, a labelled toggle button, `prefers-reduced-motion` honoured, and contrast that holds in both themes
+
+## Palette & type
+
+Paper `#fcfcfb` · ink `#17171a` · muted `#55555d` · faint `#74747c` · rule `#e7e7e3` · available `#4a9e6a`
+Dark: `#0f0f10` · `#ededee` · `#a1a1a9` · `#7e7e87` · `#232326` · `#5cba80`
+Every text tone clears WCAG AA (4.5:1) against its background in both themes.
+**Inter** 400/500/600 at 15px — one family, three weights, no display face
+
+## Structure
+
+```
+.
+├── index.html   # Intro, about, work, projects, stack, elsewhere
+├── style.css    # Tokens for both themes, list + project styles
+├── script.js    # Theme toggle with localStorage, konami
+└── assets/      # Headshot and resume PDF (this design uses only those two)
+```
+
+## Run it
+
+```bash
+python3 -m http.server 5173
+# → http://localhost:5173
+```
