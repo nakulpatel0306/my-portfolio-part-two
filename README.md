@@ -18,7 +18,7 @@ one web font and nothing else.
 - **One icon set** — twelve hand-written inline SVGs at a single 1.75 stroke weight, inheriting `currentColor` so they re-tone with the theme: one per section heading, one per contact link, two in the widgets
 - **Restraint as the interaction model** — one 8px fade-up on load, a row tint on project hover, an arrow that nudges. That's the whole animation budget
 - **The easter egg, quietly** — the Konami code (↑ ↑ ↓ ↓ ← → ← → B A) flips the lights and says `nice.`
-- **Accessible by default** — real landmarks and lists, a labelled toggle button, `prefers-reduced-motion` honoured, and contrast that holds in both themes
+- **Accessible by default** — real landmarks and lists, a labelled theme group whose buttons carry `aria-pressed`, `prefers-reduced-motion` honoured, and contrast that holds in both themes
 
 ## Palette & type
 
@@ -32,7 +32,7 @@ Every text tone clears WCAG AA (4.5:1) against its background in both themes.
 ```
 .
 ├── index.html   # Intro + widgets, about, work, projects, education, stack, elsewhere
-├── style.css    # Tokens for both themes, list + project styles
+├── style.css    # Tokens for both themes, icons, widgets, work + project styles
 ├── script.js    # Theme switch with localStorage, konami
 └── assets/      # Resume PDF (the only asset this design loads)
 ```
