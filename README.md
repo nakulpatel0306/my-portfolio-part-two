@@ -14,6 +14,8 @@ one web font and nothing else.
 - **One column, 40rem wide** — the whole site is a single read, top to bottom, on every screen size, wide enough that rows don't wrap a single word onto a line of its own
 - **All lowercase** — written that way in the markup, not forced with `text-transform`, so it copies and reads as intended
 - **Light and dark** — a two-option switch (`light` / `dark`) sits at the top right; it starts on whichever the system prefers and the choice sticks from then on. An inline head script applies the stored theme before first paint, so there's no flash of the wrong colours
+- **A three-card widget row** — status, location and current role, sitting under the name so the three things a recruiter screens on are answered before any scrolling
+- **One icon set** — twelve hand-written inline SVGs at a single 1.75 stroke weight, inheriting `currentColor` so they re-tone with the theme: one per section heading, one per contact link, two in the widgets
 - **Restraint as the interaction model** — one 8px fade-up on load, a row tint on project hover, an arrow that nudges. That's the whole animation budget
 - **The easter egg, quietly** — the Konami code (↑ ↑ ↓ ↓ ← → ← → B A) flips the lights and says `nice.`
 - **Accessible by default** — real landmarks and lists, a labelled toggle button, `prefers-reduced-motion` honoured, and contrast that holds in both themes
@@ -29,7 +31,7 @@ Every text tone clears WCAG AA (4.5:1) against its background in both themes.
 
 ```
 .
-├── index.html   # Intro, about, work, projects, education, stack, elsewhere
+├── index.html   # Intro + widgets, about, work, projects, education, stack, elsewhere
 ├── style.css    # Tokens for both themes, list + project styles
 ├── script.js    # Theme switch with localStorage, konami
 └── assets/      # Resume PDF (the only asset this design loads)
