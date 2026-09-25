@@ -156,9 +156,41 @@ h2 {
    ------------------------------------------------------------ */
 .topbar {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   margin-bottom: 30px;
 }
+
+/* resume sits at the top, opposite the theme switch, where a recruiter
+   looks first rather than after scrolling the whole page */
+.resume-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13.5px;
+  color: var(--muted);
+  transition: color 0.15s ease;
+}
+.resume-link:hover { color: var(--text); }
+.resume-link > span:not(.out) {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--faint);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 0.18s ease;
+}
+.resume-link:hover > span:not(.out) { text-decoration-color: var(--text); }
+.resume-link .out {
+  display: inline-block;
+  font-size: 10px;
+  color: var(--faint);
+  opacity: 0;
+  transform: translate(-4px, 3px);
+  transition: opacity 0.18s ease, transform 0.22s var(--ease);
+}
+.resume-link:hover .out { opacity: 1; transform: none; color: var(--text); }
 
 .theme {
   display: inline-flex;
@@ -468,11 +500,6 @@ html.js .rise.in {
   will-change: transform;
 }
 
-/* ============================================================
-   live clock in the location widget
-   ============================================================ */
-.clock { color: var(--faint); }
-.clock:empty { display: none; }
 
 /* ============================================================
    theme wipe — the View Transitions snapshot is driven from JS,

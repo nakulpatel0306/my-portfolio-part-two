@@ -59,9 +59,9 @@ dependencies — every effect is a browser API used directly.
 - **One column, 40rem wide** — the whole site is a single read, top to bottom, on every screen size, wide enough that rows don't wrap a single word onto a line of its own
 - **All lowercase** — written that way in the markup, not forced with `text-transform`, so it copies and reads as intended
 - **Light and dark** — a two-option switch (`light` / `dark`) sits at the top right; it starts on whichever the system prefers and the choice sticks from then on. An inline head script applies the stored theme before first paint, so there's no flash of the wrong colours
-- **A three-card widget row** — status, location and current role, sitting under the name so the three things a recruiter screens on are answered before any scrolling
+- **A three-card widget row** — availability, location and current role, sitting under the name so the three things a recruiter screens on are answered before any scrolling. The résumé sits in the top bar, opposite the theme switch
 - **A liquid-glass surface** — the widget cards, theme switch, skill panel and command palette are translucent, blurred and saturated, with a highlight along the top lip and a specular reflection that tracks the pointer. Backdrop blur does nothing over a flat colour, so the page carries a faint three-blob aurora for the glass to bend
-- **A typewriter role line** — types a title, holds, backspaces and takes the next, cycling the four roles actually held. Deleting runs faster than typing, which is what makes it read as typing rather than as a ticker. A visually-hidden stable description sits behind it so screen readers get one sentence, not a stream
+- **A typewriter role line** — types a title, holds, backspaces and takes the next, cycling `software developer`, `ml engineer` and `full stack developer`. Deleting runs faster than typing, which is what makes it read as typing rather than as a ticker. A visually-hidden stable description sits behind it so screen readers get one sentence, not a stream
 - **A filterable skill deck** — 37 skills from the résumé in four groups behind a tab row. The chips *slide* to their new positions using FLIP (measure First, mutate, measure Last, Invert the delta as a transform, then Play it off), so filtering reads as rearranging rather than repainting
 - **Interests as chips** — music, chess, gym, basketball, travelling, superheroes, video games, meditation, hiking, in the same glass as the skill chips
 - **Links that read as links** — a dotted rule under anything clickable that goes solid on hover, and a small arrow that fades in on the ones opening a new tab
@@ -71,7 +71,6 @@ dependencies — every effect is a browser API used directly.
 - **Text that decodes on load** — the name and role resolve out of noise, each character settling at its own random moment so the word arrives raggedly instead of left to right
 - **Scroll rail and reveal-on-scroll** — a hairline progress bar driven by one `requestAnimationFrame` per scroll burst (never one per event), and an `IntersectionObserver` that staggers the first screenful and reveals the rest as you reach them
 - **Spring physics on the widget cards** — a real integrator, force into velocity into position with damping, so the tilt overshoots and settles rather than easing on a fixed curve. It stops its own RAF loop once at rest
-- **A live Toronto clock** — `Intl.DateTimeFormat` with a `timeZone`, no date library
 - **The easter egg, quietly** — the Konami code flips the lights and says `nice.`
 - **Accessible by default** — real landmarks and lists, a labelled theme group whose buttons carry `aria-pressed`, a palette that restores focus on close (with `preventScroll`, so a jump isn't yanked back), and contrast that holds in both themes
 - **Degrades honestly** — every effect is feature-detected and every one is inert under `prefers-reduced-motion`. Content is only hidden for reveal if the inline head script proved JS is alive, so with JS off the page renders in full rather than blank
@@ -100,7 +99,7 @@ top of it. Accent `#8b5cf6` light / `#a78bfa` dark.
 ├── style.css    # Tokens for both themes, glass + aurora, skills, focus, print
 ├── script.js    # Theme + view-transition wipe, scramble, rail, reveals, spring
 │                #   tilt, specular tracking, typewriter, FLIP skill filter,
-│                #   clock, palette
+│                #   command palette
 ├── assets/
 │   ├── favicon.svg           # Tab icon
 │   ├── apple-touch-icon.png  # Home-screen icon, 180×180

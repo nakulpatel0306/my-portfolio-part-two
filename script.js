@@ -8,7 +8,6 @@
      · scroll rail + reveal-on-scroll (IntersectionObserver)
      · spring-physics tilt on the widget cards
      · a ⌘K command palette with subsequence matching
-     · a live Toronto clock (Intl, no library)
    Every one of them is inert under prefers-reduced-motion.
    ============================================================ */
 
@@ -142,7 +141,7 @@ if (motionOK()) $$('[data-scramble]').forEach((el, i) => setTimeout(() => scramb
    Deleting runs faster than typing, which is what makes it read
    as typing rather than as a ticker.
    ============================================================ */
-const TITLES = ['software developer', 'ml engineer', 'automation engineer', 'data analyst'];
+const TITLES = ['software developer', 'ml engineer', 'full stack developer'];
 const typeEl = $('#type');
 
 if (typeEl && motionOK()) {
@@ -252,16 +251,6 @@ function springTilt(el, { stiffness = 0.14, damping = 0.75, max = 4.5 } = {}) {
 
 if (motionOK() && finePointer.matches) $$('.widget').forEach((el) => springTilt(el));
 
-/* ============================================================
-   live clock — Intl does the timezone, no library needed
-   ============================================================ */
-const clock = $('#clock');
-const timeFormat = new Intl.DateTimeFormat('en-US', {
-  timeZone: 'America/Toronto', hour: 'numeric', minute: '2-digit', hour12: true
-});
-const tickClock = () => { clock.textContent = ` · ${timeFormat.format(new Date()).toLowerCase()}`; };
-tickClock();
-setInterval(tickClock, 20000);
 
 /* ============================================================
    command palette
