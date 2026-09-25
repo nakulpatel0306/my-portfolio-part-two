@@ -99,6 +99,34 @@ Every text tone clears WCAG AA (4.5:1) against its background in both themes.
 | Hover a widget card | spring tilt that overshoots and settles |
 | <kbd>↑</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd><kbd>←</kbd><kbd>→</kbd><kbd>B</kbd><kbd>A</kbd> | flips the lights and says `nice.` |
 
+## Deploying
+
+`.github/workflows/pages.yml` publishes `main` to GitHub Pages on every push.
+It needs one manual step, once:
+
+**Settings → Pages → Source → "GitHub Actions"**
+
+The site then goes live at `https://nakulpatel0306.github.io/my-portfolio-part-two/`,
+which is the URL currently in the link-preview tags.
+
+### Pointing a custom domain at it
+
+When the domain is registered:
+
+1. **Settings → Pages → Custom domain** — enter it and save. GitHub writes the
+   `CNAME` file into the repo for you; don't create it by hand.
+2. **Add the DNS records at the registrar.** For an apex domain
+   (`example.com`) that's four `A` records, plus four `AAAA` records if you
+   want IPv6; for a subdomain (`www.example.com`) it's a single `CNAME`
+   pointing at `nakulpatel0306.github.io`. Take the current IP addresses from
+   GitHub's own *"Managing a custom domain for your GitHub Pages site"* page
+   rather than from any copy — they have changed before.
+3. **Tick "Enforce HTTPS"** once the certificate is issued; that can take up to
+   an hour after DNS propagates.
+4. **Update two lines in `index.html`** — `og:url` and `og:image`. They are the
+   only absolute URLs in the project and are marked with a comment. Link
+   previews will otherwise keep pointing at the old Pages address.
+
 ---
 
 **Nakul Patel** · CS + BBA @ Wilfrid Laurier University · [LinkedIn](https://www.linkedin.com/in/nakulpatel0306/) · [GitHub](https://github.com/nakulpatel0306)

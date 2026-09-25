@@ -1,0 +1,38 @@
+# Publishes main to GitHub Pages on every push.
+#
+# One-time setup: Settings → Pages → Source → "GitHub Actions".
+# Custom domain: add it under Settings → Pages (that writes the CNAME file
+# for you), then point the domain's DNS at GitHub and update og:url and
+# og:image in index.html to match.
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# never let two deploys race; queue instead of cancelling a live one
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - name: Upload the site as-is (no build step — it's vanilla HTML/CSS/JS)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4

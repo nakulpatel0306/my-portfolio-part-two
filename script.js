@@ -29,12 +29,19 @@ const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
    toast — one element, reused by the palette and the easter egg
    ============================================================ */
 const note = $('#note');
+const live = $('#live');
 let noteTimer;
 function toast(message) {
   note.textContent = message;
   note.hidden = false;
+  // the visible toast carries [hidden] between showings, and hidden content is
+  // never announced — so screen readers get their own always-present region
+  live.textContent = message;
   clearTimeout(noteTimer);
-  noteTimer = setTimeout(() => { note.hidden = true; }, 1900);
+  noteTimer = setTimeout(() => {
+    note.hidden = true;
+    live.textContent = '';
+  }, 1900);
 }
 
 /* ============================================================
@@ -48,10 +55,17 @@ const store = {
   set(v) { try { localStorage.setItem('theme', v); } catch { /* private mode — fine */ } }
 };
 
+const themeColor = $('#theme-color');
 const current = () => root.dataset.theme || (systemDark.matches ? 'dark' : 'light');
+
 const syncButtons = () => {
   const now = current();
   themeButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.themeSet === now)));
+  // Read the token, not body's background: body transitions its background over
+  // 0.2s, so at commit time the computed value is still the OLD colour and the
+  // address bar would keep the previous theme forever. Custom properties don't
+  // transition, so --bg is already correct the instant data-theme flips.
+  themeColor.setAttribute('content', getComputedStyle(root).getPropertyValue('--bg').trim());
 };
 
 /* `origin` is the point the new theme grows from — usually the click */
@@ -347,6 +361,14 @@ function closePalette({ keepScroll = false } = {}) {
 }
 
 hint.addEventListener('click', openPalette);
+
+/* a modal dialog must not leak focus to the page behind it. The palette's
+   only focusable control is the input, so Tab just lands back on it. */
+palette.addEventListener('keydown', (e) => {
+  if (e.key !== 'Tab') return;
+  e.preventDefault();
+  paletteInput.focus();
+});
 
 palette.addEventListener('pointerdown', (e) => {
   if (e.target === palette) closePalette();

@@ -4,15 +4,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="nakul patel — software developer & ml engineer. cs + bba at wilfrid laurier." />
-  <title>nakul patel</title>
+  <title>nakul patel &mdash; software developer &amp; ml engineer</title>
+  <meta name="description" content="nakul patel — software developer &amp; ml engineer. cs + bba at wilfrid laurier, currently at d2l. work, projects, and how to reach me." />
+  <meta name="author" content="Nakul Patel" />
+
+  <!-- mobile browser chrome follows the theme; script.js keeps this in sync -->
+  <meta name="theme-color" content="#fcfcfb" id="theme-color" />
+
+  <!-- link previews, for when this URL is pasted into linkedin, slack or an email.
+       The site URL appears in exactly two places: og:url and og:image below.
+       Swap both when the custom domain goes live — see the README. -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="nakul patel — software developer &amp; ml engineer" />
+  <meta property="og:description" content="cs + bba at wilfrid laurier, currently a software developer at d2l. work, projects, and how to reach me." />
+  <meta property="og:url" content="https://nakulpatel0306.github.io/my-portfolio-part-two/" />
+  <meta property="og:image" content="https://nakulpatel0306.github.io/my-portfolio-part-two/assets/preview.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="nakul patel — software developer and ml engineer" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="data:image/svg+xml,
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
-    <rect width='100' height='100' rx='26' fill='%2317171a'/>
-    <text x='50%' y='69%' font-size='56' text-anchor='middle'
-          font-family='Helvetica, Arial, sans-serif' font-weight='500' fill='%23fcfcfb'>n</text>
-  </svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -29,9 +44,10 @@
 </head>
 
 <body>
+  <a class="skip" href="#main">skip to content</a>
   <div class="rail" id="rail" aria-hidden="true"></div>
 
-  <main class="page">
+  <main class="page" id="main" tabindex="-1">
 
     <!-- ===================== theme ===================== -->
     <div class="topbar rise">
@@ -234,6 +250,7 @@
   </main>
 
   <p class="note" id="note" hidden>nice.</p>
+  <p class="sr-only" id="live" role="status" aria-live="polite"></p>
 
   <!-- ===================== command palette ===================== -->
   <div class="palette" id="palette" hidden>

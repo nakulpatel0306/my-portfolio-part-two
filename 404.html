@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>not found &mdash; nakul patel</title>
+  <meta name="theme-color" content="#fcfcfb" />
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || t === 'light') {
+        document.documentElement.dataset.theme = t;
+        // this page has no script.js, so keep the address bar honest here too
+        document.querySelector('meta[name="theme-color"]')
+          .setAttribute('content', t === 'dark' ? '#0f0f10' : '#fcfcfb');
+      }
+    } catch (e) {}
+  </script>
+</head>
+
+<body>
+  <main class="page lost" id="main">
+    <p class="lost-code">404</p>
+    <h1>this page doesn't exist</h1>
+    <p class="role">the link may be old, or slightly mistyped.</p>
+    <p class="lost-back"><a href="./">← back to the start</a></p>
+  </main>
+</body>
+
+</html>
