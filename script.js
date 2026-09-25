@@ -138,6 +138,46 @@ function scramble(el, duration = 850) {
 if (motionOK()) $$('[data-scramble]').forEach((el, i) => setTimeout(() => scramble(el), i * 130));
 
 /* ============================================================
+   typewriter — types a title, holds, backspaces, takes the next.
+   Deleting runs faster than typing, which is what makes it read
+   as typing rather than as a ticker.
+   ============================================================ */
+const TITLES = ['software developer', 'ml engineer', 'automation engineer', 'data analyst'];
+const typeEl = $('#type');
+
+if (typeEl && motionOK()) {
+  let title = 0;
+  let chars = TITLES[0].length;   // the markup already holds the first one
+  let deleting = false;
+
+  const step = () => {
+    const word = TITLES[title];
+    typeEl.textContent = word.slice(0, chars);
+
+    let wait;
+    if (!deleting) {
+      if (chars < word.length) {
+        chars++;
+        wait = 58 + Math.random() * 46;    // an uneven hand, not a metronome
+      } else {
+        deleting = true;
+        wait = 1900;                        // sit on the finished word
+      }
+    } else if (chars > 0) {
+      chars--;
+      wait = 26;
+    } else {
+      deleting = false;
+      title = (title + 1) % TITLES.length;
+      wait = 340;
+    }
+    setTimeout(step, wait);
+  };
+
+  setTimeout(step, 1500);   // let the name finish decoding first
+}
+
+/* ============================================================
    scroll rail — one RAF per scroll burst, never one per event
    ============================================================ */
 const rail = $('#rail');
