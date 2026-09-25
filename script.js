@@ -266,7 +266,7 @@ const COMMANDS = [
   { label: 'work',             kind: 'jump',  run: () => jump('work') },
   { label: 'projects',         kind: 'jump',  run: () => jump('projects') },
   { label: 'education',        kind: 'jump',  run: () => jump('education') },
-  { label: 'stack',            kind: 'jump',  run: () => jump('stack') },
+  { label: 'skills',            kind: 'jump',  run: () => jump('skills') },
   { label: 'elsewhere',        kind: 'jump',  run: () => jump('elsewhere') },
   { label: 'switch to light',  kind: 'theme', run: () => { closePalette(); applyTheme('light'); } },
   { label: 'switch to dark',   kind: 'theme', run: () => { closePalette(); applyTheme('dark'); } },
@@ -389,6 +389,75 @@ paletteInput.addEventListener('keydown', (e) => {
   else if (e.key === 'Enter') { e.preventDefault(); if (results[active]) results[active].cmd.run(); }
   else if (e.key === 'Escape') { e.preventDefault(); closePalette(); }
 });
+
+/* ============================================================
+   glass — the reflection follows the pointer across each surface
+   ============================================================ */
+if (finePointer.matches) {
+  $$('.glass, .widget').forEach((el) => {
+    el.addEventListener('pointermove', (e) => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', `${(e.clientX - r.left).toFixed(1)}px`);
+      el.style.setProperty('--my', `${(e.clientY - r.top).toFixed(1)}px`);
+    }, { passive: true });
+  });
+}
+
+/* ============================================================
+   skills — filtering with FLIP, so chips slide to their new
+   positions instead of teleporting.
+
+   First: measure where everything is. Then mutate. Then measure
+   again, invert the delta as a transform, and play it off.
+   ============================================================ */
+const skillTabs = $$('.skill-tabs button');
+const skillChips = $$('#skill-chips li');
+const skillEmpty = $('#skill-empty');
+
+function filterSkills(group) {
+  // FIRST — positions before the DOM changes
+  const before = new Map();
+  skillChips.forEach((chip) => {
+    if (!chip.hidden) before.set(chip, chip.getBoundingClientRect());
+  });
+
+  let shown = 0;
+  skillChips.forEach((chip) => {
+    const keep = group === 'all' || chip.dataset.group === group;
+    chip.hidden = !keep;
+    if (keep) shown++;
+  });
+  skillEmpty.hidden = shown > 0;
+  skillTabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.group === group)));
+
+  if (!motionOK()) return;
+
+  skillChips.forEach((chip) => {
+    if (chip.hidden) return;
+    const after = chip.getBoundingClientRect();   // LAST
+    const prev = before.get(chip);
+
+    if (!prev) {
+      // wasn't on screen a moment ago — fade it in where it landed
+      chip.animate(
+        [{ opacity: 0, transform: 'scale(0.92)' }, { opacity: 1, transform: 'none' }],
+        { duration: 240, easing: EASE }
+      );
+      return;
+    }
+    const dx = prev.left - after.left;
+    const dy = prev.top - after.top;
+    if (!dx && !dy) return;
+
+    // INVERT back to the old spot, then PLAY forward to the new one
+    chip.animate(
+      [{ transform: `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px)` }, { transform: 'none' }],
+      { duration: 340, easing: EASE }
+    );
+  });
+}
+
+skillTabs.forEach((tab) => tab.addEventListener('click', () => filterSkills(tab.dataset.group)));
 
 /* ============================================================
    keyboard: ⌘K / Ctrl+K, and the konami code

@@ -13,6 +13,18 @@
   --sel: #eceae5;
   --dot: #4a9e6a;
 
+  /* glass: a translucent fill, a hairline edge, and a highlight where the
+     light catches the top lip. --spec is the pointer-tracked reflection. */
+  --glass: rgba(255, 255, 255, 0.55);
+  --glass-line: rgba(23, 23, 26, 0.08);
+  --glass-hi: rgba(255, 255, 255, 0.95);
+  --glass-lo: rgba(23, 23, 26, 0.03);
+  --glass-spec: rgba(255, 255, 255, 0.9);
+  --glass-drop: rgba(20, 20, 30, 0.06);
+  --aurora-1: rgba(120, 150, 255, 0.13);
+  --aurora-2: rgba(255, 176, 120, 0.10);
+  --aurora-3: rgba(90, 205, 165, 0.09);
+
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --max: 40rem;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -29,6 +41,16 @@
     --hover: #17171a;
     --sel: #26262b;
     --dot: #5cba80;
+
+    --glass: rgba(255, 255, 255, 0.045);
+    --glass-line: rgba(255, 255, 255, 0.10);
+    --glass-hi: rgba(255, 255, 255, 0.13);
+    --glass-lo: rgba(0, 0, 0, 0.28);
+    --glass-spec: rgba(255, 255, 255, 0.10);
+    --glass-drop: rgba(0, 0, 0, 0.35);
+    --aurora-1: rgba(96, 130, 255, 0.20);
+    --aurora-2: rgba(255, 150, 90, 0.13);
+    --aurora-3: rgba(60, 205, 160, 0.13);
   }
 }
 
@@ -41,6 +63,16 @@
   --hover: #17171a;
   --sel: #26262b;
   --dot: #5cba80;
+
+  --glass: rgba(255, 255, 255, 0.045);
+  --glass-line: rgba(255, 255, 255, 0.10);
+  --glass-hi: rgba(255, 255, 255, 0.13);
+  --glass-lo: rgba(0, 0, 0, 0.28);
+  --glass-spec: rgba(255, 255, 255, 0.10);
+  --glass-drop: rgba(0, 0, 0, 0.35);
+  --aurora-1: rgba(96, 130, 255, 0.20);
+  --aurora-2: rgba(255, 150, 90, 0.13);
+  --aurora-3: rgba(60, 205, 160, 0.13);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -175,9 +207,7 @@ h2 {
   flex-direction: column;
   gap: 4px;
   padding: 11px 13px 12px;
-  border: 1px solid var(--line);
   border-radius: 12px;
-  background: var(--hover);
   will-change: transform;
 }
 .w-head {
@@ -302,28 +332,6 @@ h2 {
   transform: translate(2px, -3px);
 }
 
-/* ------------------------------------------------------------
-   stack
-   ------------------------------------------------------------ */
-.stack {
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-}
-.stack > div {
-  display: grid;
-  grid-template-columns: 112px 1fr;
-  gap: 14px;
-  align-items: baseline;
-}
-.stack dt {
-  font-size: 13px;
-  color: var(--faint);
-}
-.stack dd {
-  color: var(--muted);
-  text-wrap: pretty;
-}
 
 /* ------------------------------------------------------------
    elsewhere
@@ -399,8 +407,6 @@ html.js .rise.in {
 @media (max-width: 480px) {
   .li-row { gap: 12px; }
   .li-when, .li-where { font-size: 12.5px; }
-  .stack { gap: 14px; }
-  .stack > div { grid-template-columns: 1fr; gap: 0; }
 }
 
 @media (max-width: 600px) {
@@ -643,7 +649,7 @@ kbd {
 
   h2 { color: #444; }
   .w-val, .li-org, .p-name, .edu-main { color: #000; }
-  .role, .block p, .li-role, .p-desc, .stack dd, .edu-sub { color: #222; }
+  .role, .block p, .li-role, .p-desc, .edu-sub { color: #222; }
 
   .widget {
     background: none;
@@ -689,3 +695,165 @@ kbd {
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 .lost-back a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+/* ============================================================
+   glass — an Apple-ish liquid-glass treatment.
+
+   Blur needs something behind it or it does nothing, so the page
+   carries a faint aurora (below) for the glass to pick up and bend.
+   ============================================================ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 32% at 16% 10%, var(--aurora-1), transparent 70%),
+    radial-gradient(34% 30% at 86% 28%, var(--aurora-2), transparent 70%),
+    radial-gradient(42% 34% at 60% 92%, var(--aurora-3), transparent 72%);
+  filter: blur(36px);
+}
+
+.glass,
+.widget,
+.theme,
+.palette-box {
+  position: relative;
+  background: var(--glass);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid var(--glass-line);
+  box-shadow:
+    inset 0 1px 0 var(--glass-hi),
+    inset 0 -1px 0 var(--glass-lo),
+    0 10px 30px var(--glass-drop);
+}
+
+/* the specular reflection, tracked to the pointer by script.js */
+.glass::after,
+.widget::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(220px circle at var(--mx, 50%) var(--my, -20%),
+              var(--glass-spec), transparent 68%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  mix-blend-mode: soft-light;
+}
+.glass:hover::after,
+.widget:hover::after { opacity: 1; }
+
+/* the switch already had its own fill; glass replaces it */
+.theme { background: var(--glass); }
+
+/* ============================================================
+   skills
+   ============================================================ */
+.skill-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.skill-tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  font-size: 13px;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 13px;
+  cursor: pointer;
+  transition: color 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+.skill-tabs button:hover { color: var(--text); }
+.skill-tabs button[aria-selected="true"] {
+  color: var(--text);
+  background: var(--sel);
+  border-color: transparent;
+}
+.tab-n {
+  font-size: 11px;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+.skill-tabs button[aria-selected="true"] .tab-n { color: var(--muted); }
+
+.skill-panel {
+  border-radius: 16px;
+  padding: 16px;
+  min-height: 108px;
+}
+
+.skill-chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.skill-chips li {
+  font-size: 13.5px;
+  color: var(--text);
+  background: var(--glass);
+  border: 1px solid var(--glass-line);
+  border-radius: 9px;
+  padding: 6px 12px;
+  box-shadow: inset 0 1px 0 var(--glass-hi);
+  cursor: default;
+  /* FLIP does the movement; these two carry the fade in and out */
+  transition: opacity 0.22s ease, transform 0.22s var(--ease);
+}
+.skill-chips li[hidden] { display: none; }
+.skill-chips li.dropping {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.skill-empty {
+  font-size: 13.5px;
+  color: var(--faint);
+}
+.skill-empty[hidden] { display: none; }
+
+/* ============================================================
+   interests
+   ============================================================ */
+.interests {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 20px;
+}
+.interests li {
+  font-size: 12.5px;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 11px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.interests li:hover { color: var(--text); border-color: var(--glass-line); }
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-chips li { transition: none; }
+}
+
+/* blur is expensive; drop it where it buys nothing */
+@media print {
+  body::before { display: none; }
+  .glass, .widget, .skill-panel, .skill-chips li {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: none;
+    box-shadow: none;
+  }
+  .skill-tabs { display: none; }
+}
