@@ -115,8 +115,8 @@ a {
 
 .block {
   margin-top: var(--gap);
-  /* a jump from the palette shouldn't sit flush against the top edge */
-  scroll-margin-top: 28px;
+  /* clear the pinned top bar, so a jump from the palette doesn't land under it */
+  scroll-margin-top: 84px;
 }
 
 h2 {
@@ -154,13 +154,43 @@ h2 {
 /* ------------------------------------------------------------
    theme switcher
    ------------------------------------------------------------ */
+/* the sentinel sits one pixel above the bar; when it leaves the viewport the
+   bar has pinned, which is cheaper than watching every scroll event */
+.topbar-sentinel {
+  height: 1px;
+  margin-bottom: -1px;
+}
+
 .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 55;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 30px;
+  padding: 10px 0;
+  margin-bottom: 26px;
 }
+
+/* the frosted backing lives on a pseudo-element: .rise owns the transition
+   property on .topbar itself, so fading it there would be overridden */
+.topbar::before {
+  content: '';
+  position: absolute;
+  inset: 0 -16px;
+  z-index: -1;
+  border-radius: 0 0 14px 14px;
+  background: var(--glass);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid var(--glass-line);
+  box-shadow: 0 6px 22px var(--glass-drop);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.topbar.pinned::before { opacity: 1; }
 
 /* resume sits at the top, opposite the theme switch, where a recruiter
    looks first rather than after scrolling the whole page */

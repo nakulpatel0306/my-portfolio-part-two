@@ -196,6 +196,19 @@ window.addEventListener('scroll', () => {
 drawRail();
 
 /* ============================================================
+   top bar — frost it once it pins, plain while it sits in the page
+   ============================================================ */
+const topbar = $('.topbar');
+const sentinel = $('.topbar-sentinel');
+
+if (topbar && sentinel) {
+  new IntersectionObserver(
+    ([entry]) => topbar.classList.toggle('pinned', !entry.isIntersecting),
+    { threshold: 0 }
+  ).observe(sentinel);
+}
+
+/* ============================================================
    reveal on scroll — the first screenful staggers, the rest
    arrive as you reach them
    ============================================================ */
