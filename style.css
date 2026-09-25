@@ -21,11 +21,13 @@
   --glass-lo: rgba(23, 23, 26, 0.03);
   --glass-spec: rgba(255, 255, 255, 0.9);
   --glass-drop: rgba(20, 20, 30, 0.06);
-  --aurora-1: rgba(120, 150, 255, 0.13);
-  --aurora-2: rgba(255, 176, 120, 0.10);
-  --aurora-3: rgba(90, 205, 165, 0.09);
+  --aurora-1: rgba(139, 92, 246, 0.14);
+  --aurora-2: rgba(168, 85, 247, 0.11);
+  --aurora-3: rgba(109, 40, 217, 0.09);
 
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --accent: #8b5cf6;
   --max: 40rem;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --gap: clamp(44px, 7vw, 60px);
@@ -48,9 +50,10 @@
     --glass-lo: rgba(0, 0, 0, 0.28);
     --glass-spec: rgba(255, 255, 255, 0.10);
     --glass-drop: rgba(0, 0, 0, 0.35);
-    --aurora-1: rgba(96, 130, 255, 0.20);
-    --aurora-2: rgba(255, 150, 90, 0.13);
-    --aurora-3: rgba(60, 205, 160, 0.13);
+  --accent: #a78bfa;
+    --aurora-1: rgba(139, 92, 246, 0.26);
+    --aurora-2: rgba(192, 132, 252, 0.16);
+    --aurora-3: rgba(109, 40, 217, 0.22);
   }
 }
 
@@ -70,9 +73,10 @@
   --glass-lo: rgba(0, 0, 0, 0.28);
   --glass-spec: rgba(255, 255, 255, 0.10);
   --glass-drop: rgba(0, 0, 0, 0.35);
-  --aurora-1: rgba(96, 130, 255, 0.20);
-  --aurora-2: rgba(255, 150, 90, 0.13);
-  --aurora-3: rgba(60, 205, 160, 0.13);
+  --accent: #a78bfa;
+  --aurora-1: rgba(139, 92, 246, 0.26);
+  --aurora-2: rgba(192, 132, 252, 0.16);
+  --aurora-3: rgba(109, 40, 217, 0.22);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -240,58 +244,81 @@ h2 {
 /* ------------------------------------------------------------
    work
    ------------------------------------------------------------ */
-/* work reads as a git branch: a trunk with one commit per role, the most
-   recent one at the tip */
-.tree-ref {
+/* work, as a file tree in an editor pane. Line numbers come from a CSS
+   counter and the connectors from a system monospace stack, so neither
+   costs a request nor a hardcoded value in the markup. */
+.ide {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.ide-tab {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12px;
+  gap: 7px;
+  font-size: 12.5px;
+  color: var(--text);
+  padding: 9px 15px 8px;
+  border-bottom: 2px solid var(--accent);
+}
+.ide-tab .ico { width: 13px; height: 13px; color: var(--faint); }
+
+.ide-body {
+  counter-reset: ln;
+  padding: 12px 16px 14px 0;
+  border-top: 1px solid var(--glass-line);
+  overflow-x: auto;
+}
+
+.ide-row {
+  display: grid;
+  grid-template-columns: 3.6ch auto 1fr auto;
+  align-items: baseline;
+  /* no column gap: the connector has to run straight into the name, or the
+     tree stops reading as one */
+  gap: 0;
+  line-height: 1.6;
+  padding: 1px 0;
+}
+.ide-row::before { padding-right: 13px; }
+.ide-row .li-when,
+.ide-row .li-where { padding-left: 16px; }
+/* the gutter */
+.ide-row::before {
+  counter-increment: ln;
+  content: counter(ln);
+  font-family: var(--mono);
+  font-size: 11.5px;
   color: var(--faint);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 3px 11px 3px 9px;
-  margin-bottom: 18px;
+  text-align: right;
+  opacity: 0.7;
+  user-select: none;
 }
-.tree-ref .ico { width: 12px; height: 12px; }
+.ide-row:hover::before { opacity: 1; color: var(--muted); }
 
-.tree { list-style: none; }
-.tree li {
-  position: relative;
-  padding: 0 0 20px 24px;
+/* the tree connectors */
+.tw {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--faint);
+  white-space: pre;
+  user-select: none;
 }
-.tree li:last-child { padding-bottom: 0; }
 
-/* the trunk, drawn from this commit down into the next one */
-.tree li::before {
-  content: '';
-  position: absolute;
-  left: 4px;
-  top: 16px;
-  bottom: -6px;
-  width: 1px;
-  background: var(--line);
+.ide-root .li-org { color: var(--muted); }
+.ide-row .li-org {
+  grid-column: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
 }
-.tree li:last-child::before { content: none; }
+.ide-row .li-role { grid-column: 3; }
+.ide-row .li-when,
+.ide-row .li-where { grid-column: 4; }
 
-/* the commit itself; the tip is filled and haloed */
-.tree li::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 6px;
-  width: 9px;
-  height: 9px;
-  box-sizing: border-box;
-  border-radius: 50%;
-  border: 1.5px solid var(--faint);
-  background: var(--bg);
-}
-.tree li.current::after {
-  border-color: var(--dot);
-  background: var(--dot);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--dot) 22%, transparent);
-}
+.ide-list { list-style: none; }
+.ide-list li { padding-bottom: 5px; }
+.ide-list li:last-child { padding-bottom: 0; }
 
 /* two rows per entry, so company, dates, role and city each get a slot
    of their own instead of running together behind separator dots */
@@ -452,6 +479,9 @@ html.js .rise.in {
    ------------------------------------------------------------ */
 @media (max-width: 480px) {
   .li-row { gap: 12px; }
+  .ide-row { grid-template-columns: 2.6ch auto 1fr auto; }
+  .ide-row::before { padding-right: 8px; }
+  .ide-row .li-when, .ide-row .li-where { padding-left: 10px; }
   .li-when, .li-where { font-size: 12.5px; }
 }
 
@@ -701,7 +731,7 @@ kbd {
     background: none;
     border: 1px solid #ccc;
   }
-  .widget, .tree li, .projects li { break-inside: avoid; }
+  .widget, .ide-list li, .projects li { break-inside: avoid; }
 
   a { color: #000; text-decoration: none; }
   /* paper can't be clicked, so spell the destinations out */
