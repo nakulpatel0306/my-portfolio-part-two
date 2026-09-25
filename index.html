@@ -23,10 +23,14 @@
       var t = localStorage.getItem('theme');
       if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
     } catch (e) {}
+    // nothing is hidden for reveal unless JS is here to un-hide it
+    document.documentElement.classList.add('js');
   </script>
 </head>
 
 <body>
+  <div class="rail" id="rail" aria-hidden="true"></div>
+
   <main class="page">
 
     <!-- ===================== theme ===================== -->
@@ -39,8 +43,8 @@
 
     <!-- ===================== intro ===================== -->
     <header class="intro rise">
-      <h1>nakul patel</h1>
-      <p class="role">software developer &amp; ml engineer</p>
+      <h1 data-scramble>nakul patel</h1>
+      <p class="role" data-scramble>software developer &amp; ml engineer</p>
       <div class="widgets">
         <div class="widget">
           <span class="w-head"><span class="dot" aria-hidden="true"></span>status</span>
@@ -48,7 +52,7 @@
         </div>
         <div class="widget">
           <span class="w-head"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6.5-5.4 6.5-10.5a6.5 6.5 0 0 0-13 0C5.5 15.6 12 21 12 21z"/><circle cx="12" cy="10.3" r="2.4"/></svg> based in</span>
-          <span class="w-val">toronto, canada</span>
+          <span class="w-val">toronto, canada<span class="clock" id="clock"></span></span>
         </div>
         <div class="widget">
           <span class="w-head"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20.5V6.2A1.2 1.2 0 0 1 5.2 5h7.6A1.2 1.2 0 0 1 14 6.2v14.3"/><path d="M14 11h4.8A1.2 1.2 0 0 1 20 12.2v8.3"/><path d="M3 20.5h18"/><path d="M7.3 9h3.4M7.3 12.6h3.4M7.3 16.2h3.4"/></svg> currently</span>
@@ -58,7 +62,7 @@
     </header>
 
     <!-- ===================== about ===================== -->
-    <section class="block rise">
+    <section class="block rise" id="about">
       <p>cs + bba at wilfrid laurier university. i build software, machine-learning
          models and data pipelines, and i care how they look. right now i'm looking
          for internships where i can ship real things with real teams.</p>
@@ -67,7 +71,7 @@
     </section>
 
     <!-- ===================== work ===================== -->
-    <section class="block rise">
+    <section class="block rise" id="work">
       <h2><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 8.6h16.8v10a1.4 1.4 0 0 1-1.4 1.4H5a1.4 1.4 0 0 1-1.4-1.4z"/><path d="M9 8.6V6.2A1.4 1.4 0 0 1 10.4 4.8h3.2A1.4 1.4 0 0 1 15 6.2v2.4"/><path d="M3.6 13h16.8"/></svg>work</h2>
       <ul class="list">
         <li>
@@ -124,7 +128,7 @@
     </section>
 
     <!-- ===================== projects ===================== -->
-    <section class="block rise">
+    <section class="block rise" id="projects">
       <h2><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.6"/></svg>projects</h2>
       <ul class="projects">
         <li>
@@ -173,7 +177,7 @@
     </section>
 
     <!-- ===================== education ===================== -->
-    <section class="block rise">
+    <section class="block rise" id="education">
       <h2><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.2 2.6 8.6 12 13l9.4-4.4z"/><path d="M6.6 10.7V16c0 1.4 2.4 2.7 5.4 2.7s5.4-1.3 5.4-2.7v-5.3"/></svg>education</h2>
       <div class="edu">
         <span class="edu-main">computer science + business administration</span>
@@ -182,7 +186,7 @@
     </section>
 
     <!-- ===================== stack ===================== -->
-    <section class="block rise">
+    <section class="block rise" id="stack">
       <h2><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6 3 8l9 4.4L21 8z"/><path d="M3 12.4 12 16.8 21 12.4"/><path d="M3 16.6 12 21l9-4.4"/></svg>stack</h2>
       <dl class="stack">
         <div>
@@ -209,7 +213,7 @@
     </section>
 
     <!-- ===================== elsewhere ===================== -->
-    <section class="block rise">
+    <section class="block rise" id="elsewhere">
       <h2><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.2 13.4a3.6 3.6 0 0 0 5.1 0l2.9-2.9a3.6 3.6 0 0 0-5.1-5.1l-1.2 1.2"/><path d="M13.8 10.6a3.6 3.6 0 0 0-5.1 0l-2.9 2.9a3.6 3.6 0 0 0 5.1 5.1l1.2-1.2"/></svg>elsewhere</h2>
       <ul class="links">
         <li><a href="mailto:nakul0306@gmail.com"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="5.4" width="17.6" height="13.2" rx="2.2"/><path d="m4.4 7.2 7.6 5.3 7.6-5.3"/></svg>email</a></li>
@@ -222,12 +226,25 @@
 
     <footer class="foot rise">
       <span>© 2026 nakul patel</span>
-      <span>built by hand</span>
+      <button class="hint" id="hint" type="button">
+        <kbd>⌘</kbd><kbd>k</kbd><span>commands</span>
+      </button>
     </footer>
 
   </main>
 
   <p class="note" id="note" hidden>nice.</p>
+
+  <!-- ===================== command palette ===================== -->
+  <div class="palette" id="palette" hidden>
+    <div class="palette-box" role="dialog" aria-modal="true" aria-label="commands">
+      <input class="palette-input" id="palette-input" type="text" placeholder="jump, switch, copy&hellip;"
+             autocomplete="off" autocapitalize="off" spellcheck="false"
+             role="combobox" aria-expanded="true" aria-controls="palette-list" aria-autocomplete="list">
+      <ul class="palette-list" id="palette-list" role="listbox" aria-label="results"></ul>
+      <p class="palette-foot"><kbd>↑</kbd><kbd>↓</kbd> move <kbd>↵</kbd> run <kbd>esc</kbd> close</p>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
