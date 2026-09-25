@@ -61,6 +61,7 @@ dependencies — every effect is a browser API used directly.
 - **Light and dark** — a two-option switch (`light` / `dark`) sits at the top right; it starts on whichever the system prefers and the choice sticks from then on. An inline head script applies the stored theme before first paint, so there's no flash of the wrong colours
 - **A three-card widget row** — status, location and current role, sitting under the name so the three things a recruiter screens on are answered before any scrolling
 - **A liquid-glass surface** — the widget cards, theme switch, skill panel and command palette are translucent, blurred and saturated, with a highlight along the top lip and a specular reflection that tracks the pointer. Backdrop blur does nothing over a flat colour, so the page carries a faint three-blob aurora for the glass to bend
+- **Work as a branch graph** — the roles are commits on a trunk labelled `main`, newest at the tip with a filled, haloed node and the rest hollow. Drawn entirely with borders and pseudo-elements; no images, no SVG
 - **A filterable skill deck** — 37 skills from the résumé in four groups behind a tab row. The chips *slide* to their new positions using FLIP (measure First, mutate, measure Last, Invert the delta as a transform, then Play it off), so filtering reads as rearranging rather than repainting
 - **Interests as chips** — music, chess, gym, basketball, travelling, superheroes, video games, meditation, hiking
 - **One icon set** — twelve hand-written inline SVGs at a single 1.75 stroke weight, inheriting `currentColor` so they re-tone with the theme
@@ -90,7 +91,8 @@ enough for the glass to have something to bend, faint enough to stay out of the 
 
 ```
 .
-├── index.html   # Intro + widgets, about, work, projects, education, skills, elsewhere
+├── index.html   # Intro + widgets, about, work (branch graph), projects,
+│                #   education, skills, elsewhere
 ├── 404.html     # Same shell, for a mistyped URL
 ├── style.css    # Tokens for both themes, glass + aurora, skills, focus, print
 ├── script.js    # Theme + view-transition wipe, scramble, rail, reveals, spring
