@@ -60,6 +60,9 @@ dependencies — every effect is a browser API used directly.
 - **All lowercase** — written that way in the markup, not forced with `text-transform`, so it copies and reads as intended
 - **Light and dark** — a two-option switch (`light` / `dark`) sits at the top right; it starts on whichever the system prefers and the choice sticks from then on. An inline head script applies the stored theme before first paint, so there's no flash of the wrong colours
 - **A three-card widget row** — status, location and current role, sitting under the name so the three things a recruiter screens on are answered before any scrolling
+- **A liquid-glass surface** — the widget cards, theme switch, skill panel and command palette are translucent, blurred and saturated, with a highlight along the top lip and a specular reflection that tracks the pointer. Backdrop blur does nothing over a flat colour, so the page carries a faint three-blob aurora for the glass to bend
+- **A filterable skill deck** — 37 skills from the résumé in four groups behind a tab row. The chips *slide* to their new positions using FLIP (measure First, mutate, measure Last, Invert the delta as a transform, then Play it off), so filtering reads as rearranging rather than repainting
+- **Interests as chips** — music, chess, gym, basketball, travelling, superheroes, video games, meditation, hiking
 - **One icon set** — twelve hand-written inline SVGs at a single 1.75 stroke weight, inheriting `currentColor` so they re-tone with the theme
 - **A ⌘K command palette** — subsequence matching (`ghb` finds *open github*), matched characters highlighted as you type, full keyboard control, and `aria-activedescendant` wired to a real listbox. Jump to a section, switch theme, copy the email, open a link
 - **A theme change that wipes in** — the new palette grows as a circle from the button you clicked, via the View Transitions API driven by a `clipPath` keyframe on `::view-transition-new(root)`. Browsers without it get the plain instant swap
@@ -78,15 +81,26 @@ Dark: `#0f0f10` · `#ededee` · `#a1a1a9` · `#7e7e87` · `#232326` · `#5cba80`
 Every text tone clears WCAG AA (4.5:1) against its background in both themes.
 **Inter** 400/500/600 at 15px — one family, three weights, no display face
 
+Glass: a translucent fill over an 18px backdrop blur at 180% saturation, a hairline
+edge, an inset highlight along the top lip, and a pointer-tracked specular sweep in
+`soft-light`. The aurora behind it is three blurred radial blobs at 9–20% alpha —
+enough for the glass to have something to bend, faint enough to stay out of the way.
+
 ## Structure
 
 ```
 .
-├── index.html   # Intro + widgets, about, work, projects, education, stack, elsewhere
-├── style.css    # Tokens for both themes, icons, widgets, work + project styles
-├── script.js    # Theme + view-transition wipe, scramble, rail, reveals,
-│                #   spring tilt, clock, command palette, konami
-└── assets/      # Resume PDF (the only asset this design loads)
+├── index.html   # Intro + widgets, about, work, projects, education, skills, elsewhere
+├── 404.html     # Same shell, for a mistyped URL
+├── style.css    # Tokens for both themes, glass + aurora, skills, focus, print
+├── script.js    # Theme + view-transition wipe, scramble, rail, reveals, spring
+│                #   tilt, specular tracking, FLIP skill filter, clock, palette
+├── assets/
+│   ├── favicon.svg           # Tab icon
+│   ├── apple-touch-icon.png  # Home-screen icon, 180×180
+│   ├── preview.png           # Link-preview card, 1200×630
+│   └── nakul-patel-software-resume.pdf
+└── .github/workflows/pages.yml   # Publishes main to GitHub Pages on push
 ```
 
 ## Things to try
@@ -96,7 +110,8 @@ Every text tone clears WCAG AA (4.5:1) against its background in both themes.
 | <kbd>⌘</kbd><kbd>K</kbd> / <kbd>Ctrl</kbd><kbd>K</kbd> | open the command palette — then type `ghb`, or `zzz` to see it come up empty |
 | Click `light` / `dark` | the new theme wipes out in a circle from the button |
 | Reload | watch the name decode into place |
-| Hover a widget card | spring tilt that overshoots and settles |
+| Hover a widget card | spring tilt that overshoots and settles, with the reflection following your pointer |
+| Click a skill group | the chips slide to their new places rather than jumping |
 | <kbd>↑</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd><kbd>←</kbd><kbd>→</kbd><kbd>B</kbd><kbd>A</kbd> | flips the lights and says `nice.` |
 
 ## Deploying
