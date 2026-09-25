@@ -2,7 +2,7 @@
 
 A dashboard-style bento-grid portfolio: everything about me scannable at a glance, laid out as tiles — intro, headshot, live status, location radar, socials, stats, education, resume, a draggable photo strip — followed by a bento of project tiles, dual skills marquees, and a clean track record. Vanilla HTML/CSS/JS.
 
-> `main` holds the origin-story design · `design/v3` holds the 3D world · `design/v5` holds the minimal one · this branch is the bento experiment.
+> `main` holds the minimal design · `design/v3` holds the 3D world · `design/v5` holds the origin story · this branch is the bento experiment.
 
 ---
 
