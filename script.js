@@ -443,7 +443,7 @@ const skillTabs = $$('.skill-tabs button');
 const skillChips = $$('#skill-chips li');
 const skillEmpty = $('#skill-empty');
 
-function filterSkills(group) {
+function filterSkills(group, animate = true) {
   // FIRST — positions before the DOM changes
   const before = new Map();
   skillChips.forEach((chip) => {
@@ -452,14 +452,15 @@ function filterSkills(group) {
 
   let shown = 0;
   skillChips.forEach((chip) => {
-    const keep = group === 'all' || chip.dataset.group === group;
+    const keep = group === 'all'
+      || (group === 'strong' ? chip.hasAttribute('data-strong') : chip.dataset.group === group);
     chip.hidden = !keep;
     if (keep) shown++;
   });
   skillEmpty.hidden = shown > 0;
   skillTabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.group === group)));
 
-  if (!motionOK()) return;
+  if (!animate || !motionOK()) return;
 
   skillChips.forEach((chip) => {
     if (chip.hidden) return;
@@ -487,6 +488,10 @@ function filterSkills(group) {
 }
 
 skillTabs.forEach((tab) => tab.addEventListener('click', () => filterSkills(tab.dataset.group)));
+
+// every chip ships visible so the deck still reads with JS off; narrow it to
+// the strongest set here, before first paint, so there is nothing to flash
+filterSkills('strong', false);
 
 /* ============================================================
    keyboard: ⌘K / Ctrl+K, and the konami code
